@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--配置dubbo-->
+    <dubbo:application name="${dubbo.application.name}" owner="${dubbo.application.owner}" organization="${dubbo.application.organization}"/>
+
+    <!--向 zookeeper 注册-->
+    <dubbo:registry address="${dubbo.registry.address}" timeout="${dubbo.registry.timeout}"/>
+    
+    <!--引入消费者接口-->
+    <import resource="classpath:dubbo/web-dubbo-api.xml"/>
+
+</beans>

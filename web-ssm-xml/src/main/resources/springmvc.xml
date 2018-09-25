@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--扫描controller注解-->
+    <context:component-scan base-package="tech.edwardvan.webssmxml.controller"></context:component-scan>
+
+    <!--处理器映射器-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>-->
+    <!--处理器适配器-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>-->
+    <!--等价于上面两行配置-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!-- DispatcherServlet不处理静态资源,交给服务器默认的servlet处理 -->
+    <mvc:default-servlet-handler/>
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
+
+    <!--全局异常处理器-->
+    <bean class="tech.edwardvan.webssmxml.exception.CustomExceptionResolver"></bean>
+
+    <!-- 引用Swagger 配置类 -->
+    <bean class="tech.edwardvan.webssmxml.config.SwaggerConfig"></bean>
+</beans>

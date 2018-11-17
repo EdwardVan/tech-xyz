@@ -33,7 +33,7 @@ public class ArrayExample2 {
         System.out.println(arr);
     }
 
-    static class MyArray<E> {
+    static public class MyArray<E> {
         private E[] data;
         private int size;
 
@@ -95,6 +95,17 @@ public class ArrayExample2 {
                 throw new IllegalArgumentException("index is error");
             return data[index];
         }
+
+        //获取最后一个位置的元素
+        public E getLast() {
+            return get(size - 1);
+        }
+
+        //获取第一个位置的元素
+        public E getFirst() {
+            return get(0);
+        }
+
 
         //修改index索引位置的元素为e
         public void set(int index, E e) {

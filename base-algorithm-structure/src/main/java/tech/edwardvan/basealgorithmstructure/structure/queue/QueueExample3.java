@@ -1,36 +1,64 @@
 package tech.edwardvan.basealgorithmstructure.structure.queue;
 
-import java.util.Random;
+import tech.edwardvan.basealgorithmstructure.structure.list.ListExample3;
 
 /**
- * 比较不同队列的效率
+ * 链表实现队列
  */
 public class QueueExample3 {
-    // 测试使用q运行opCount个enqueueu和dequeue操作所需要的时间，单位：秒
-    private static double testQueue(Queue<Integer> q, int opCount) {
-
-        long startTime = System.nanoTime();
-
-        Random random = new Random();
-        for (int i = 0; i < opCount; i++)
-            q.enqueue(random.nextInt(Integer.MAX_VALUE));
-        for (int i = 0; i < opCount; i++)
-            q.dequeue();
-
-        long endTime = System.nanoTime();
-
-        return (endTime - startTime) / 1000000000.0;
+    public static void main(String[] args) {
+        MyListQueue<Integer> queue = new MyListQueue<>();
+        for (int i = 0; i < 10; i++) {
+            queue.enqueue(i);
+            System.out.println(queue);
+            if (i % 3 == 2) {
+                queue.dequeue();
+                System.out.println(queue);
+            }
+        }
     }
 
-    public static void main(String[] args) {
+    public static class MyListQueue<E> implements Queue<E> {
 
-        int opCount = 100000;
+        ListExample3.MyLinkedList<E> list;
 
-        QueueExample.MyArrayQueue<Integer> arrayQueue = new QueueExample.MyArrayQueue<>();
-        System.out.println("MyArrayQueue, time: " + testQueue(arrayQueue, opCount) + " s");
+        public MyListQueue() {
+            list = new ListExample3.MyLinkedList<>();
+        }
 
-        QueueExample2.MyLoopQueue<Integer> loopQueue = new QueueExample2.MyLoopQueue<>();
-        System.out.println("MyLoopQueue, time: " + testQueue(loopQueue, opCount) + " s");
+        @Override
+        public int getSize() {
+            return list.getSize();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return list.isEmpty();
+        }
+
+        @Override
+        public void enqueue(E e) {
+            list.addLast(e);
+        }
+
+        @Override
+        public E dequeue() {
+            return list.removeFirst();
+        }
+
+        @Override
+        public E getFront() {
+            return list.getFirst();
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder res = new StringBuilder();
+            res.append("Queue: front ");
+            res.append(list.toString());
+            res.append(" tail");
+            return res.toString();
+        }
     }
 
 }

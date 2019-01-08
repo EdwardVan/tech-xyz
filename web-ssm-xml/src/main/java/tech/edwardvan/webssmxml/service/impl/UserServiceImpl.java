@@ -6,8 +6,14 @@ import tech.edwardvan.webssmxml.dao.UserMapper;
 import tech.edwardvan.webssmxml.model.User;
 import tech.edwardvan.webssmxml.service.IUserService;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * 用户Service实现类
+ *
+ * @author EdwardVan
+ */
 @Service
 public class UserServiceImpl implements IUserService {
 
@@ -15,22 +21,28 @@ public class UserServiceImpl implements IUserService {
     UserMapper userMapper;
 
     @Override
-    public void testTransactional() {
-        User user1 = new User();
-        user1.setUsername("test1");
-        user1.setPassword("test1");
-        user1.setRole(1);
-        user1.setCreateTime(new Date());
-        user1.setUpdateTime(new Date());
-        User user2 = new User();
-        user2.setUsername("test2");
-        user2.setPassword("test2");
-        user2.setRole(1);
-        user2.setCreateTime(new Date());
-        user2.setUpdateTime(new Date());
-        userMapper.insert(user1);
-        int i = 1/0;
-        userMapper.insert(user2);
+    public int addUser(User user) {
+        return userMapper.insert(user);
+    }
+
+    @Override
+    public int addUserList(List<User> users) {
+        return userMapper.insertUsers(users);
+    }
+
+    @Override
+    public Integer deleteUserById(Integer id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Long updateUser(User user) {
+        return userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public Long updateUserSelective(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
@@ -38,4 +50,38 @@ public class UserServiceImpl implements IUserService {
         return userMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public User getUserAndCartsByNestResult(Integer userId) {
+        return userMapper.selectUserAndCartsByNestResult(userId);
+    }
+
+    @Override
+    public User getUserAndCartsByNestSelect(Integer userId) {
+        return userMapper.selectUserAndCartsByNestSelect(userId);
+    }
+
+    @Override
+    public Map<String, Object> getUserMapById(Integer id) {
+        return userMapper.selectByPrimaryKeyReturnMap(id);
+    }
+
+    @Override
+    public Map<Integer, User> getMapByParameterMap(Map parameterMap) {
+        return userMapper.selectByParameterMapReturnMap(parameterMap);
+    }
+
+    @Override
+    public List<User> getListByIds(List<Integer> ids) {
+        return userMapper.selectByPrimaryKeys(ids);
+    }
+
+    @Override
+    public List<User> getListByUsernameLike(String usernameLike) {
+        return userMapper.selectByUsernameLikeReturnList(usernameLike);
+    }
+
+    @Override
+    public List<User> getUserByDatabaseAndUsernameAndPassword(String database, String username, String password) {
+        return userMapper.selectByDatabaseAndUsernameAndPassword(database, username, password);
+    }
 }

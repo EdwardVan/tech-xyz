@@ -1,44 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tech.edwardvan.webssmxml.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="tech.edwardvan.webssmxml.model.User">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="question" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="answer" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="role" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, username, password, email, phone, question, answer, role, create_time, update_time
-  </sql>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from demo_user
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from demo_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
 
-  <insert id="insert" parameterType="User">
-    insert into demo_user (id, username, password, 
-      email, phone, question, 
-      answer, role, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
+    <!--  
+        cache标签属性:
+            eviction:缓存的回收策略(默认LRU)
+                1.LRU,最近最少使用的,移除最长时间不被使用的对象
+                2.FIFO,先进先出,按对象进入缓存的顺序来移除它们
+                3.SOFT,软引用,移除基于垃圾回收器状态和软引用规则的对象
+                4.WEAK,弱引用,更积极地移除基于垃圾收集器状态和弱引用规则的对象
+            flushInterval:缓存刷新间隔
+                缓存多长时间清空一次,默认不清空,设置一个毫秒值
+            readOnly:是否只读
+                true:只读,mybatis认为所有从缓存中获取数据的操作都是只读操作,不会修改数据
+                     mybatis为了加快获取速度,直接就会将数据在缓存中的引用交给用户
+                     不安全,速度快
+                false:非只读,mybatis认为获取的数据可能会被修改
+                    mybatis会利用序列化&反序列的技术克隆一份新的数据
+                    安全,速度慢
+            size:缓存存放多少元素
+            type:自定义缓存类型
+	-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+
+    <resultMap id="BaseResultMap" type="tech.edwardvan.webssmxml.model.User">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="question" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="answer" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="role" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="UserAndCartsNestResultResultMap" type="tech.edwardvan.webssmxml.model.User">
+        <id property="id" column="u_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="username" column="u_username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="u_password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="email" column="u_email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="phone" column="u_phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="question" column="u_question" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="answer" column="u_answer" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="role" column="u_role" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="createTime" column="u_create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="u_update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <collection property="carts" ofType="Cart">
+            <id property="id" column="c_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <result property="userId" column="c_user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <result property="productId" column="c_product_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="quantity" column="c_quantity" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="checked" column="c_checked" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="createTime" column="c_create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="updateTime" column="c_update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="UserAndCartsNestSelectResultMap" type="tech.edwardvan.webssmxml.model.User">
+        <id property="id" column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="username" column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="email" column="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="question" column="question" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="answer" column="answer" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="role" column="role" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <collection property="carts" javaType="ArrayList" column="id" ofType="Cart"
+                    select="tech.edwardvan.webssmxml.dao.CartMapper.selectByUserId"></collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, username, password, email, phone, question, answer, role, create_time, update_time
+    </sql>
+    <!--
+        参数处理
+            单个参数:
+                处理:mybatis不会做特殊处理
+                写法:#{参数名/任意名}取值
+                特殊情况:
+            Collection(List Set)类型参数或者是数组参数
+                处理:把list或者数组封装在map中,key值:Collection->collection,如果是List还可以使用list为key,数组还可以使用array为key
+                写法:#{list[0]}取List中第一个值
+            多个参数:
+                处理:多个参数会被封装成一个map,key为param1...paramN,value为传入的参数值
+                写法:#{paramN}取值
+                改进:使用命名参数明确指定封装参数时map的key,@Param("xxx")
+            POJO:
+                写法:#{属性名}取值
+            Map:
+                写法:#{key}取值
+
+        #{}和${}
+            #{}是以预编译的形式,将参数设置到sql语句中,防止sql注入
+            ${}取出的值直接拼装在sql语句中,会有安全问题,原生jdbc不支持占位符的地方可以使用${}进行取值,比如分表和排序
+    -->
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into demo_user (id, username, password,
+          email, phone, question,
+          answer, role, create_time,
+          update_time)
+        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+          #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR},
+          #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+          #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertUsers">
+        insert into demo_user (id, username, password,
+        email, phone, question,
+        answer, role, create_time,
+        update_time)
+        values
+        <foreach collection="users" item="user" separator=",">
+            (#{user.id,jdbcType=INTEGER}, #{user.username,jdbcType=VARCHAR}, #{user.password,jdbcType=VARCHAR},
+            #{user.email,jdbcType=VARCHAR}, #{user.phone,jdbcType=VARCHAR}, #{user.question,jdbcType=VARCHAR},
+            #{user.answer,jdbcType=VARCHAR}, #{user.role,jdbcType=INTEGER}, #{user.createTime,jdbcType=TIMESTAMP},
+            #{user.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from demo_user where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="tech.edwardvan.webssmxml.model.User">
+      update demo_user
+        set username = #{username,jdbcType=VARCHAR},
+          password = #{password,jdbcType=VARCHAR},
+          email = #{email,jdbcType=VARCHAR},
+          phone = #{phone,jdbcType=VARCHAR},
+          question = #{question,jdbcType=VARCHAR},
+          answer = #{answer,jdbcType=VARCHAR},
+          role = #{role,jdbcType=INTEGER},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective">
+        update demo_user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="question != null">
+                question = #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                role = #{role,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap" useCache="true">
+        select
+        <include refid="Base_Column_List"/>
+        from demo_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from demo_user
+        where id in
+        <!--
+	 		collection:指定要遍历的集合
+	 		item：将当前遍历出的元素赋值给指定的变量
+	 		separator:每个元素之间的分隔符
+	 		open：遍历出所有结果拼接一个开始的字符
+	 		close:遍历出所有结果拼接一个结束的字符
+	 		index:索引,遍历list的时候是index就是索引,item就是当前值,遍历map的时候index表示的就是map的key,item就是map的值
+	 		#{变量名}就能取出变量的值也就是当前遍历出的元素
+	 	  -->
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--嵌套结果-->
+    <select id="selectUserAndCartsByNestResult" resultMap="UserAndCartsNestResultResultMap">
+        select
+            u.id u_id, u.username u_username, u.password u_password, u.email u_email, u.phone u_phone, u.question u_question, u.answer u_answer, u.role u_role, u.create_time u_create_time, u.update_time u_update_time,
+            c.id c_id, c.user_id c_user_id, c.product_id c_product_id, c.quantity c_quantity, c.checked c_checked, c.create_time c_create_time, c.update_time c_update_time
+        from demo_user u
+        left join demo_cart c on u.id = c.user_id
+        where u.id = #{userId}
+    </select>
+
+    <!--嵌套查询-->
+    <select id="selectUserAndCartsByNestSelect" resultMap="UserAndCartsNestSelectResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from demo_user
+        where id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <!--查出的结果封装到map中,key是列名，值是记录对应的值-->
+    <select id="selectByPrimaryKeyReturnMap" resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from demo_user
+        where id = #{id}
+    </select>
+
+    <!--查出的列表封装到map中,key是username,值是记录封装后的javaBean-->
+    <select id="selectByParameterMapReturnMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from demo_user
+        <where>
+            <if test="username != null">
+                <bind name="usernameLike" value="'%' + username + '%'"/>
+                and username like #{usernameLike}
+            </if>
+            <if test="password != null">
+                <bind name="passwordLike" value="'%' + password + '%'"/>
+                and password like #{passwordLike}
+            </if>
+        </where>
+    </select>
+
+    <!--查出的列表封装到list中-->
+    <select id="selectByUsernameLikeReturnList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from demo_user
+        <if test="_parameter != null and _parameter != ''">
+          <bind name="usernameLike" value="'%' + _parameter + '%'"/>
+          where username like #{usernameLike}
+        </if>
+    </select>
+
+    <!--$&#的区别-->
+    <select id="selectByDatabaseAndUsernameAndPassword" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ${param1}
+        <where>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="password != null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
 
 </mapper>

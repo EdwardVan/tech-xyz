@@ -1,8 +1,15 @@
 package tech.edwardvan.webssmxml.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class User {
+/**
+ * 用户model类
+ *
+ * @author EdwardVan
+ */
+public class User implements Serializable {
     private Integer id;
 
     private String username;
@@ -22,6 +29,8 @@ public class User {
     private Date createTime;
 
     private Date updateTime;
+
+    private List<Cart> carts;
 
     public User(Integer id, String username, String password, String email, String phone, String question, String answer, Integer role, Date createTime, Date updateTime) {
         this.id = id;
@@ -118,5 +127,30 @@ public class User {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", role=" + role +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", carts=" + carts +
+                '}';
     }
 }

@@ -1,46 +1,55 @@
 package tech.edwardvan.webssmxml.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Map;
 
-public class StudentTest {
+/**
+ * spring创建对象测试类
+ *
+ * @author EdwardVan
+ */
+public class Student {
+
+    private static final Logger logger = LoggerFactory.getLogger(Student.class);
+
     private Integer id;
     private String name;
     private List<String> dream;
     private Map<String, Integer> score;
-    private boolean graduation;
 
-    public StudentTest() {
+    public Student() {
     }
 
-    public StudentTest(boolean graduation) {
-        this.graduation = graduation;
+    public Student(Integer id) {
+        this.id = id;
     }
 
-    //测试spring init-method属性
-    public void init(){
-       this.id = 1;
+    //测试init-method属性
+    public void init() {
+        logger.info("Student.init()方法执行");
     }
 
-    //测试spring destroy-method属性
-    public void destory(){
-        System.out.println("StudentTest实例销毁后调用方法!");
+    //测试destroy-method属性
+    public void destory() {
+        logger.info("Student.destory()方法执行");
     }
 
-    //测试spring静态工厂创建对象
-    public static StudentTest createStudentTest(){
-        StudentTest st2 = new StudentTest();
-        st2.setId(2);
-        return st2;
+    //测试静态工厂创建对象
+    public static Student staticFactory() {
+        Student student = new Student();
+        student.setId(2);
+        return student;
     }
 
-    //测试spring实例工厂创建对象
-    public StudentTest getStudentTest(){
-        StudentTest st3 = new StudentTest();
-        st3.setId(3);
-        return st3;
+    //测试实例工厂创建对象
+    public Student instanceFactory() {
+        Student student = new Student();
+        student.setId(3);
+        return student;
     }
-
 
     public Integer getId() {
         return id;
@@ -74,22 +83,13 @@ public class StudentTest {
         this.score = score;
     }
 
-    public boolean isGraduation() {
-        return graduation;
-    }
-
-    public void setGraduation(boolean graduation) {
-        this.graduation = graduation;
-    }
-
     @Override
     public String toString() {
-        return "StudentTest{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dream=" + dream +
                 ", score=" + score +
-                ", graduation=" + graduation +
                 '}';
     }
 }

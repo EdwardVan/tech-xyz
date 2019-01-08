@@ -57,7 +57,7 @@
                 init-method属性:创建完对象马上执行的方法
                 destroy-method属性:销毁对象马上执行的方法
      -->
-    <bean name="studentTest1" class="tech.edwardvan.webssmxml.model.StudentTest" scope="prototype" init-method="init" destroy-method="destory">
+    <bean name="student" class="tech.edwardvan.webssmxml.model.Student" scope="prototype" init-method="init" destroy-method="destory">
         <!--参数注入方式:set方法注入-->
         <property name="name" value="student1"/>
         <property name="dream">
@@ -74,13 +74,38 @@
             </map>
         </property>
         <!--参数注入方式:构造函数注入(name表示参数名成,index表示参数位置,type表示参数类型)-->
-        <constructor-arg index="0" type="boolean" name="graduation" value="true"/>
+        <constructor-arg index="0" type="java.lang.Integer" name="id" value="1"/>
     </bean>
 
     <!--创建对象方式: 2.静态工厂创建-->
-    <bean name="studentTest2" class="tech.edwardvan.webssmxml.model.StudentTest" factory-method="createStudentTest"></bean>
+    <bean name="student2" class="tech.edwardvan.webssmxml.model.Student" factory-method="staticFactory"></bean>
     <!--创建对象方式: 3.实例工厂-->
-    <bean name="studentTest3"  factory-bean="studentTest1" factory-method="getStudentTest"></bean>
+    <bean name="student3"  factory-bean="student" factory-method="instanceFactory"></bean>
+
+    <!--AOP配置流程-->
+    <!--1.配置目标对象-->
+    <!--2.配置通知对象-->
+    <bean name="springAdvice" class="tech.edwardvan.webssmxml.config.SpringAdvice"/>
+    <aop:config>
+        <!--3.配置切入点
+               public String tech.edwardvan.webssmxml.model.Student.toString() Student类中toString方法
+               String tech.edwardvan.webssmxml.model.Student.toString()  public可以去掉
+               * tech.edwardvan.webssmxml.model.Student.toString() 返回值不做限制
+               * tech.edwardvan.webssmxml.model.Student.*() Student类中所有的空参方法
+               * tech.edwardvan.webssmxml.model.Student.*(..) Student类中所有的方法,对参数不做限制
+               * tech.edwardvan.webssmxml.model.*t.*(..) tech.edwardvan.webssmxml.model包下以t结尾的类中所有的方法
+               * tech.edwardvan.webssmxml..*t.*(..) tech.edwardvan.webssmxml包下(子孙包)以g结尾的类中所有的方法
+           -->
+        <aop:pointcut id="testAop" expression="execution(String tech.edwardvan.webssmxml.model.Student.toString())"/>
+        <!--4.配置切面,通知对象织入目标对象-->
+        <aop:aspect ref="springAdvice">
+            <aop:before method="before" pointcut-ref="testAop"/>
+            <aop:after method="after" pointcut-ref="testAop"/>
+            <aop:after-returning method="afterReturning" pointcut-ref="testAop"/>
+            <aop:around method="around" pointcut-ref="testAop"></aop:around>
+            <aop:after-throwing method="afterThrowing" pointcut-ref="testAop"/>
+        </aop:aspect>
+    </aop:config>
 
     <!--数据库连接池-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -148,37 +173,11 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPc"/>
     </aop:config>
 
-
-    <!--AOP配置流程-->
-    <!--1.配置目标对象-->
-    <!--2.配置通知对象-->
-    <bean name="springAdvice" class="tech.edwardvan.webssmxml.model.SpringAdvice"/>
-    <aop:config>
-        <!--3.配置切入点
-               public void com.van.spring.Bag.testAop()
-               void com.van.spring.Bag.testAop()  public可以去掉
-               * com.van.spring.Bag.testAop() 返回值不做限制
-               * com.van.spring.Bag.*() Bag类中所有的空参方法
-               * com.van.spring.Bag.*(..) Bag类中所有的方法,对参数不做限制
-               * com.van.spring.*g.*(..) com.van.spring包下以g结尾的类中所有的方法,对参数不做限制
-               * com.van.spring..*g.*(..) com.van.spring包下(子孙包)以g结尾的类中所有的方法,对参数不做限制
-           -->
-        <aop:pointcut id="testAop" expression="execution(String tech.edwardvan.webssmxml.model.StudentTest.toString())"/>
-        <!--4.配置切面,通知对象织入目标对象-->
-        <aop:aspect ref="springAdvice">
-            <aop:before method="before" pointcut-ref="testAop"/>
-            <aop:after method="after" pointcut-ref="testAop"/>
-            <aop:after-returning method="afterReturning" pointcut-ref="testAop"/>
-            <aop:around method="around" pointcut-ref="testAop"></aop:around>
-            <aop:after-throwing method="afterThrowing" pointcut-ref="testAop"/>
-        </aop:aspect>
-    </aop:config>
-
-
     <!-- Mybatis核心配置 -->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="mapperLocations" value="classpath:mappers/*.xml"></property>
     </bean>
 
     <!--Mybatis动态代理(扫描指定包及其子孙包,而且会自动寻找sqlSessionFactoryBean,不需要手动注入)-->

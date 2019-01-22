@@ -18,7 +18,7 @@ public class VectorExample3 {
     }
 
     // java.util.ConcurrentModificationException
-    // Iterator遍历，使用iterator.remove()
+    // Iterator遍历,使用iterator.remove()
     private static void test2(Vector<Integer> v1) { // iterator
         Iterator<Integer> iterator = v1.iterator();
         while (iterator.hasNext()) {

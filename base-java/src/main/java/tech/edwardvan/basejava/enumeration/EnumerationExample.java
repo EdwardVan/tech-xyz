@@ -2,7 +2,7 @@ package tech.edwardvan.basejava.enumeration;
 
 /**
  * 实现原理
- * 在使用关键字enum创建枚举类型并编译后，编译器会生成一个相关的类，这个类继承了java.lang.Enum类。
+ * 在使用关键字enum创建枚举类型并编译后,编译器会生成一个相关的类,这个类继承了java.lang.Enum类.
  */
 public class EnumerationExample {
     public static void main(String[] args) {

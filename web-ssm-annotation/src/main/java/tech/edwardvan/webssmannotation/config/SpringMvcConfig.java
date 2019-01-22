@@ -18,7 +18,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         // 配置静态资源处理
-        //对静态资源的请求转发到容器缺省的servlet，而不使用DispatcherServlet
+        //对静态资源的请求转发到容器缺省的servlet,而不使用DispatcherServlet
         configurer.enable("default");
     }
 }

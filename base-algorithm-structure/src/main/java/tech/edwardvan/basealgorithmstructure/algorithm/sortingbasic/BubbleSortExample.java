@@ -4,7 +4,7 @@ import tech.edwardvan.util.ArrayUtil;
 
 /**
  * 冒泡排序
- * 对相邻的元素进行两两比较,顺序相反则进行交换,每一趟会将最大的元素“浮”到顶端,最终达到完全有序
+ * 对相邻的元素进行两两比较,顺序相反则进行交换,每一趟会将最大的元素"浮"到顶端,最终达到完全有序
  */
 public class BubbleSortExample {
 

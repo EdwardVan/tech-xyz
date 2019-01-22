@@ -47,16 +47,16 @@ public class DataAccessConfig {
         druid.setMaxActive(20);
         //配置获取连接等待超时的时间
         druid.setMaxWait(60000);
-        //配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        //配置间隔多久才进行一次检测,检测需要关闭的空闲连接,单位是毫秒
         druid.setTimeBetweenEvictionRunsMillis(60000);
-        //配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        //配置一个连接在池中最小生存的时间,单位是毫秒 -->
         druid.setMinEvictableIdleTimeMillis(300000);
 
         druid.setValidationQuery("SELECT 'x'");
         druid.setTestWhileIdle(true);
         druid.setTestOnBorrow(false);
         druid.setTestOnReturn(false);
-        //打开PSCache，并且指定每个连接上PSCache的大小
+        //打开PSCache,并且指定每个连接上PSCache的大小
         druid.setPoolPreparedStatements(false);
         druid.setMaxPoolPreparedStatementPerConnectionSize(20);
         //配置监控统计拦截的filters

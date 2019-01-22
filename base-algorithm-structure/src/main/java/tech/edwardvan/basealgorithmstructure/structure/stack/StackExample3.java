@@ -6,7 +6,7 @@ import java.util.Random;
  * 比较不同栈的效率
  */
 public class StackExample3 {
-    // 测试使用stack运行opCount个push和pop操作所需要的时间，单位：秒
+    // 测试使用stack运行opCount个push和pop操作所需要的时间,单位:秒
     private static double testStack(Stack<Integer> stack, int opCount) {
 
         long startTime = System.nanoTime();
@@ -32,6 +32,6 @@ public class StackExample3 {
         StackExample2.MyListStack<Integer> listStack = new StackExample2.MyListStack<>();
         System.out.println("LinkedListStack, time: " + testStack(listStack, opCount) + " s");
 
-        // 其实这个时间比较很复杂，因为LinkedListStack中包含更多的new操作
+        // 其实这个时间比较很复杂,因为LinkedListStack中包含更多的new操作
     }
 }

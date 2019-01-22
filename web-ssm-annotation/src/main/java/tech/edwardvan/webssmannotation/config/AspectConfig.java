@@ -23,7 +23,7 @@ public class AspectConfig {
         log.info("前置通知!");
     }
 
-    //通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为
+    //通知包裹了被通知的方法,在被通知的方法调用之前和调用之后执行自定义的行为
     @Around("AspectConfig.pointcut()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         log.info("环绕通知之前!");
@@ -38,7 +38,7 @@ public class AspectConfig {
         log.info("后置通知(如果有异常则不会调用)!");
     }
 
-    //在方法完成之后调用通知，无论方法执行成功与否
+    //在方法完成之后调用通知,无论方法执行成功与否
     @After("AspectConfig.pointcut()")
     public void after(){
         log.info("后置通知!");

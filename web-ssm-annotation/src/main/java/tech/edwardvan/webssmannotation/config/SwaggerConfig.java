@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 .select()
                 //扫描指定包中的swagger注解
                 //.apis(RequestHandlerSelectors.basePackage("tech.edwardvan.webssmannotation.controller"))
-                //扫描所有有注解的api，用这种方式更灵活
+                //扫描所有有注解的api,用这种方式更灵活
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();

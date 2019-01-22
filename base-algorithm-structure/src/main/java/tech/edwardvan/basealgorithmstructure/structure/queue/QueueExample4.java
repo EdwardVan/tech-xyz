@@ -6,7 +6,7 @@ import java.util.Random;
  * 比较不同队列的效率
  */
 public class QueueExample4 {
-    // 测试使用q运行opCount个enqueueu和dequeue操作所需要的时间，单位：秒
+    // 测试使用q运行opCount个enqueueu和dequeue操作所需要的时间,单位:秒
     private static double testQueue(Queue<Integer> q, int opCount) {
 
         long startTime = System.nanoTime();

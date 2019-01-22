@@ -124,7 +124,7 @@ public class ArrayExample2 {
             return false;
         }
 
-        // 查找数组中元素e所在的索引，如果不存在元素e，则返回-1
+        // 查找数组中元素e所在的索引,如果不存在元素e,则返回-1
         public int find(E e) {
             for (int i = 0; i < data.length; i++) {
                 if (data[i].equals(e)) {

@@ -2,8 +2,8 @@ package tech.edwardvan.basejava.nested;
 
 /**
  * 静态内部类
- * 1. 要创建静态内部类的对象，并不需要其外围类的对象。
- * 2. 不能从静态内部类的对象中访问非静态的外围类对象。
+ * 1. 要创建静态内部类的对象,并不需要其外围类的对象.
+ * 2. 不能从静态内部类的对象中访问非静态的外围类对象.
  */
 public class StaticNestedClassesExample {
     private static int i = 1;
@@ -35,7 +35,7 @@ public class StaticNestedClassesExample {
     }
 
     public void outer_f3() {
-        // 外部类访问内部类的静态成员：内部类.静态成员
+        // 外部类访问内部类的静态成员:内部类.静态成员
         System.out.println(Inner.inner_i);
         Inner.inner_f1();
         // 外部类访问内部类的非静态成员:实例化内部类即可

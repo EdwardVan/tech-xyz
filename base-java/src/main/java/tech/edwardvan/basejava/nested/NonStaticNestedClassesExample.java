@@ -14,7 +14,7 @@ public class NonStaticNestedClassesExample {
     public void outer_f2() {
     }
 
-    // 成员内部类中，可以访问外部类的所有成员
+    // 成员内部类中,可以访问外部类的所有成员
     class Inner {
         // static int inner_i = 100;//内部类中不允许定义静态变量
         int j = 100; // 内部类和外部类的实例变量可以共存
@@ -28,7 +28,7 @@ public class NonStaticNestedClassesExample {
             System.out.println(this.j);
             // 在内部类中访问外部类中与内部类同名的实例变量用外部类名.this.变量名
             System.out.println(NonStaticNestedClassesExample.this.j);
-            // 如果内部类中没有与外部类同名的变量，则可以直接用变量名访问外部类变量
+            // 如果内部类中没有与外部类同名的变量,则可以直接用变量名访问外部类变量
             System.out.println(k);
             outer_f1();
             outer_f2();
@@ -41,7 +41,7 @@ public class NonStaticNestedClassesExample {
         inner.inner_f1();
     }
 
-    // 外部类的静态方法访问成员内部类，与在外部类外部访问成员内部类一样
+    // 外部类的静态方法访问成员内部类,与在外部类外部访问成员内部类一样
     public static void outer_f4() {
         // step1 建立外部类对象
         NonStaticNestedClassesExample out = new NonStaticNestedClassesExample();

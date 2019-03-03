@@ -31,7 +31,7 @@ public interface IUserService {
 
     Map<String, Object> getUserMapById(Integer id);
 
-    Map<Integer, User> getMapByParameterMap(Map parameterMap);
+    Map<String, User> getMapByParameterMap(Map parameterMap);
 
     List<User> getListByIds(List<Integer> ids);
 

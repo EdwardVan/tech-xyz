@@ -34,7 +34,7 @@ public interface UserMapper {
     Map<String, Object> selectByPrimaryKeyReturnMap(Integer id);
 
     @MapKey("username")
-    Map<Integer, User> selectByParameterMapReturnMap(Map parameterMap);
+    Map<String, User> selectByParameterMapReturnMap(Map parameterMap);
 
     List<User> selectByUsernameLikeReturnList(String usernameLike);
 

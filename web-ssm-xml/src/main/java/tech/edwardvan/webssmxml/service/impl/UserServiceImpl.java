@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Map<Integer, User> getMapByParameterMap(Map parameterMap) {
+    public Map<String, User> getMapByParameterMap(Map parameterMap) {
         return userMapper.selectByParameterMapReturnMap(parameterMap);
     }
 

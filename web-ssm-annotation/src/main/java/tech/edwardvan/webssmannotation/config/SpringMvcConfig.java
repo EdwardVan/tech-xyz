@@ -2,16 +2,30 @@ package tech.edwardvan.webssmannotation.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * SpringMvc配置类
+ *
+ * @author EdwardVan
+ * <p>
+ * EnableWebMvc注解 等价于 <mvc:annotation-driven/>
+ */
 @Configuration
-// 等价于 <mvc:annotation-driven/>
 @EnableWebMvc
-@ComponentScan(basePackages = "tech.edwardvan.webssmannotation.controller")
-@Import({SwaggerConfig.class})
+@ComponentScan(
+        basePackages = "tech.edwardvan.webssmannotation",
+        useDefaultFilters = false,
+        includeFilters = {
+                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class)
+        }
+)
+@Import(SwaggerConfig.class)
 public class SpringMvcConfig implements WebMvcConfigurer {
 
     // 等价于 <mvc:default-servlet-handler/>

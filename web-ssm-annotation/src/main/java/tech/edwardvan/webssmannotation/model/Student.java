@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -113,6 +114,8 @@ public class Student implements InitializingBean, DisposableBean, ApplicationCon
 
     @Override
     public String toString() {
+        applicationContext.publishEvent(new ApplicationEvent("发布Student.toString()事件") {
+        });
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +

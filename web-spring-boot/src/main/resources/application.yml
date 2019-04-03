@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+#激活dev配置
+spring:
+  profiles:
+    active: dev
+  mvc:
+    date-format: yyyy-MM-dd
+#让控制台打印自动配置报告
+debug: true
+
+---
+#开发配置
+spring:
+  profiles: dev
+
+
+testproperties:
+  name: 张三${random.uuid}
+  age: 21
+  boss: false
+  birth: 1993/10/1
+  maps: {k1: v1, k2: v2}
+  lists: [l1,l2,l3]
+---
+#生产配置
+spring:
+  profiles: prod

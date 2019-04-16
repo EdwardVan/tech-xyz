@@ -1,8 +1,10 @@
 package tech.edwardvan.webspringboot.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import tech.edwardvan.webspringboot.model.Test;
 
 /**
  * 模拟SpringBoot自动配置类
@@ -36,6 +38,11 @@ public class TestConfiguration {
      */
     public TestConfiguration(TestProperties testProperties) {
         this.testProperties = testProperties;
+    }
+
+    @Bean
+    public Test test(){
+        return new Test();
     }
 
     @Override

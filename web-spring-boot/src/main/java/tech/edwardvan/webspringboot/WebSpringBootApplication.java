@@ -1,5 +1,6 @@
 package tech.edwardvan.webspringboot;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -38,6 +39,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author EdwardVan
  */
 @SpringBootApplication
+@MapperScan("tech.edwardvan.webspringboot.dao")
 public class WebSpringBootApplication {
 
     public static void main(String[] args) {

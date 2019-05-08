@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>tech.edwardvan</groupId>
+    <artifactId>tech-xyz</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--
+        聚合(modules)和继承(parent)
+            聚合主要是为了方便快速构建项目,继承主要是为了消除重复配置
+            对于聚合模块而言,它知道有哪些被聚合的模块,但那些被聚合的模块不知道这个聚合模块的存在
+            对于继承的父pom而言,它不知道有哪些子模块继承它,但那些子模块都必须知道自己的父POM是什么
+    -->
+    <modules>
+        <module>web-ssm-xml</module>
+        <module>web-ssm-annotation</module>
+        <module>util</module>
+        <module>base-design-pattern</module>
+        <module>base-algorithm-structure</module>
+        <module>base-java</module>
+        <module>base-concurrent</module>
+        <module>os-redis</module>
+        <module>os-zookeeper</module>
+        <module>web-dubbo</module>
+    </modules>
+    <name>tech-xyz</name>
+
+    <properties>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <commons.lang3.version>3.9</commons.lang3.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <commons.collections4.version>4.3</commons.collections4.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+        <curator.framework.version>4.2.0</curator.framework.version>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
+        <dubbo.version>2.6.5</dubbo.version>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <druid.version>1.1.16</druid.version>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <fastjson.version>1.2.58</fastjson.version>
+        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+        <mybatis.version>3.5.1</mybatis.version>
+        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+        <mybatis.spring.version>2.0.1</mybatis.spring.version>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <jackson.version>2.9.8</jackson.version>
+        <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+        <javax.annotation.api.version>1.3.2</javax.annotation.api.version>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <junit.version>4.12</junit.version>
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <jodatime.version>2.10.1</jodatime.version>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+        <logback.version>1.2.3</logback.version>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <lombok.version>1.18.8</lombok.version>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <spring.version>5.1.6.RELEASE</spring.version>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <slf4j.version>1.7.26</slf4j.version>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+        <swagger.version>2.9.2</swagger.version>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <guava.version>27.1-jre</guava.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <httpclient.version>4.5.8</httpclient.version>
+        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+        <xstream.version>1.4.11.1</xstream.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+        <zookeeper.version>3.4.14</zookeeper.version>
+    </properties>
+    <!--
+        只是对jar包版本进行管理,不会实际引入jar
+        当<dependencies>元素中没有指明版本信息时,<dependencyManagement>中的<dependencies>元素才会起作用
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${javax.annotation.api.version}</version>
+            </dependency>
+
+            <!--spring start-->
+            <!--Bean工厂与bean的装配-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--依赖注入IoC与DI的最基本实现-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--spring的context上下文即IoC容器-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--spring表达式语言-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--面向切面编程-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--集成AspectJ-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--基础web功能,如文件上传-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--mvc实现-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--jdbc的支持-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!--spring end-->
+
+            <!--logback start -->
+            <dependency>
+                <groupId>org.logback-extensions</groupId>
+                <artifactId>logback-ext-spring</artifactId>
+                <version>0.1.5</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!--logback end -->
+
+            <!--数据库 start-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.47</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--数据库 end-->
+
+            <!-- mybatis start -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+            <!-- mybatis end -->
+
+            <!-- swagger start-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- swagger end-->
+
+            <!--zookeeper start -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.framework.version}</version>
+            </dependency>
+            <!--zookeeper end -->
+
+            <!--jackson start-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!--jackson end-->
+
+            <!--工具类 start-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons.collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${jodatime.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
+            <!--工具类 end-->
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!--
+        依赖版本冲突的解决方法
+            1.路径近者优先原则:如果依赖路径中有两个相同的jar包,那么选择路径短的那个包
+            2.第一声明者优先原则:如果依赖路径中有两个相同的jar包,路径长度也相同,那么依赖写在前面的优先
+            3.排除原则
+                <exclusions>
+                    <exclusion>
+                      <groupId>xxx</groupId>
+                      <artifactId>xxx</artifactId>
+                    </exclusion>
+                </exclusions>
+            4.版本锁定:使用<dependencyManagement>约束版本
+    -->
+    <dependencies>
+        <!--logback start -->
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <!--logback end -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--解决没有web.xml文件打包报错的问题-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- 源代码使用的JDK版本 -->
+                    <source>11</source>
+                    <!-- 需要生成的目标class文件的编译版本 -->
+                    <target>11</target>
+                    <!-- 字符集编码 -->
+                    <encoding>UTF-8</encoding>
+                    <!-- 跳过测试 -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!--单元测试插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!--是否跳过单元测试-->
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

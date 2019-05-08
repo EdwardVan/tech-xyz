@@ -1,4 +1,4 @@
-package tech.edwardvan.basedesignpattern.singleton;
+package tech.edwardvan.basedesignpattern.pattern.creational.singleton;
 
 /**
  * 懒汉模式

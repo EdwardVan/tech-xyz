@@ -1,4 +1,4 @@
-package tech.edwardvan.basedesignpattern.singleton;
+package tech.edwardvan.basedesignpattern.pattern.creational.singleton;
 
 /**
  * 懒汉模式 -> 双重同步锁单例模式

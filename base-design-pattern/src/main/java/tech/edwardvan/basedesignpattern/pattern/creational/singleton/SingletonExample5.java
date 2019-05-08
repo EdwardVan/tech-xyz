@@ -1,8 +1,8 @@
-package tech.edwardvan.basedesignpattern.singleton;
+package tech.edwardvan.basedesignpattern.pattern.creational.singleton;
 
 
 /**
- * 懒汉模式 -》 双重同步锁单例模式
+ * 懒汉模式 -> 双重同步锁单例模式
  * 单例实例在第一次使用时进行创建
  * <p>
  * 线程安全

@@ -1,7 +1,5 @@
 package tech.edwardvan.basedesignpattern.pattern.structural.bridge;
 
-import java.sql.DriverManager;
-
 /**
  * 桥接模式
  * 优点:
@@ -12,6 +10,7 @@ import java.sql.DriverManager;
  * 桥接模式的引入会增加系统的理解与设计难度,由于聚合关联关系建立在抽象层,要求开发者针对抽象进
  * 举例:
  * {@link java.sql.DriverManager}
+ *
  * @author EdwardVan
  */
 public class BridgeExample {

@@ -30,6 +30,11 @@ mybatis:
   #这里是实体类的包
   type-aliases-package: tech.edwardvan.webspringboot.model
 
+#Mybatis打印sql
+logging:
+  level:
+    tech.edwardvan.webspringboot.dao : debug
+
 #让控制台打印自动配置报告
 debug: false
 

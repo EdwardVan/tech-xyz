@@ -3,6 +3,7 @@ package tech.edwardvan.webspringboot;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * 项目启动入口
@@ -40,6 +41,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("tech.edwardvan.webspringboot.dao")
+/**
+ * 使用缓存步骤
+ *      1.导入spring-boot-starter-cache模块
+ *      2.@EnableCaching开启缓存
+ *      3.使用缓存注解
+ */
+@EnableCaching
 public class WebSpringBootApplication {
 
     public static void main(String[] args) {

@@ -49,6 +49,11 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--缓存-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 
         <!--配置文件处理器-->
         <dependency>

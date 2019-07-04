@@ -25,4 +25,15 @@ public class UserController {
         return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc(), userById);
     }
 
+    @PutMapping
+    public ServerResponse updateUser(@RequestBody User user) {
+        userService.updateUserSelective(user);
+        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
+    }
+
+    @DeleteMapping(value = "/{userId}")
+    public ServerResponse deleteUser(@PathVariable(value = "userId") Integer id) {
+        userService.deleteUserById(id);
+        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
+    }
 }

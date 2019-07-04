@@ -22,6 +22,9 @@ spring:
       web-stat-filter:
         enabled: true
       filters: stat,wall
+  #redis数据库
+  redis:
+    host: 127.0.0.1
 
 #mybatis配置
 mybatis:
@@ -33,7 +36,7 @@ mybatis:
 #Mybatis打印sql
 logging:
   level:
-    tech.edwardvan.webspringboot.dao : debug
+    tech.edwardvan.webspringboot.dao: debug
 
 #让控制台打印自动配置报告
 debug: false

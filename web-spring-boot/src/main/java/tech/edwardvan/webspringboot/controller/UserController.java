@@ -2,6 +2,8 @@ package tech.edwardvan.webspringboot.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.edwardvan.webspringboot.common.ResponseCode;
@@ -35,5 +37,10 @@ public class UserController {
     public ServerResponse deleteUser(@PathVariable(value = "userId") Integer id) {
         userService.deleteUserById(id);
         return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
+    }
+
+    @RabbitListener(queues = {"test"})
+    public void receiveMessage(Message message) {
+        System.out.println(message);
     }
 }

@@ -67,6 +67,13 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+        <!--搜索-->
+        <dependency>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
+            <version>6.3.1</version>
+        </dependency>
+
         <!--配置文件处理器-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

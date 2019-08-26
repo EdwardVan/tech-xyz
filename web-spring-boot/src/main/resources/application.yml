@@ -31,6 +31,10 @@ spring:
     password: guest
     port: 5672
     host: 127.0.0.1
+  #elasticsearch
+  elasticsearch:
+    jest:
+      uris: http://localhost:9200
 
 #mybatis配置
 mybatis:

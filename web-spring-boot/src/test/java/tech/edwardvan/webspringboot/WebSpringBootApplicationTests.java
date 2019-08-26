@@ -44,6 +44,15 @@ public class WebSpringBootApplicationTests {
     }
 
     @Test
+    public void testRabbitMQ() throws IOException {
+        User user = new User();
+        user.setUsername("Edward");
+        user.setPassword("123456");
+        user.setEmail("test@qq.com");
+        rabbitTemplate.convertAndSend("testExchange","testKey",user);
+    }
+
+    @Test
     public void testElasticsearch() throws IOException {
         User user = new User();
         user.setUsername("Edward");

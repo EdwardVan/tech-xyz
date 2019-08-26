@@ -39,7 +39,7 @@ public class UserController {
         return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
     }
 
-    @RabbitListener(queues = {"test"})
+    @RabbitListener(queues = {"testQueue"})
     public void receiveMessage(Message message) {
         System.out.println(message);
     }

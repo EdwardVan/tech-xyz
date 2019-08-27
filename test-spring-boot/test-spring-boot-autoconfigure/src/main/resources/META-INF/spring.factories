@@ -1,0 +1,11 @@
+# Application Context Initializers
+org.springframework.context.ApplicationContextInitializer=\
+tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextInitializer
+
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+tech.edwardvan.testspringbootautoconfigure.config.TestConfiguration
+
+# Run Listeners
+org.springframework.boot.SpringApplicationRunListener=\
+tech.edwardvan.testspringbootautoconfigure.listener.TestSpringApplicationRunListener

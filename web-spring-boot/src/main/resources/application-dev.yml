@@ -1,0 +1,11 @@
+#开发配置
+
+#TestProperties配置
+test:
+  properties:
+    name: 张三${random.uuid}
+    age: 21
+    boss: false
+    birth: 1993/10/1
+    maps: {k1: v1, k2: v2}
+    lists: [l1,l2,l3]

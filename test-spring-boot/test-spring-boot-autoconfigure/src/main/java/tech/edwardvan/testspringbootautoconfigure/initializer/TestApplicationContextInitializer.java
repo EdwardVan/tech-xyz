@@ -1,20 +1,19 @@
-package tech.edwardvan.webspringboot.config;
+package tech.edwardvan.testspringbootautoconfigure.initializer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * 执行时机:SpringApplication:run()->prepareContext()->applyInitializers()
+ *
  * @author EdwardVan
  */
+@Slf4j
 public class TestApplicationContextInitializer implements ApplicationContextInitializer {
-
-    private static final Logger logger = LoggerFactory.getLogger(TestApplicationContextInitializer.class);
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
-        logger.info("TestApplicationContextInitializer.initialize()");
+        log.info("TestApplicationContextInitializer.initialize()");
     }
 }

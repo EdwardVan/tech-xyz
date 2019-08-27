@@ -1,7 +1,7 @@
-package tech.edwardvan.webspringboot.config;
+package tech.edwardvan.testspringbootautoconfigure.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -9,47 +9,49 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * 执行时机:SpringApplication->run()->listeners.starting()等
+ *
  * @author EdwardVan
  */
+@Slf4j
 public class TestSpringApplicationRunListener implements SpringApplicationRunListener {
-
-    private static final Logger logger = LoggerFactory.getLogger(TestSpringApplicationRunListener.class);
-
+    /**
+     * 该方法必须存在,否则启动报错
+     */
     public TestSpringApplicationRunListener(SpringApplication application, String[] args) {
     }
 
     @Override
     public void starting() {
-        logger.info("TestSpringApplicationRunListener.starting()");
+        log.info("TestSpringApplicationRunListener.starting()");
     }
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
-        logger.info("TestSpringApplicationRunListener.environmentPrepared()");
+        log.info("TestSpringApplicationRunListener.environmentPrepared()");
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
-        logger.info("TestSpringApplicationRunListener.contextPrepared()");
+        log.info("TestSpringApplicationRunListener.contextPrepared()");
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
-        logger.info("TestSpringApplicationRunListener.contextLoaded()");
+        log.info("TestSpringApplicationRunListener.contextLoaded()");
     }
 
     @Override
     public void started(ConfigurableApplicationContext context) {
-        logger.info("TestSpringApplicationRunListener.started()");
+        log.info("TestSpringApplicationRunListener.started()");
     }
 
     @Override
     public void running(ConfigurableApplicationContext context) {
-        logger.info("TestSpringApplicationRunListener.running()");
+        log.info("TestSpringApplicationRunListener.running()");
     }
 
     @Override
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
-        logger.info("TestSpringApplicationRunListener.failed()");
+        log.info("TestSpringApplicationRunListener.failed()");
     }
 }

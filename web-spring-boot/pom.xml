@@ -12,12 +12,15 @@
     <artifactId>web-spring-boot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>web-spring-boot</name>
-    <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <encoding>UTF-8</encoding>
         <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -31,7 +34,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.16</version>
+            <version>1.1.18</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -47,6 +50,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.47</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!--自定义starter-->
+        <dependency>
+            <groupId>tech.edwardvan</groupId>
+            <artifactId>test-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!--缓存-->
@@ -82,6 +92,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -94,6 +110,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--单元测试插件(跳过单元测试,但是会继续编译)-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!--是否跳过单元测试-->
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>

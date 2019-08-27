@@ -1,10 +1,12 @@
-package tech.edwardvan.webspringboot.config;
+package tech.edwardvan.testspringbootautoconfigure.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import tech.edwardvan.webspringboot.model.Test;
+import tech.edwardvan.testspringbootautoconfigure.condition.TestCondition;
+import tech.edwardvan.testspringbootautoconfigure.model.Test;
+import tech.edwardvan.testspringbootautoconfigure.properties.TestProperties;
 
 /**
  * 模拟SpringBoot自动配置类
@@ -27,7 +29,9 @@ import tech.edwardvan.webspringboot.model.Test;
  */
 @Configuration
 @Conditional({TestCondition.class})
-//将配置文件中对应的值和TestProperties绑定起来;并将TestProperties加入到ioc容器中
+/**
+ * 将配置文件中对应的值和TestProperties绑定起来;并将TestProperties加入到ioc容器中
+ */
 @EnableConfigurationProperties(TestProperties.class)
 public class TestConfiguration {
 

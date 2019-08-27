@@ -1,7 +1,0 @@
-# Application Context Initializers
-org.springframework.context.ApplicationContextInitializer=\
-tech.edwardvan.webspringboot.config.TestApplicationContextInitializer
-
-# Run Listeners
-org.springframework.boot.SpringApplicationRunListener=\
-tech.edwardvan.webspringboot.config.TestSpringApplicationRunListener

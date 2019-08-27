@@ -50,20 +50,3 @@ logging:
 
 #让控制台打印自动配置报告
 debug: false
-
-#TestProperties配置
-testproperties:
-  name: 张三${random.uuid}
-  age: 21
-  boss: false
-  birth: 1993/10/1
-  maps: {k1: v1, k2: v2}
-  lists: [l1,l2,l3]
----
-#开发配置
-spring:
-  profiles: dev
----
-#生产配置
-spring:
-  profiles: prod

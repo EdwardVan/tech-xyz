@@ -1,5 +1,6 @@
 package tech.edwardvan.webspringboot.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
@@ -14,6 +15,7 @@ import tech.edwardvan.webspringboot.service.IUserService;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -42,5 +44,12 @@ public class UserController {
     @RabbitListener(queues = {"testQueue"})
     public void receiveMessage(Message message) {
         System.out.println(message);
+    }
+
+    @GetMapping("testAsync")
+    public void testAsync(){
+        log.info("执行UserController.testAsync开始");
+        userService.testAsync();
+        log.info("执行UserController.testAsync结束");
     }
 }

@@ -1,10 +1,13 @@
 package tech.edwardvan.webspringboot.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tech.edwardvan.webspringboot.dao.UserMapper;
 import tech.edwardvan.webspringboot.model.User;
@@ -17,6 +20,7 @@ import tech.edwardvan.webspringboot.service.IUserService;
  */
 @Service
 @CacheConfig(cacheNames = "user")
+@Slf4j
 public class UserServiceImpl implements IUserService {
 
     @Autowired
@@ -70,5 +74,35 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Integer deleteUserById(Integer id) {
         return userMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 测试异步任务
+     */
+    @Async
+    @Override
+    public void testAsync() {
+        log.info("执行UserServiceImpl.testAsync开始");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("执行UserServiceImpl.testAsync结束");
+    }
+
+    /**
+     * 测试定时任务
+     *
+     * second(秒), minute(分), hour(时), day of month(日), month(月), day of week(周几).
+     * [0 0/5 14,18 * * ?] 每天14点整,和18点整,每隔5分钟执行一次
+     * [0 15 10 ? * 1-6] 每个月的周一至周六10:15分执行一次
+     * [0 0 2 ? * 6L]每个月的最后一个周六凌晨2点执行一次
+     * [0 0 2 LW * ?]每个月的最后一个工作日凌晨2点执行一次
+     * [0 0 2-4 ? * 1#1]每个月的第一个周一凌晨2点到4点期间,每个整点都执行一次
+     */
+    @Scheduled(cron = "0 * * * * *")
+    public void testSchedule() {
+        log.info("执行UserServiceImpl.testSchedule");
     }
 }

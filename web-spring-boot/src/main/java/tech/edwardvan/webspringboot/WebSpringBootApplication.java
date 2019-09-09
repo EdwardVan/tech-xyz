@@ -5,6 +5,8 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 项目启动入口
@@ -42,6 +44,14 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @MapperScan("tech.edwardvan.webspringboot.dao")
+/**
+ * 开启异步任务
+ */
+@EnableAsync
+/**
+ * 开启定时任务
+ */
+@EnableScheduling
 /**
  * 使用缓存步骤
  *      1.导入spring-boot-starter-cache模块

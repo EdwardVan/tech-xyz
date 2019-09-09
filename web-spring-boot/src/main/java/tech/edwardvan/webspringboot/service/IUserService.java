@@ -10,4 +10,6 @@ public interface IUserService {
     User updateUserSelective(User user);
 
     Integer deleteUserById(Integer id);
+
+    void testAsync();
 }

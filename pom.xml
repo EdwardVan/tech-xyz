@@ -24,6 +24,7 @@
         <module>base-java</module>
         <module>base-concurrent</module>
         <module>web-dubbo</module>
+        <module>spring-cloud</module>
     </modules>
     <name>tech-xyz</name>
 
@@ -37,9 +38,9 @@
         <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
         <dubbo.version>2.6.5</dubbo.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
-        <druid.version>1.1.19</druid.version>
+        <druid.version>1.1.20</druid.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.60</fastjson.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
         <mybatis.version>3.5.2</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
@@ -55,15 +56,15 @@
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
         <logback.version>1.2.3</logback.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <lombok.version>1.18.8</lombok.version>
+        <lombok.version>1.18.10</lombok.version>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-        <spring.version>5.1.6.RELEASE</spring.version>
+        <spring.version>5.1.9.RELEASE</spring.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <slf4j.version>1.7.28</slf4j.version>
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <swagger.version>2.9.2</swagger.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <guava.version>28.0-jre</guava.version>
+        <guava.version>28.1-jre</guava.version>
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <httpclient.version>4.5.8</httpclient.version>
         <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->

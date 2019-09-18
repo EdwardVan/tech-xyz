@@ -1,0 +1,10 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: eureka-peer1
+  client:
+    register-with-eureka: true  #一定要设置为true或者不写,否则会出现unavailable-replicas
+    fetch-registry: true     #一定要设置为true或者不写,否则会出现unavailable-replicas
+    service-url:
+      defaultZone: http://eureka-peer2:8762/eureka/,http://eureka-peer3:8763/eureka/

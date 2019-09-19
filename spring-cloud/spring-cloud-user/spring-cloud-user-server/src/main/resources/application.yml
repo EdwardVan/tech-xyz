@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  #mvc配置
+  mvc:
+    date-format: yyyy-MM-dd
+  #数据库配置
+  datasource:
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/demo_mall
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: 123456
+      web-stat-filter:
+        enabled: true
+      filters: stat,wall
+
+#mybatis配置
+mybatis:
+  #这里是mapper的配置文件
+  mapper-locations: classpath:mappers/*.xml
+  #这里是实体类的包
+  type-aliases-package: tech.edwardvan.springcloudusercommon.entity
+
+#Mybatis打印sql
+logging:
+  level:
+    tech.edwardvan.webspringboot.dao: debug
+
+#让控制台打印自动配置报告
+debug: false

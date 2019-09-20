@@ -1,7 +1,6 @@
-server:
-  port: 8080
-
 spring:
+  application:
+    name: user-server
   #mvc配置
   mvc:
     date-format: yyyy-MM-dd
@@ -19,7 +18,11 @@ spring:
       web-stat-filter:
         enabled: true
       filters: stat,wall
-
+#eureka注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/,http://eureka-peer3:8763/eureka/
 #mybatis配置
 mybatis:
   #这里是mapper的配置文件

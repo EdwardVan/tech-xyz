@@ -33,7 +33,7 @@ mybatis:
 #Mybatis打印sql
 logging:
   level:
-    tech.edwardvan.webspringboot.dao: debug
+    tech.edwardvan.springclouduserserver.dao: debug
 
 #让控制台打印自动配置报告
 debug: false

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: order-server
+  #mvc配置
+  mvc:
+    date-format: yyyy-MM-dd
+
+#eureka注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/,http://eureka-peer3:8763/eureka/
+
+#让控制台打印自动配置报告
+debug: false

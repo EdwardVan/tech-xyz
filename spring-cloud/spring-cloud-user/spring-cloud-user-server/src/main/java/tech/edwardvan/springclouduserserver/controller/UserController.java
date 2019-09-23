@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.edwardvan.springcloudusercommon.entity.User;
-import tech.edwardvan.springcloudusercommon.pojo.ResponseCode;
-import tech.edwardvan.springcloudusercommon.pojo.ServerResponse;
 import tech.edwardvan.springclouduserserver.service.IUserService;
 
 
@@ -18,26 +16,22 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping(value = "/{userId}")
-    public ServerResponse getUser(@PathVariable(value = "userId") Integer id) {
-        User userById = userService.getUserById(id);
-        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc(), userById);
+    public User getUser(@PathVariable(value = "userId") Integer id) {
+        return userService.getUserById(id);
     }
 
     @PostMapping
-    public ServerResponse insertUser(@RequestBody User user) {
-        int i = userService.addUser(user);
-        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc(), i);
+    public Integer insertUser(@RequestBody User user) {
+        return userService.addUser(user);
     }
 
     @PutMapping
-    public ServerResponse updateUser(@RequestBody User user) {
+    public void updateUser(@RequestBody User user) {
         userService.updateUserSelective(user);
-        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
     }
 
     @DeleteMapping(value = "/{userId}")
-    public ServerResponse deleteUser(@PathVariable(value = "userId") Integer id) {
-        userService.deleteUserById(id);
-        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
+    public Integer deleteUser(@PathVariable(value = "userId") Integer id) {
+        return userService.deleteUserById(id);
     }
 }

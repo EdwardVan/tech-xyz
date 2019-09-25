@@ -11,5 +11,10 @@ eureka:
     service-url:
       defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/,http://eureka-peer3:8763/eureka/
 
+#feign配置
+feign:
+  hystrix:
+    enabled: true
+
 #让控制台打印自动配置报告
 debug: false

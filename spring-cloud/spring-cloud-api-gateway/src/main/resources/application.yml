@@ -1,0 +1,26 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: api-gateway
+  #mvc配置
+  mvc:
+    date-format: yyyy-MM-dd
+
+#eureka注册中心配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/,http://eureka-peer3:8763/eureka/
+
+#zuul配置
+zuul:
+  ignored-services: "*"
+  routes:
+    order:
+      serviceId: order-server
+      path: /order/**
+    user:
+      serviceId: user-server
+      path: /user/**

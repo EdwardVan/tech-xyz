@@ -10,6 +10,7 @@
         <module>spring-cloud-eureka</module>
         <module>spring-cloud-user</module>
         <module>spring-cloud-order</module>
+        <module>spring-cloud-api-gateway</module>
     </modules>
     <packaging>pom</packaging>
 

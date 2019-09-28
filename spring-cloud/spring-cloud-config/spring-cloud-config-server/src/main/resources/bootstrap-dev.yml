@@ -1,0 +1,10 @@
+server:
+  port: 5001
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/EdwardVan/tech-xyz # 配置git仓库的地址
+          search-paths: spring-cloud/spring-cloud-config/spring-cloud-config-repo # git仓库地址下的相对地址

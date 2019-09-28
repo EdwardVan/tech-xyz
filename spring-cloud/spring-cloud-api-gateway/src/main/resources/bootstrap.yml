@@ -12,7 +12,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/,http://eureka-peer3:8763/eureka/
+      defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/
 
 #zuul配置
 zuul:

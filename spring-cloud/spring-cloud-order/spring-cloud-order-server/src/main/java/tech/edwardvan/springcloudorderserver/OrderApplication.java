@@ -7,6 +7,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
+ * Idea启动参数:
+ * --server.port=8091
+ * --server.port=8092
+ *
  * @author EdwardVan
  */
 @SpringBootApplication

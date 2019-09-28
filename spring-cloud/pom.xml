@@ -11,6 +11,7 @@
         <module>spring-cloud-user</module>
         <module>spring-cloud-order</module>
         <module>spring-cloud-api-gateway</module>
+        <module>spring-cloud-config</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -122,6 +123,28 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <!--开发环境-->
+            <id>dev</id>
+            <properties>
+                <package.environment>dev</package.environment>
+            </properties>
+            <!-- 是否默认 true表示默认-->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <!-- 生产环境 -->
+            <id>prod</id>
+            <properties>
+                <package.environment>prod</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -139,6 +162,26 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>bootstrap-dev.yml</exclude>
+                    <exclude>bootstrap-prod.yml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <!--读取打包命令中指定的环境-->
+                    <include>bootstrap-${package.environment}.yml</include>
+                    <include>bootstrap.yml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
     <repositories>

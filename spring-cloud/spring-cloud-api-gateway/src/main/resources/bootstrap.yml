@@ -1,9 +1,8 @@
-server:
-  port: 80
-
 spring:
   application:
     name: api-gateway
+  profiles:
+    active: @package.environment@
   #mvc配置
   mvc:
     date-format: yyyy-MM-dd

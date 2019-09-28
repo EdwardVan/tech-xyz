@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
+ * Idea启动参数:
+ * --server.port=5001
+ * --server.port=5002
+ *
  * @author EdwardVan
  */
 @SpringBootApplication

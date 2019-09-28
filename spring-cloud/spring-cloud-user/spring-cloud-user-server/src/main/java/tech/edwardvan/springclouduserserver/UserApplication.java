@@ -7,6 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
+ * Idea启动参数:
+ * --server.port=8081
+ * --server.port=8082
+ *
  * @author EdwardVan
  */
 @SpringBootApplication

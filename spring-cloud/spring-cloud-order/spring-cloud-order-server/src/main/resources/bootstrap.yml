@@ -1,6 +1,8 @@
 spring:
   application:
     name: order-server
+  profiles:
+    active: @package.environment@
   #mvc配置
   mvc:
     date-format: yyyy-MM-dd

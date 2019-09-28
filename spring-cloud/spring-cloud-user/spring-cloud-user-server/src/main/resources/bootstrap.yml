@@ -1,28 +1,12 @@
 spring:
   application:
     name: user-server
+  profiles:
+    active: @package.environment@
   #mvc配置
   mvc:
     date-format: yyyy-MM-dd
-  #数据库配置
-  datasource:
-    druid:
-      url: jdbc:mysql://127.0.0.1:3306/demo_mall
-      username: root
-      password: 123456
-      driver-class-name: com.mysql.jdbc.Driver
-      stat-view-servlet:
-        enabled: true
-        login-username: admin
-        login-password: 123456
-      web-stat-filter:
-        enabled: true
-      filters: stat,wall
-#eureka注册中心配置
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-peer1:8761/eureka/,http://eureka-peer2:8762/eureka/
+
 #mybatis配置
 mybatis:
   #这里是mapper的配置文件
@@ -34,6 +18,3 @@ mybatis:
 logging:
   level:
     tech.edwardvan.springclouduserserver.dao: debug
-
-#让控制台打印自动配置报告
-debug: false

@@ -44,7 +44,7 @@ public class VisitorExample {
     }
 
     /**
-     * 具体访问者B类
+     * 具体访问者A类
      */
     static class ConcreteVisitorA implements Visitor {
         @Override

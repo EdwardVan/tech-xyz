@@ -6,10 +6,12 @@ import tech.edwardvan.basealgorithmstructure.structure.array.ArrayExample2;
  * 数组实现栈
  * 仅允许在栈的一端进行插入和删除运算
  * 这一端被称为栈顶,相对地,把另一端称为栈底.向一个栈插入新元素又称作进栈、入栈或压栈
- *
+ * <p>
  * 实际应用:
  * 1.计算机程序栈
  * 2.撤回操作的实现
+ *
+ * @author EdwardVan
  */
 public class StackExample {
     public static void main(String[] args) {
@@ -25,14 +27,14 @@ public class StackExample {
 
     static public class MyArrayStack<E> implements Stack<E> {
 
-        ArrayExample2.MyArray<E> array;
+        ArrayExample2.DynamicArray<E> array;
 
         public MyArrayStack() {
-            array = new ArrayExample2.MyArray();
+            array = new ArrayExample2.DynamicArray();
         }
 
         public MyArrayStack(int capacity) {
-            array = new ArrayExample2.MyArray(capacity);
+            array = new ArrayExample2.DynamicArray(capacity);
         }
 
         @Override

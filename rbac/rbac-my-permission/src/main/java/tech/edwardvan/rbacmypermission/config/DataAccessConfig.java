@@ -1,4 +1,4 @@
-package tech.edwardvan.webssmannotation.config;
+package tech.edwardvan.rbacmypermission.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
  * 数据库相关配置
  */
 @Configuration
-@MapperScan("tech.edwardvan.webssmannotation.dao")
+@MapperScan("tech.edwardvan.rbacmypermission.dao")
 @PropertySource("classpath:jdbc.properties")
 public class DataAccessConfig {
     @Value("${jdbc.driverClassName}")
@@ -66,18 +66,22 @@ public class DataAccessConfig {
         return druid;
     }
 
-    //事务核心管理器,封装了所有事务操作. 依赖于连接池
+    /**
+     * 事务核心管理器
+     */
     @Bean
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    //MyBatis配置
+    /**
+     * MyBatis配置
+     */
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory getSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sessionBean = new SqlSessionFactoryBean();
         sessionBean.setDataSource(dataSource);
-        sessionBean.setTypeAliasesPackage("tech.edwardvan.webssmannotation.model");
+        sessionBean.setTypeAliasesPackage("tech.edwardvan.rbacmypermission.model");
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionBean.setMapperLocations(resolver.getResources("classpath*:mappers/*.xml"));
         SqlSessionFactory sessionFactory = sessionBean.getObject();

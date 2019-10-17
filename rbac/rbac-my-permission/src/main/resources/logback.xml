@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="WEB_NAME" value="rbac-my-permission"/>
+    <property name="LOG_DIR" value="d:/log/"/>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoding>UTF-8</encoding>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <file>${LOG_DIR}${WEB_NAME}.debug.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${WEB_NAME}.debug.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <append>true</append>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <File>${LOG_DIR}${WEB_NAME}.info.log</File>
+        <append>true</append>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${WEB_NAME}.info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <append>true</append>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <File>${LOG_DIR}${WEB_NAME}.warn.log</File>
+        <append>true</append>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${WEB_NAME}.warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <append>true</append>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <File>${LOG_DIR}${WEB_NAME}.error.log</File>
+        <append>true</append>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${WEB_NAME}.error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <append>true</append>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="console"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="info"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="error"/>
+    </root>
+
+</configuration>

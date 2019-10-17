@@ -1,6 +1,6 @@
 package tech.edwardvan.basealgorithmstructure.structure.array;
 
-import tech.edwardvan.util.ArrayUtil;
+import tech.edwardvan.basealgorithmstructure.util.ArrayUtil;
 
 /**
  * 数组的简单使用

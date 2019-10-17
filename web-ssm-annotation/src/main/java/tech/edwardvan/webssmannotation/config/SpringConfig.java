@@ -55,17 +55,6 @@ import tech.edwardvan.webssmannotation.model.User;
 public class SpringConfig {
 
     /**
-     * 必须加上static
-     */
-    @Bean
-    public static PropertyPlaceholderConfigurer loadProperties() {
-        PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
-        FileSystemResource resource = new FileSystemResource(System.getenv().get("CONFIG_PATH") + "dbConfig/web-ssm-annotation.properties");
-        configurer.setLocations(resource);
-        return configurer;
-    }
-
-    /**
      * 条件化配置注册bean
      */
     @Conditional({UserCondition.class})

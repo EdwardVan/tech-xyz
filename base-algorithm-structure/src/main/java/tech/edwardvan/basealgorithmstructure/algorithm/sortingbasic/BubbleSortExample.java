@@ -1,6 +1,6 @@
 package tech.edwardvan.basealgorithmstructure.algorithm.sortingbasic;
 
-import tech.edwardvan.util.ArrayUtil;
+import tech.edwardvan.basealgorithmstructure.util.ArrayUtil;
 
 /**
  * 冒泡排序

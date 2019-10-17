@@ -20,12 +20,8 @@
         <module>web-ssm-xml</module>
         <!--web 注解版-->
         <module>web-ssm-annotation</module>
-        <!--web dubbo版-->
-        <module>web-dubbo</module>
         <!--web springbootb版-->
         <module>web-spring-boot</module>
-        <!--工具类-->
-        <module>util</module>
         <!--java基础-->
         <module>base-java</module>
         <!--设计模式-->
@@ -76,8 +72,6 @@
         <swagger.version>2.9.2</swagger.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>28.1-jre</guava.version>
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-        <httpclient.version>4.5.8</httpclient.version>
         <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
         <xstream.version>1.4.11.1</xstream.version>
         <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
@@ -280,11 +274,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons.collections4.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>

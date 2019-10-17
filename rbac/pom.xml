@@ -9,6 +9,7 @@
     <modules>
         <module>rbac-spring-security</module>
         <module>rbac-apache-shiro</module>
+        <module>rbac-my-permission</module>
     </modules>
     <packaging>pom</packaging>
     <name>rbac</name>

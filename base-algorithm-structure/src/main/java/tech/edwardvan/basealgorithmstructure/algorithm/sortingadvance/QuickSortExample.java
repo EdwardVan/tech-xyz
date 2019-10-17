@@ -1,6 +1,6 @@
 package tech.edwardvan.basealgorithmstructure.algorithm.sortingadvance;
 
-import tech.edwardvan.util.ArrayUtil;
+import tech.edwardvan.basealgorithmstructure.util.ArrayUtil;
 
 /**
  * 快速排序

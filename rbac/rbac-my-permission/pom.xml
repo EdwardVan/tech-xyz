@@ -119,4 +119,14 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <!--mybatis代码自动生成-->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.7</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

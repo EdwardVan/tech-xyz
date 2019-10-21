@@ -46,12 +46,10 @@
         <spring.version>5.2.0.RELEASE</spring.version>
         <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
         <curator.framework.version>4.2.0</curator.framework.version>
-        <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-        <dubbo.version>2.6.5</dubbo.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
         <druid.version>1.1.20</druid.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-        <mybatis.version>3.5.2</mybatis.version>
+        <mybatis.version>3.5.3</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
         <mybatis.spring.version>2.0.2</mybatis.spring.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
@@ -76,6 +74,10 @@
         <xstream.version>1.4.11.1</xstream.version>
         <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
         <zookeeper.version>3.5.5</zookeeper.version>
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <validation.api.version>2.0.1.Final</validation.api.version>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <hibernate.validator.version>6.0.17.Final</hibernate.validator.version>
     </properties>
     <!--
         只是对jar包版本进行管理,不会实际引入jar
@@ -259,6 +261,20 @@
             </dependency>
             <!--jackson end-->
 
+
+            <!-- validator start  -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.validator.version}</version>
+            </dependency>
+            <!-- validator end  -->
+
             <!--工具类 start-->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -292,11 +308,7 @@
             </dependency>
             <!--工具类 end-->
 
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>${dubbo.version}</version>
-            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

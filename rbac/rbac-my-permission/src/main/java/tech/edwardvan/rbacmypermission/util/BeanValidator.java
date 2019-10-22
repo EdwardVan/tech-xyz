@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.collections4.MapUtils;
+import tech.edwardvan.rbacmypermission.exception.ParamException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -60,10 +61,10 @@ public class BeanValidator {
         }
     }
 
-    public static void check(Object param) {
-        Map<String, String> map = BeanValidator.validateObject(param);
+    public static void check(Object object) {
+        Map<String, String> map = BeanValidator.validateObject(object);
         if (MapUtils.isNotEmpty(map)) {
-            throw new RuntimeException(map.toString());
+            throw new ParamException(map.toString());
         }
     }
 }

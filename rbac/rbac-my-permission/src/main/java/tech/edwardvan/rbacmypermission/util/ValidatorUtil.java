@@ -17,7 +17,7 @@ import java.util.*;
  *
  * @author EdwardVan
  */
-public class BeanValidator {
+public class ValidatorUtil {
 
     private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 
@@ -62,7 +62,7 @@ public class BeanValidator {
     }
 
     public static void check(Object object) {
-        Map<String, String> map = BeanValidator.validateObject(object);
+        Map<String, String> map = ValidatorUtil.validateObject(object);
         if (MapUtils.isNotEmpty(map)) {
             throw new ParamException(map.toString());
         }

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "tech.edwardvan.rbacmypermission.controller")
-@Import({SpringExceptionResolver.class})
+@Import({SpringExceptionResolver.class, SwaggerConfig.class})
 public class SpringMvcConfig implements WebMvcConfigurer {
 
     @Override

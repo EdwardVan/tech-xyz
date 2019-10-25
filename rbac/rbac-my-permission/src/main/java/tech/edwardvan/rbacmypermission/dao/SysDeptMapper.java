@@ -1,5 +1,6 @@
 package tech.edwardvan.rbacmypermission.dao;
 
+import org.apache.ibatis.annotations.Param;
 import tech.edwardvan.rbacmypermission.dto.DeptTreeDto;
 import tech.edwardvan.rbacmypermission.model.SysDept;
 
@@ -19,4 +20,8 @@ public interface SysDeptMapper {
     int updateByPrimaryKey(SysDept record);
 
     List<DeptTreeDto> getTreeByParentId(Integer parentId);
+
+    int countByNameAndParentIdAndDeptId(@Param("parentId") Integer parentId, @Param("name") String name, @Param("id") Integer id);
+
+    int countByParentId(int parentId);
 }

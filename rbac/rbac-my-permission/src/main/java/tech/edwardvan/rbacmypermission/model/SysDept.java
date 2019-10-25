@@ -1,11 +1,15 @@
 package tech.edwardvan.rbacmypermission.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class SysDept {
+
     private Integer id;
 
     private String name;

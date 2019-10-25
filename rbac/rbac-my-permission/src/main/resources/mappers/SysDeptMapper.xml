@@ -160,4 +160,26 @@
         where parent_id = #{parentId,jdbcType=INTEGER}
         order by seq
     </select>
+    <select id="countByNameAndParentIdAndDeptId" resultType="int">
+        select
+        count(*)
+        from sys_dept
+        where name = #{name,jdbcType=VARCHAR}
+        <if test="parentId != null">
+            and parent_id = #{parentId,jdbcType=INTEGER}
+        </if>
+        <if test="id != null">
+            and id != #{id,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="countByParentId" resultType="int">
+        select
+        count(*)
+        from sys_dept
+        <where>
+            <if test="parentId != null">
+                and parent_id = #{parentId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
 </mapper>

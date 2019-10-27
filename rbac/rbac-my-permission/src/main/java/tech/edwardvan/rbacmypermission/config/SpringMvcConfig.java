@@ -25,7 +25,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp("/views/", ".jsp");
+        registry.jsp("/WEB-INF/views/", ".jsp");
     }
 
     @Override

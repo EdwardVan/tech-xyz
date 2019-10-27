@@ -39,7 +39,7 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
         else if (url.endsWith(".page")) {
             log.error("unknown page exception, url:" + url, ex);
             ServerResponse error = ServerResponse.error(defaultMsg);
-            mv = new ModelAndView("error", error.toMap());
+            mv = new ModelAndView("/WEB-INF/views/error.jsp", error.toMap());
         } else {
             log.error("unknow exception, url:" + url, ex);
             ServerResponse error = ServerResponse.error(defaultMsg);

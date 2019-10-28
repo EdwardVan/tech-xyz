@@ -1,5 +1,6 @@
 package tech.edwardvan.rbacmypermission.dao;
 
+import org.apache.ibatis.annotations.Param;
 import tech.edwardvan.rbacmypermission.model.SysUser;
 
 public interface SysUserMapper {
@@ -14,4 +15,8 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    int countByMail(@Param("mail") String mail, @Param("id") Integer id);
+
+    int countByTelephone(@Param("telephone") String telephone, @Param("id") Integer id);
 }

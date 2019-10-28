@@ -1,8 +1,6 @@
 package tech.edwardvan.rbacmypermission.param;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -12,9 +10,7 @@ import javax.validation.constraints.NotNull;
  * 部门参数
  * @author EdwardVan
  */
-@Getter
-@Setter
-@ToString
+@Data
 public class DeptParam {
 
     private Integer id;

@@ -3,6 +3,7 @@ package tech.edwardvan.rbacmypermission.service;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.edwardvan.rbacmypermission.common.RequestHolder;
 import tech.edwardvan.rbacmypermission.dao.SysDeptMapper;
 import tech.edwardvan.rbacmypermission.dto.DeptTreeDto;
 import tech.edwardvan.rbacmypermission.exception.ParamException;
@@ -33,7 +34,7 @@ public class SysDeptService {
         SysDept sysDept = SysDept.builder().name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
         sysDept.setOperateIp("ip");
-        sysDept.setOperator("admin");
+        sysDept.setOperator(RequestHolder.getCurrentUser().getUsername());
         sysDept.setOperateTime(new Date());
         //插入数据库
         sysDeptMapper.insertSelective(sysDept);
@@ -51,7 +52,7 @@ public class SysDeptService {
         SysDept after = SysDept.builder().id(param.getId()).name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
         after.setOperateIp("ip");
-        after.setOperator("admin");
+        after.setOperator(RequestHolder.getCurrentUser().getUsername());
         after.setOperateTime(new Date());
 
         //更新数据库

@@ -324,12 +324,12 @@
         function loadUserList(deptId) {
             var pageSize = $("#pageSize").val();
             var url = "/sys/user/page.json?deptId=" + deptId;
-            var pageNo = $("#userPage .pageNo").val() || 1;
+            var pageNumber = $("#userPage .pageNumber").val() || 1;
             $.ajax({
                 url : url,
                 data: {
                     pageSize: pageSize,
-                    pageNo: pageNo
+                    pageNumber: pageNumber
                 },
                 success: function (result) {
                     renderUserListAndPage(result, url);
@@ -370,8 +370,8 @@
                     $("#userList").html('');
                 }
                 var pageSize = $("#pageSize").val();
-                var pageNo = $("#userPage .pageNo").val() || 1;
-                renderPage(url, result.data.total, pageNo, pageSize, result.data.total > 0 ? result.data.data.length : 0, "userPage", renderUserListAndPage);
+                var pageNumber = $("#userPage .pageNumber").val() || 1;
+                renderPage(url, result.data.total, pageNumber, pageSize, result.data.total > 0 ? result.data.data.length : 0, "userPage", renderUserListAndPage);
             } else {
                 showMessage("获取部门下用户列表", result.msg, false);
             }

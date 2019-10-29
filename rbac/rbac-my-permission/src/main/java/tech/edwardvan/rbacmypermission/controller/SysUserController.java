@@ -9,12 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import tech.edwardvan.rbacmypermission.common.PageQuery;
+import tech.edwardvan.rbacmypermission.common.PageResult;
 import tech.edwardvan.rbacmypermission.common.ServerResponse;
+import tech.edwardvan.rbacmypermission.model.SysUser;
 import tech.edwardvan.rbacmypermission.param.UserParam;
-import tech.edwardvan.rbacmypermission.service.SysDeptService;
 import tech.edwardvan.rbacmypermission.service.SysUserService;
 
-import java.util.List;
 
 /**
  * 用户Controller
@@ -64,5 +65,19 @@ public class SysUserController {
         sysUserService.update(param);
         return ServerResponse.success();
     }
+
+    @ApiOperation(value = "通过部门id获取用户列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "deptId", value = "部门id", required = true),
+            @ApiImplicitParam(paramType = "query", name = "pageNumber", value = "当前页码", defaultValue = "1"),
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "每页显示条数", defaultValue = "10")
+    })
+    @GetMapping("/page.json")
+    @ResponseBody
+    public ServerResponse page(@RequestParam("deptId") int deptId, PageQuery pageQuery) {
+        PageResult<SysUser> result = sysUserService.getPageByDeptId(deptId, pageQuery);
+        return ServerResponse.success(result);
+    }
+
 
 }

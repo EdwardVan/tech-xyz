@@ -3,6 +3,9 @@ package tech.edwardvan.rbacmypermission.service;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.edwardvan.rbacmypermission.common.PageQuery;
+import tech.edwardvan.rbacmypermission.common.PageResult;
+import tech.edwardvan.rbacmypermission.common.RequestHolder;
 import tech.edwardvan.rbacmypermission.dao.SysDeptMapper;
 import tech.edwardvan.rbacmypermission.dao.SysUserMapper;
 import tech.edwardvan.rbacmypermission.dto.DeptTreeDto;
@@ -33,11 +36,11 @@ public class SysUserService {
             throw new ParamException("邮箱已被占用");
         }
 
-        String password = password = "12345678";
+        String password = "12345678";
         String encryptedPassword = MD5Util.encrypt(password);
         SysUser user = SysUser.builder().username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
-                .password(password).deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
-        user.setOperator("admin");
+                .password(encryptedPassword).deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
+        user.setOperator(RequestHolder.getCurrentUser().getUsername());
         user.setOperateIp("127.0.0.1");
         user.setOperateTime(new Date());
 
@@ -57,7 +60,7 @@ public class SysUserService {
 
         SysUser after = SysUser.builder().id(param.getId()).username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
                 .deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
-        after.setOperator("admin");
+        after.setOperator(RequestHolder.getCurrentUser().getUsername());
         after.setOperateIp("127.0.0.1");
         after.setOperateTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
@@ -76,5 +79,28 @@ public class SysUserService {
      */
     public boolean checkTelephoneExist(String telephone, Integer userId) {
         return sysUserMapper.countByTelephone(telephone, userId) > 0;
+    }
+
+    /**
+     * 通过keyword获取用户
+     */
+    public SysUser findByKeyword(String keyword) {
+        return sysUserMapper.findByKeyword(keyword);
+    }
+
+    /**
+     * 获取用户信息
+     * @param deptId 部门id
+     * @param pageQuery 分页对象
+     * @return
+     */
+    public PageResult<SysUser> getPageByDeptId(int deptId, PageQuery pageQuery) {
+        ValidatorUtil.check(pageQuery);
+        int count = sysUserMapper.countByDeptId(deptId);
+        if (count > 0) {
+            List<SysUser> sysUserList = sysUserMapper.getPageByDeptId(deptId, pageQuery);
+            return PageResult.<SysUser>builder().total(count).data(sysUserList).build();
+        }
+        return PageResult.<SysUser>builder().build();
     }
 }

@@ -179,4 +179,23 @@
             and id != #{id,jdbcType=INTEGER}
         </if>
     </select>
+    <select id="findByKeyword" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_user
+        WHERE telephone = #{keyword} OR mail = #{keyword}
+    </select>
+    <select id="getPageByDeptId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM sys_user
+        WHERE dept_id = #{deptId}
+        ORDER BY username ASC
+        LIMIT #{page.offset}, #{page.pageSize}
+    </select>
+    <select id="countByDeptId" resultType="int">
+        select
+        count(*)
+        FROM sys_user
+        WHERE dept_id = #{deptId}
+    </select>
 </mapper>

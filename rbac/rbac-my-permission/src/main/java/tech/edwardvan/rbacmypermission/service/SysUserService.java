@@ -13,6 +13,7 @@ import tech.edwardvan.rbacmypermission.exception.ParamException;
 import tech.edwardvan.rbacmypermission.model.SysDept;
 import tech.edwardvan.rbacmypermission.model.SysUser;
 import tech.edwardvan.rbacmypermission.param.UserParam;
+import tech.edwardvan.rbacmypermission.util.IpUtil;
 import tech.edwardvan.rbacmypermission.util.MD5Util;
 import tech.edwardvan.rbacmypermission.util.ValidatorUtil;
 
@@ -41,7 +42,7 @@ public class SysUserService {
         SysUser user = SysUser.builder().username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
                 .password(encryptedPassword).deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
         user.setOperator(RequestHolder.getCurrentUser().getUsername());
-        user.setOperateIp("127.0.0.1");
+        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperateTime(new Date());
 
         sysUserMapper.insertSelective(user);
@@ -61,7 +62,7 @@ public class SysUserService {
         SysUser after = SysUser.builder().id(param.getId()).username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
                 .deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
         after.setOperator(RequestHolder.getCurrentUser().getUsername());
-        after.setOperateIp("127.0.0.1");
+        after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
     }
@@ -90,7 +91,8 @@ public class SysUserService {
 
     /**
      * 获取用户信息
-     * @param deptId 部门id
+     *
+     * @param deptId    部门id
      * @param pageQuery 分页对象
      * @return
      */

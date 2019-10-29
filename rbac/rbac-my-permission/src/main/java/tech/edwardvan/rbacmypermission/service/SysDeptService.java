@@ -9,6 +9,7 @@ import tech.edwardvan.rbacmypermission.dto.DeptTreeDto;
 import tech.edwardvan.rbacmypermission.exception.ParamException;
 import tech.edwardvan.rbacmypermission.model.SysDept;
 import tech.edwardvan.rbacmypermission.param.DeptParam;
+import tech.edwardvan.rbacmypermission.util.IpUtil;
 import tech.edwardvan.rbacmypermission.util.ValidatorUtil;
 
 import java.util.Date;
@@ -33,7 +34,7 @@ public class SysDeptService {
         //拼装对象
         SysDept sysDept = SysDept.builder().name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
-        sysDept.setOperateIp("ip");
+        sysDept.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         sysDept.setOperator(RequestHolder.getCurrentUser().getUsername());
         sysDept.setOperateTime(new Date());
         //插入数据库
@@ -51,7 +52,7 @@ public class SysDeptService {
 
         SysDept after = SysDept.builder().id(param.getId()).name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
-        after.setOperateIp("ip");
+        after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperator(RequestHolder.getCurrentUser().getUsername());
         after.setOperateTime(new Date());
 

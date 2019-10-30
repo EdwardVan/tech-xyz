@@ -506,8 +506,8 @@
                         blank += "∟";
                     }
                     optionStr += Mustache.render("<option value='{{id}}'>{{name}}</option>", {id: dept.id, name: blank + dept.name});
-                    if (dept.deptList && dept.deptList.length > 0) {
-                        recursiveRenderDeptSelect(dept.deptList, level + 1);
+                    if (dept.children && dept.children.length > 0) {
+                        recursiveRenderDeptSelect(dept.children, level + 1);
                     }
                 });
             }

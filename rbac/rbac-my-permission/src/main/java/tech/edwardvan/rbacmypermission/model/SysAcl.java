@@ -17,7 +17,10 @@ public class SysAcl {
     private Integer aclModuleId;
 
     private String url;
-
+    /**
+     * 类型
+     * 1:菜单,2:按钮,3:其他
+     */
     private Integer type;
 
     private Integer status;

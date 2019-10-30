@@ -51,7 +51,7 @@
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
         <mybatis.version>3.5.3</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-        <mybatis.spring.version>2.0.2</mybatis.spring.version>
+        <mybatis.spring.version>2.0.3</mybatis.spring.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <jackson.version>2.10.0</jackson.version>
         <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
@@ -59,7 +59,7 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.12</junit.version>
         <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
-        <jodatime.version>2.10.4</jodatime.version>
+        <jodatime.version>2.10.5</jodatime.version>
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
         <logback.version>1.2.3</logback.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -77,7 +77,7 @@
         <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
         <validation.api.version>2.0.1.Final</validation.api.version>
         <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-        <hibernate.validator.version>6.0.17.Final</hibernate.validator.version>
+        <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
     </properties>
     <!--
         只是对jar包版本进行管理,不会实际引入jar

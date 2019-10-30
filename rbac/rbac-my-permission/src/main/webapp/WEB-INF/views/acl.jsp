@@ -338,8 +338,8 @@
                         blank += "∟";
                     }
                     optionStr += Mustache.render("<option value='{{id}}'>{{name}}</option>", {id: aclModule.id, name: blank + aclModule.name});
-                    if (aclModule.aclModuleList && aclModule.aclModuleList.length > 0) {
-                        recursiveRenderAclModuleSelect(aclModule.aclModuleList, level + 1);
+                    if (aclModule.children && aclModule.children.length > 0) {
+                        recursiveRenderAclModuleSelect(aclModule.children, level + 1);
                     }
                 });
             }
@@ -466,12 +466,12 @@
         function loadAclList(aclModuleId) {
             var pageSize = $("#pageSize").val();
             var url = "/sys/acl/page.json?aclModuleId=" + aclModuleId;
-            var pageNo = $("#aclPage .pageNo").val() || 1;
+            var pageNumber = $("#aclPage .pageNumber").val() || 1;
             $.ajax({
                 url : url,
                 data: {
                     pageSize: pageSize,
-                    pageNo: pageNo
+                    pageNumber: pageNumber
                 },
                 success: function (result) {
                     renderAclListAndPage(result, url);
@@ -515,8 +515,8 @@
                     $("#aclList").html('');
                 }
                 var pageSize = $("#pageSize").val();
-                var pageNo = $("#aclPage .pageNo").val() || 1;
-                renderPage(url, result.data.total, pageNo, pageSize, result.data.total > 0 ? result.data.data.length : 0, "aclPage", renderAclListAndPage);
+                var pageNumber = $("#aclPage .pageNumber").val() || 1;
+                renderPage(url, result.data.total, pageNumber, pageSize, result.data.total > 0 ? result.data.data.length : 0, "aclPage", renderAclListAndPage);
             } else {
                 showMessage("获取权限点列表", result.msg, false);
             }

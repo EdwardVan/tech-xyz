@@ -1,8 +1,13 @@
 package tech.edwardvan.rbacmypermission.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import tech.edwardvan.rbacmypermission.model.SysUser;
@@ -17,13 +22,20 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author EdwardVan
  */
+@Api(value = "登录模块", tags = "登录模块接口")
 @Controller
 public class LoginController {
 
     @Autowired
     private SysUserService sysUserService;
 
-    @RequestMapping("/login.page")
+
+    @ApiOperation(value = "登录接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "username", value = "手机号/邮箱", defaultValue = "admin@qq.com"),
+            @ApiImplicitParam(paramType = "query", name = "password", value = "密码", defaultValue = "123456")
+    })
+    @PostMapping("/login.page")
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("username");
         String password = request.getParameter("password");

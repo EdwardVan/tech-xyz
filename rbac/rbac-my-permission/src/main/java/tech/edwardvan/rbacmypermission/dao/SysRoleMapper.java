@@ -1,6 +1,9 @@
 package tech.edwardvan.rbacmypermission.dao;
 
+import org.apache.ibatis.annotations.Param;
 import tech.edwardvan.rbacmypermission.model.SysRole;
+
+import java.util.List;
 
 public interface SysRoleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    int countByNameAndRoleId(@Param("name") String name, @Param("id") Integer id);
+
+    List<SysRole> selectAll();
 }

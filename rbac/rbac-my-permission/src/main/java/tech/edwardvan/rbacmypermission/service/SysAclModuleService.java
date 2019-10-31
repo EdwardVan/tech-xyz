@@ -29,9 +29,6 @@ public class SysAclModuleService {
     @Autowired
     private SysAclModuleMapper sysAclModuleMapper;
 
-    @Autowired
-    private SysAclMapper sysAclMapper;
-
     public void save(AclModuleParam param) {
         ValidatorUtil.check(param);
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
@@ -84,4 +81,5 @@ public class SysAclModuleService {
     public List<AclModuleTreeDto> getAclModuleTree(Integer parentId) {
         return sysAclModuleMapper.getTreeByParentId(parentId);
     }
+
 }

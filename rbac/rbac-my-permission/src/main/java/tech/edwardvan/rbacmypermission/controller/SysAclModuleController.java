@@ -69,11 +69,12 @@ public class SysAclModuleController {
     }
 
 
-    @ApiOperation(value = "获取权限模块树")
+    @ApiOperation(value = "获取权限模块树(不包含权限列表)")
     @ApiImplicitParam(paramType = "query", name = "parentId", value = "父级权限模块id", defaultValue = "0")
     @GetMapping("tree.json")
     @ResponseBody
     public ServerResponse tree(@RequestParam(name = "parentId", defaultValue = "0") Integer parentId) {
         return ServerResponse.success(sysAclModuleService.getAclModuleTree(parentId));
     }
+
 }

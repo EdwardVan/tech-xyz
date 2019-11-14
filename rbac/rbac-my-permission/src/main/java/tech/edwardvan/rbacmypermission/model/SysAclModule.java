@@ -26,7 +26,10 @@ public class SysAclModule {
     private String level;
 
     private Integer seq;
-
+    /**
+     * 状态
+     * 1:正常,0:冻结
+     */
     private Integer status;
 
     private String remark;

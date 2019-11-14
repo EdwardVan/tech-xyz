@@ -262,7 +262,7 @@
                 return;
             }
             $.ajax({
-                url: "/sys/role/roleTree.json",
+                url: "/sys/role/aclModuleTreeByRoleId.json",
                 data : {
                     roleId: selectedRoleId
                 },
@@ -308,8 +308,7 @@
                             zTreeObj.push({
                                 id: aclPrefix + acl.id,
                                 pId: modulePrefix + acl.aclModuleId,
-                                name: acl.name + ((acl.type == 1) ? '(菜单)' : ''),
-                                chkDisabled: !acl.hasAcl,
+                                name: acl.name + ((acl.type == 1) ? '(菜单)' : (acl.type == 2) ? '(按钮)': ''),
                                 checked: acl.checked,
                                 dataId: acl.id
                             });
@@ -318,7 +317,7 @@
                             }
                         });
                     }
-                    if ((aclModule.aclModuleList && aclModule.aclModuleList.length > 0) ||
+                    if ((aclModule.children && aclModule.children.length > 0) ||
                         (aclModule.aclList && aclModule.aclList.length > 0)) {
                         nodeMap[modulePrefix + aclModule.id] = {
                             id : modulePrefix + aclModule.id,
@@ -339,7 +338,7 @@
                             tempAclModule = nodeMap[tempAclModule.pId];
                         }
                     }
-                    recursivePrepareTreeData(aclModule.aclModuleList);
+                    recursivePrepareTreeData(aclModule.children);
                 });
             }
         }

@@ -24,4 +24,6 @@ public interface SysAclModuleMapper {
     int countByParentId(Integer id);
 
     List<AclModuleTreeDto> getTreeByParentId(Integer parentId);
+
+    List<AclModuleTreeDto> getTreeIncludeAclByParentId(Integer parentId);
 }

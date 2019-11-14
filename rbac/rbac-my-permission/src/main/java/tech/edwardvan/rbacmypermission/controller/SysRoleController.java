@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import tech.edwardvan.rbacmypermission.common.ServerResponse;
 import tech.edwardvan.rbacmypermission.param.RoleParam;
+import tech.edwardvan.rbacmypermission.service.SysRoleAclService;
 import tech.edwardvan.rbacmypermission.service.SysRoleService;
 
 @Api(value = "角色模块", tags = "角色模块接口")
@@ -20,6 +21,9 @@ public class SysRoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
+
+    @Autowired
+    private SysRoleAclService sysRoleAclService;
 
     @RequestMapping("role.page")
     public ModelAndView page() {
@@ -49,6 +53,7 @@ public class SysRoleController {
         sysRoleService.update(param);
         return ServerResponse.success();
     }
+
     @ApiOperation(value = "所有角色列表")
     @GetMapping("/list.json")
     @ResponseBody
@@ -56,5 +61,12 @@ public class SysRoleController {
         return ServerResponse.success(sysRoleService.getAll());
     }
 
+    @ApiOperation(value = "通过角色id获取权限模块树(包含权限列表)")
+    @ApiImplicitParam(paramType = "query", name = "roleId", value = "角色id", required = true)
+    @PostMapping("aclModuleTreeByRoleId.json")
+    @ResponseBody
+    public ServerResponse tree(@RequestParam(name = "roleId") Integer roleId) {
+        return ServerResponse.success(sysRoleAclService.aclModuleTreeByRoleId(roleId));
+    }
 
 }

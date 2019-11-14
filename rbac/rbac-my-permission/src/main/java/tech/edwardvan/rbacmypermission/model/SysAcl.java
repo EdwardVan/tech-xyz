@@ -27,6 +27,10 @@ public class SysAcl {
      */
     private Integer type;
 
+    /**
+     * 状态
+     * 1:正常,0:冻结
+     */
     private Integer status;
 
     private Integer seq;

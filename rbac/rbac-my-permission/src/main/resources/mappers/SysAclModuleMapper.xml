@@ -27,6 +27,22 @@
         <collection property="children" javaType="ArrayList" column="id"
                     ofType="tech.edwardvan.rbacmypermission.dto.DeptTreeDto" select="getTreeByParentId"></collection>
     </resultMap>
+    <resultMap id="AclModuleIncludeAclTreeResultMap" type="tech.edwardvan.rbacmypermission.dto.AclModuleTreeDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="seq" jdbcType="INTEGER" property="seq"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="operator" jdbcType="VARCHAR" property="operator"/>
+        <result column="operate_time" jdbcType="TIMESTAMP" property="operateTime"/>
+        <result column="operate_ip" jdbcType="VARCHAR" property="operateIp"/>
+        <collection property="children" javaType="ArrayList" column="id"
+                    ofType="tech.edwardvan.rbacmypermission.dto.DeptTreeDto" select="getTreeIncludeAclByParentId"></collection>
+        <collection property="aclList" javaType="ArrayList" column="id"
+                    ofType="tech.edwardvan.rbacmypermission.dto.AclDto" select="tech.edwardvan.rbacmypermission.dao.SysAclMapper.getAclDtosByAclModuleId"></collection>
+    </resultMap>
     <sql id="Base_Column_List">
     id, name, parent_id, level, seq, status, remark, operator, operate_time, operate_ip
   </sql>
@@ -168,6 +184,14 @@
         <include refid="Base_Column_List"/>
         from sys_acl_module
         where parent_id = #{parentId,jdbcType=INTEGER}
+        order by seq
+    </select>
+    <select id="getTreeIncludeAclByParentId" resultMap="AclModuleIncludeAclTreeResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_acl_module
+        where parent_id = #{parentId,jdbcType=INTEGER}
+        and status = 1
         order by seq
     </select>
     <select id="countByParentId" resultType="int">

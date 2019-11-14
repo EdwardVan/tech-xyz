@@ -13,6 +13,9 @@ import tech.edwardvan.rbacmypermission.common.ServerResponse;
 import tech.edwardvan.rbacmypermission.param.RoleParam;
 import tech.edwardvan.rbacmypermission.service.SysRoleAclService;
 import tech.edwardvan.rbacmypermission.service.SysRoleService;
+import tech.edwardvan.rbacmypermission.util.StringUtil;
+
+import java.util.List;
 
 @Api(value = "角色模块", tags = "角色模块接口")
 @Controller
@@ -67,6 +70,19 @@ public class SysRoleController {
     @ResponseBody
     public ServerResponse tree(@RequestParam(name = "roleId") Integer roleId) {
         return ServerResponse.success(sysRoleAclService.aclModuleTreeByRoleId(roleId));
+    }
+
+    @ApiOperation(value = "更改角色对应的权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "roleId", value = "角色id", required = true),
+            @ApiImplicitParam(paramType = "query", name = "aclIds", value = "权限id集合字符串", required = true)
+    })
+    @PostMapping("/changeAcls.json")
+    @ResponseBody
+    public ServerResponse changeAcls(@RequestParam("roleId") int roleId, @RequestParam(value = "aclIds", required = false, defaultValue = "") String aclIds) {
+        List<Integer> aclIdList = StringUtil.splitToListInt(aclIds);
+        sysRoleAclService.changeRoleAcls(roleId, aclIdList);
+        return ServerResponse.success();
     }
 
 }

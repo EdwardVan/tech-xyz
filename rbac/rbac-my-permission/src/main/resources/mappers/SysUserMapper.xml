@@ -198,4 +198,8 @@
         FROM sys_user
         WHERE dept_id = #{deptId}
     </select>
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM sys_user
+    </select>
 </mapper>

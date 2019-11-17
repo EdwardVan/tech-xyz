@@ -425,7 +425,7 @@
 
         function loadRoleUser(selectedRoleId) {
             $.ajax({
-                url: "/sys/role/users.json",
+                url: "/sys/role/usersByRoleId.json",
                 data: {
                     roleId: selectedRoleId
                 },

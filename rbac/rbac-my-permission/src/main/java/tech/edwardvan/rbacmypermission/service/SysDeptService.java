@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.edwardvan.rbacmypermission.common.RequestHolder;
 import tech.edwardvan.rbacmypermission.dao.SysDeptMapper;
+import tech.edwardvan.rbacmypermission.dao.SysUserMapper;
 import tech.edwardvan.rbacmypermission.dto.DeptTreeDto;
 import tech.edwardvan.rbacmypermission.exception.ParamException;
 import tech.edwardvan.rbacmypermission.model.SysDept;
@@ -20,6 +21,9 @@ public class SysDeptService {
 
     @Autowired
     private SysDeptMapper sysDeptMapper;
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
     public List<DeptTreeDto> getDeptTree(Integer parentId) {
         return sysDeptMapper.getTreeByParentId(parentId);
@@ -68,7 +72,9 @@ public class SysDeptService {
             throw new ParamException("当前部门下面有子部门，无法删除");
         }
         //判断是否存在用户
-        //TODO
+        if(sysUserMapper.countByDeptId(dept.getId()) > 0) {
+            throw new ParamException("当前部门下面有用户，无法删除");
+        }
         sysDeptMapper.deleteByPrimaryKey(deptId);
     }
 

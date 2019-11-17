@@ -221,4 +221,10 @@
         and status = 1
         ORDER BY seq ASC
     </select>
+    <select id="getByUrl" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_acl
+        WHERE url = #{url}
+    </select>
 </mapper>

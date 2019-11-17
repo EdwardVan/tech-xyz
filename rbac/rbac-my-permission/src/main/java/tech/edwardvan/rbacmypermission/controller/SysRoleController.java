@@ -13,6 +13,7 @@ import tech.edwardvan.rbacmypermission.common.ServerResponse;
 import tech.edwardvan.rbacmypermission.param.RoleParam;
 import tech.edwardvan.rbacmypermission.service.SysRoleAclService;
 import tech.edwardvan.rbacmypermission.service.SysRoleService;
+import tech.edwardvan.rbacmypermission.service.SysRoleUserService;
 import tech.edwardvan.rbacmypermission.util.StringUtil;
 
 import java.util.List;
@@ -27,6 +28,10 @@ public class SysRoleController {
 
     @Autowired
     private SysRoleAclService sysRoleAclService;
+
+    @Autowired
+    private SysRoleUserService sysRoleUserService;
+
 
     @RequestMapping("role.page")
     public ModelAndView page() {
@@ -68,7 +73,7 @@ public class SysRoleController {
     @ApiImplicitParam(paramType = "query", name = "roleId", value = "角色id", required = true)
     @PostMapping("aclModuleTreeByRoleId.json")
     @ResponseBody
-    public ServerResponse tree(@RequestParam(name = "roleId") Integer roleId) {
+    public ServerResponse aclModuleTreeByRoleId(@RequestParam(name = "roleId") Integer roleId) {
         return ServerResponse.success(sysRoleAclService.aclModuleTreeByRoleId(roleId));
     }
 
@@ -85,4 +90,19 @@ public class SysRoleController {
         return ServerResponse.success();
     }
 
+    @ApiOperation(value = "通过角色id获取用户列表")
+    @ApiImplicitParam(paramType = "query", name = "roleId", value = "角色id", required = true)
+    @PostMapping("/usersByRoleId.json")
+    @ResponseBody
+    public ServerResponse usersByRoleId(@RequestParam(name = "roleId") Integer roleId) {
+        return ServerResponse.success(sysRoleUserService.usersByRoleId(roleId));
+    }
+
+    @RequestMapping("/changeUsers.json")
+    @ResponseBody
+    public ServerResponse changeUsers(@RequestParam("roleId") int roleId, @RequestParam(value = "userIds", required = false, defaultValue = "") String userIds) {
+        List<Integer> userIdList = StringUtil.splitToListInt(userIds);
+        sysRoleUserService.changeRoleUsers(roleId, userIdList);
+        return ServerResponse.success();
+    }
 }

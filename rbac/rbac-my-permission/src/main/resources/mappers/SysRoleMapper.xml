@@ -138,4 +138,10 @@
         <include refid="Base_Column_List"/>
         FROM sys_role
     </select>
+    <select id="countByTypeAndUserId" resultType="int">
+        SELECT count(*) from sys_role
+        WHERE
+        id in (SELECT role_id from sys_role_user where user_id = #{userId})
+        and status = 1 and type = #{type}
+    </select>
 </mapper>

@@ -226,5 +226,19 @@
         <include refid="Base_Column_List" />
         FROM sys_acl
         WHERE url = #{url}
+        and status = 1
+    </select>
+    <select id="getByUserId" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            sys_acl
+        WHERE
+            id IN (
+                SELECT acl_id FROM sys_role_acl WHERE role_id IN
+                (
+                    SELECT role_id FROM sys_role_user WHERE user_id = #{userId}
+                )
+            ) and status = 1
     </select>
 </mapper>

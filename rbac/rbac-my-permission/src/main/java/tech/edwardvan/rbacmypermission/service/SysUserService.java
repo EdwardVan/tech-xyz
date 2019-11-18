@@ -8,6 +8,7 @@ import tech.edwardvan.rbacmypermission.common.PageQuery;
 import tech.edwardvan.rbacmypermission.common.PageResult;
 import tech.edwardvan.rbacmypermission.common.RequestHolder;
 import tech.edwardvan.rbacmypermission.dao.SysAclMapper;
+import tech.edwardvan.rbacmypermission.dao.SysRoleMapper;
 import tech.edwardvan.rbacmypermission.dao.SysUserMapper;
 import tech.edwardvan.rbacmypermission.exception.ParamException;
 import tech.edwardvan.rbacmypermission.model.SysAcl;
@@ -31,6 +32,9 @@ public class SysUserService {
     @Autowired
     private SysAclMapper sysAclMapper;
 
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+
 
     public void save(UserParam param) {
         //校验参数
@@ -42,7 +46,7 @@ public class SysUserService {
             throw new ParamException("邮箱已被占用");
         }
 
-        String password = "12345678";
+        String password = "123456";
         String encryptedPassword = MD5Util.encrypt(password);
         SysUser user = SysUser.builder().username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
                 .password(encryptedPassword).deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
@@ -115,7 +119,6 @@ public class SysUserService {
      * 是否拥有指定url的访问权限
      */
     public boolean hasUrlAcl(String url) {
-        SysUser currentUser = RequestHolder.getCurrentUser();
         //判断是否为管理员
         if (isAdmin()) {
             return true;
@@ -129,21 +132,10 @@ public class SysUserService {
         List<SysAcl> currentUserAclList = getCurrentUserAclList();
         Set<Integer> currentUserAclIdSet = currentUserAclList.stream().map(acl -> acl.getId()).collect(Collectors.toSet());
 
-        //定义是否拥有有效的acl
-        boolean hasValidAcl = false;
-
         for (SysAcl sysAcl : aclList) {
-            if (sysAcl.getStatus() != 1) {
-                continue;
-            }
-            hasValidAcl = true;
             if (currentUserAclIdSet.contains(sysAcl.getId())) {
                 return true;
             }
-        }
-        //是否全部为无效的acl
-        if (!hasValidAcl) {
-            return true;
         }
 
         return false;
@@ -153,8 +145,7 @@ public class SysUserService {
      * 当前登录用户是否为超级管理员
      */
     public boolean isAdmin() {
-        //TODO
-        return false;
+        return sysRoleMapper.countByTypeAndUserId(1, RequestHolder.getCurrentUser().getId()) > 0;
     }
 
     /**
@@ -169,7 +160,6 @@ public class SysUserService {
      * 通过用户id获取用户所拥有的权限
      */
     public List<SysAcl> getUserAclList(int userId) {
-        //TODO
-        return null;
+        return sysAclMapper.getByUserId(userId);
     }
 }

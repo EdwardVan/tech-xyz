@@ -28,4 +28,6 @@ public interface SysAclMapper {
     List<SysAcl> getAclDtosByAclModuleId(@Param("aclModuleId") int aclModuleId);
 
     List<SysAcl> getByUrl(String url);
+
+    List<SysAcl> getByUserId(int userId);
 }

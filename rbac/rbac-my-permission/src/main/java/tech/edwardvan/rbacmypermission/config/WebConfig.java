@@ -57,8 +57,8 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
             HttpServletRequest req = (HttpServletRequest) servletRequest;
             HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-            String url = req.getRequestURL().toString();
-            if ((url.endsWith(".json") || url.endsWith(".page")) && !url.endsWith("/login.page")) {
+            String url = req.getServletPath();
+            if ((url.endsWith(".json") || url.endsWith(".page")) && !url.endsWith("/login.page") && !url.endsWith("/noAuth.jsp")) {
                 SysUser sysUser = (SysUser) req.getSession().getAttribute("user");
                 if (sysUser == null) {
                     String path = "/login.jsp";

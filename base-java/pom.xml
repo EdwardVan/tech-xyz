@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tech.edwardvan</groupId>
     <artifactId>base-java</artifactId>
     <name>base-java</name>
 

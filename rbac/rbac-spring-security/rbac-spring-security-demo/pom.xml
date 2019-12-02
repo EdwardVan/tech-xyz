@@ -11,4 +11,22 @@
     <packaging>jar</packaging>
     <artifactId>rbac-spring-security-demo</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>tech.edwardvan</groupId>
+            <artifactId>rbac-spring-security-browser</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--将应用打包为一个可执行的jar包-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,14 +1,14 @@
 package tech.edwardvan.rbacspringsecuritydemo;
 
-/**
- * Hello world!
- *
- */
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class RbacSpringSecurityDemoApplication
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+/**
+ * @author EdwardVan
+ */
+@SpringBootApplication
+public class RbacSpringSecurityDemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(RbacSpringSecurityDemoApplication.class, args);
     }
 }

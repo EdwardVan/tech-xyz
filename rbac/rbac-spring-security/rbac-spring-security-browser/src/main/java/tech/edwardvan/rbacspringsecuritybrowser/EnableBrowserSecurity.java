@@ -1,5 +1,6 @@
 package tech.edwardvan.rbacspringsecuritybrowser;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import tech.edwardvan.rbacspringsecuritybrowser.config.BrowserSecurityConfig;
 

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import tech.edwardvan.rbacspringsecuritycore.properties.SecurityConstants;
 import tech.edwardvan.rbacspringsecuritycore.properties.SpringSecurityProperties;
 
 /**
@@ -38,15 +39,21 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 //使用表单登录
                 .formLogin()
                 //自定义登录页面
-                .loginPage("")
+                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
                 //自定义登陆表单提交请求地址
-                .loginProcessingUrl("")
+                .loginProcessingUrl("/")
                 .and()
                 //授权配置
                 .authorizeRequests()
                 //指定任何用户都可以访问的URL
-                .antMatchers(springSecurityProperties.getBrowser().getLoginPage()).permitAll()
+                .antMatchers(
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        springSecurityProperties.getBrowser().getLoginPage()
+                ).permitAll()
                 //任何尚未匹配的URL只需要对用户进行身份验证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                //关闭csrf
+                .csrf().disable();
     }
 }

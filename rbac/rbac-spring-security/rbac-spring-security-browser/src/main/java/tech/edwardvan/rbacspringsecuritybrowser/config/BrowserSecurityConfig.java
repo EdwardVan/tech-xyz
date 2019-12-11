@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenctiationFailureHandler;
+import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenticationSuccessHandler;
 import tech.edwardvan.rbacspringsecuritycore.properties.SecurityConstants;
 import tech.edwardvan.rbacspringsecuritycore.properties.SpringSecurityProperties;
 
@@ -24,6 +26,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SpringSecurityProperties springSecurityProperties;
+
+    @Autowired
+    private BrowserAuthenticationSuccessHandler browserAuthenticationSuccessHandler;
+
+    @Autowired
+    private BrowserAuthenctiationFailureHandler browserAuthenctiationFailureHandler;
 
     /**
      * 密码加密解密工具
@@ -41,7 +49,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 //自定义登录页面
                 .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
                 //自定义登陆表单提交请求地址
-                .loginProcessingUrl("/")
+                .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
+                //登录成功处理器
+                .successHandler(browserAuthenticationSuccessHandler)
+                //登录失败处理器
+                .failureHandler(browserAuthenctiationFailureHandler)
                 .and()
                 //授权配置
                 .authorizeRequests()

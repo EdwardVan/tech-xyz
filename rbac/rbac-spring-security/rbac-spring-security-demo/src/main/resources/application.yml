@@ -5,4 +5,4 @@ rbac:
   spring:
     security:
       browser:
-        loginPage: /login.html
+        loginSuccessReturnType: JSON

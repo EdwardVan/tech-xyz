@@ -1,6 +1,7 @@
 package tech.edwardvan.rbacspringsecuritydemo.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
+    @GetMapping("me")
+    public Object getCurrentUser(){
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 
     @GetMapping(value = "/{userId}")
     public void getUser(@PathVariable(value = "userId") Integer id) {

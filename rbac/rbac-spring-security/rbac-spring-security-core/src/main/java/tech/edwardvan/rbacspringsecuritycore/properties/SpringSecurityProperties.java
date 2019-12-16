@@ -1,6 +1,3 @@
-/**
- * 
- */
 package tech.edwardvan.rbacspringsecuritycore.properties;
 
 
@@ -9,11 +6,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
 /**
+ * 系统配置映射类
+ *
  * @author EdwardVan
  */
 @ConfigurationProperties(prefix = "rbac.spring.security")
 @Data
 public class SpringSecurityProperties {
-	private BrowserProperties browser = new BrowserProperties();
+    /**
+     * 浏览器端配置
+     */
+    private BrowserProperties browser = new BrowserProperties();
+
+    /**
+     * 验证码配置
+     */
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 }
 

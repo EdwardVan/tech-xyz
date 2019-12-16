@@ -3,6 +3,8 @@ package tech.edwardvan.rbacspringsecuritycore.properties;
 import lombok.Data;
 
 /**
+ * 浏览器端配置类
+ *
  * @author EdwardVan
  */
 @Data

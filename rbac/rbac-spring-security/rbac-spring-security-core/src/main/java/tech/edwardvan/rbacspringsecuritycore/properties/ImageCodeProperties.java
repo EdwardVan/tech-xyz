@@ -13,16 +13,16 @@ public class ImageCodeProperties {
     /**
      * 宽度
      */
-    private int width = 67;
+    private int width = 60;
     /**
      * 高度
      */
-    private int height = 23;
+    private int height = 25;
 
     /**
      * 验证码长度
      */
-    private int length = 6;
+    private int length = 4;
 
     /**
      * 有效时长(s)

@@ -22,7 +22,7 @@ public enum ValidateCodeType {
 
 
     /**
-     * 参数名称
+     * 请求参数名称
      */
     private String paramName;
 

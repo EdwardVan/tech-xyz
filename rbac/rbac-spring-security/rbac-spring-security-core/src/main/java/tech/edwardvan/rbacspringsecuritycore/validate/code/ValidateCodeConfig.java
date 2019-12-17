@@ -19,14 +19,9 @@ import tech.edwardvan.rbacspringsecuritycore.validate.code.image.ImageValidateCo
 @EnableConfigurationProperties(SpringSecurityProperties.class)
 public class ValidateCodeConfig {
 
-    @Autowired
-    private SpringSecurityProperties springSecurityProperties;
-
     @Bean
     @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
     public ValidateCodeGenerator imageValidateCodeGenerator() {
-        ImageValidateCodeGenerator codeGenerator = new ImageValidateCodeGenerator();
-//        codeGenerator.setSpringSecurityProperties(springSecurityProperties);
-        return codeGenerator;
+        return new ImageValidateCodeGenerator();
     }
 }

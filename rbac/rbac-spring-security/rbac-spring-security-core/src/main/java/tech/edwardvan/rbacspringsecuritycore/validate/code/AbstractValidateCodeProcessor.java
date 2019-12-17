@@ -29,27 +29,27 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     private Map<String, ValidateCodeGenerator> validateCodeGenerators;
 
     @Override
-    public void create(ServletWebRequest request) throws Exception {
+    public void create(ServletWebRequest servletWebRequest) throws Exception {
         //生成验证码
-        C validateCode = generate(request);
+        C validateCode = generate(servletWebRequest);
         //保存验证码
-        save(request, validateCode);
+        save(servletWebRequest, validateCode);
         //发送验证码
-        send(request, validateCode);
+        send(servletWebRequest, validateCode);
     }
 
     /**
      * 生成校验码
      */
     @SuppressWarnings("unchecked")
-    private C generate(ServletWebRequest request) {
+    private C generate(ServletWebRequest servletWebRequest) {
         String type = getValidateCodeType().toString().toLowerCase();
         String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
         ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
         if (validateCodeGenerator == null) {
             throw new ValidateCodeException("验证码生成器" + generatorName + "不存在");
         }
-        return (C) validateCodeGenerator.generate(request);
+        return (C) validateCodeGenerator.generate(servletWebRequest);
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * 发送校验码,由子类实现
      * 设计模式:模板方法模式
      */
-    protected abstract void send(ServletWebRequest request, C validateCode) throws Exception;
+    protected abstract void send(ServletWebRequest servletWebRequest, C validateCode) throws Exception;
 
     /**
      * 获取校验码的类型
@@ -89,11 +89,12 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         ValidateCodeType validateCodeType = getValidateCodeType();
         String sessionKey = getSessionKey();
-
+        //获取session中的验证码
         C codeInSession = (C) sessionStrategy.getAttribute(request, sessionKey);
 
         String codeInRequest;
         try {
+            //获取请求中的验证码
             codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),
                     validateCodeType.getParamNameOnValidate());
         } catch (ServletRequestBindingException e) {
@@ -112,7 +113,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
             sessionStrategy.removeAttribute(request, sessionKey);
             throw new ValidateCodeException(validateCodeType + "验证码已过期");
         }
-
+        //session中的验证码与请求中的验证码比较
         if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
             throw new ValidateCodeException(validateCodeType + "验证码不匹配");
         }

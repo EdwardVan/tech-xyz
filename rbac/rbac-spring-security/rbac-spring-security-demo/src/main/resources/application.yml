@@ -6,3 +6,7 @@ rbac:
     security:
       browser:
         loginSuccessReturnType: JSON
+      code:
+        image:
+          width: 50
+

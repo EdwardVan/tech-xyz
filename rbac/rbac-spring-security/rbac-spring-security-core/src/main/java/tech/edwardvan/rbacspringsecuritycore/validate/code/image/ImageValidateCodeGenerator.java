@@ -28,13 +28,11 @@ public class ImageValidateCodeGenerator implements ValidateCodeGenerator {
     @Autowired
     private SpringSecurityProperties springSecurityProperties;
 
-
-
     @Override
-    public ImageValidateCode generate(ServletWebRequest request) {
-        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width",
+    public ImageValidateCode generate(ServletWebRequest servletWebRequest) {
+        int width = ServletRequestUtils.getIntParameter(servletWebRequest.getRequest(), "width",
                 springSecurityProperties.getCode().getImage().getWidth());
-        int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height",
+        int height = ServletRequestUtils.getIntParameter(servletWebRequest.getRequest(), "height",
                 springSecurityProperties.getCode().getImage().getHeight());
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 

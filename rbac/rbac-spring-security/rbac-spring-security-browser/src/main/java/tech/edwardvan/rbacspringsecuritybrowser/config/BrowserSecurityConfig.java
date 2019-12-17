@@ -9,10 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenctiationFailureHandler;
 import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenticationSuccessHandler;
 import tech.edwardvan.rbacspringsecuritycore.properties.SecurityConstants;
 import tech.edwardvan.rbacspringsecuritycore.properties.SpringSecurityProperties;
+import tech.edwardvan.rbacspringsecuritycore.validate.code.ValidateCodeFilter;
 
 /**
  * BrowserSecurity配置
@@ -33,6 +35,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BrowserAuthenctiationFailureHandler browserAuthenctiationFailureHandler;
 
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
     /**
      * 密码加密解密工具
      */
@@ -44,6 +49,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //使用表单登录
                 .formLogin()
                 //自定义登录页面
@@ -60,7 +66,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 //指定任何用户都可以访问的URL
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        springSecurityProperties.getBrowser().getLoginPage()
+                        springSecurityProperties.getBrowser().getLoginPage(),
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
                 ).permitAll()
                 //任何尚未匹配的URL只需要对用户进行身份验证
                 .anyRequest().authenticated()

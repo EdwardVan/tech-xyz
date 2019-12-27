@@ -17,4 +17,8 @@ public class BrowserProperties {
      * 登录成功跳转配置
      */
     private LoginSuccessReturnType loginSuccessReturnType = LoginSuccessReturnType.JSON;
+    /**
+     * 记住我时间设置(单位:秒)
+     */
+    private int rememberMeSeconds = 3600;
 }

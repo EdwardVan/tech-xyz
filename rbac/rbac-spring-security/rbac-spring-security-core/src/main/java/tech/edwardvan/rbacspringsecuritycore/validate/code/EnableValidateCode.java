@@ -11,6 +11,6 @@ import java.lang.annotation.RetentionPolicy;
  * @author EdwardVan
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Import(ValidateCodeConfig.class)
+@Import(ValidateCodeSecurityConfig.class)
 public @interface EnableValidateCode {
 }

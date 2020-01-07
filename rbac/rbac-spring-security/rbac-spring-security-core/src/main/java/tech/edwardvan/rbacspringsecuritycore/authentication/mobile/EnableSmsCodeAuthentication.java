@@ -1,4 +1,4 @@
-package tech.edwardvan.rbacspringsecuritybrowser;
+package tech.edwardvan.rbacspringsecuritycore.authentication.mobile;
 
 import org.springframework.context.annotation.Import;
 
@@ -6,11 +6,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 开启浏览器端安全
+ * 开启短信登录功能
  *
  * @author EdwardVan
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Import(BrowserSecurityConfig.class)
-public @interface EnableBrowserSecurity {
+@Import(SmsCodeAuthenticationSecurityConfig.class)
+public @interface EnableSmsCodeAuthentication {
 }

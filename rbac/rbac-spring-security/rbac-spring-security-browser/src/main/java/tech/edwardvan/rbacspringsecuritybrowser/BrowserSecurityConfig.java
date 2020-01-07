@@ -1,4 +1,4 @@
-package tech.edwardvan.rbacspringsecuritybrowser.config;
+package tech.edwardvan.rbacspringsecuritybrowser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,9 +15,13 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenctiationFailureHandler;
 import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenticationSuccessHandler;
+import tech.edwardvan.rbacspringsecuritycore.authentication.mobile.EnableSmsCodeAuthentication;
+import tech.edwardvan.rbacspringsecuritycore.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import tech.edwardvan.rbacspringsecuritycore.properties.SecurityConstants;
 import tech.edwardvan.rbacspringsecuritycore.properties.SpringSecurityProperties;
+import tech.edwardvan.rbacspringsecuritycore.validate.code.EnableValidateCode;
 import tech.edwardvan.rbacspringsecuritycore.validate.code.ValidateCodeFilter;
+import tech.edwardvan.rbacspringsecuritycore.validate.code.ValidateCodeSecurityConfig;
 
 import javax.sql.DataSource;
 
@@ -27,7 +31,9 @@ import javax.sql.DataSource;
  * @author EdwardVan
  */
 @Configuration
-@ComponentScan("tech.edwardvan.rbacspringsecuritybrowser")
+@ComponentScan
+@EnableSmsCodeAuthentication
+@EnableValidateCode
 @EnableConfigurationProperties(SpringSecurityProperties.class)
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -48,6 +54,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
     /**
      * 密码加密解密工具
      */
@@ -65,14 +78,17 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         //配置数据源
         jdbcTokenRepository.setDataSource(dataSource);
         //启动自动建表
-        jdbcTokenRepository.setCreateTableOnStartup(true);
+//        jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+            .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+            .apply(validateCodeSecurityConfig)
+                .and()
             //表单登录配置
             .formLogin()
                 //自定义登录页面
@@ -103,8 +119,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 //任何尚未匹配的URL只需要对用户进行身份验证
                 .anyRequest().authenticated()
-            .and()
+                .and()
             //关闭csrf
             .csrf().disable();
+
     }
 }

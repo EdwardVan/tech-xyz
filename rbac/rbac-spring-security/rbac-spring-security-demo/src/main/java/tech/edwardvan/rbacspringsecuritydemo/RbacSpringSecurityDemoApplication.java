@@ -10,7 +10,6 @@ import tech.edwardvan.rbacspringsecuritycore.validate.code.EnableValidateCode;
  */
 @SpringBootApplication
 @EnableBrowserSecurity
-@EnableValidateCode
 public class RbacSpringSecurityDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(RbacSpringSecurityDemoApplication.class, args);

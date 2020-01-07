@@ -69,6 +69,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
         urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
         addUrlToMap(springSecurityProperties.getCode().getImage().getUrls(), ValidateCodeType.IMAGE);
+
+        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
+        addUrlToMap(springSecurityProperties.getCode().getSms().getUrls(), ValidateCodeType.SMS);
     }
 
     /**

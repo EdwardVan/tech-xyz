@@ -36,16 +36,15 @@
             <optional>true</optional>
         </dependency>
         <!--redis-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--        </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-web -->
         <dependency>
             <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-web</artifactId>
-            <version>1.1.6.RELEASE</version>
+            <artifactId>spring-social-security</artifactId>
+            <version>${spring.social.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -55,9 +54,31 @@
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-webmvc</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-web</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>

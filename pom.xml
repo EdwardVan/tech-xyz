@@ -41,9 +41,11 @@
 
     <properties>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
-        <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-        <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
+        <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
+        <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-core -->
+        <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
         <mybatis.version>3.5.3</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
@@ -61,7 +63,7 @@
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <swagger.version>2.9.2</swagger.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <guava.version>28.1-jre</guava.version>
+        <guava.version>28.2-jre</guava.version>
         <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
         <xstream.version>1.4.11.1</xstream.version>
     </properties>
@@ -86,6 +88,18 @@
                 <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-security</artifactId>
+                <version>${spring.social.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-config</artifactId>
+                <version>${spring.social.version}</version>
             </dependency>
 
             <dependency>

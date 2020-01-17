@@ -1,9 +1,7 @@
 package tech.edwardvan.rbacspringsecuritycore.properties;
 
-
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
 
 /**
  * 系统配置映射类
@@ -22,5 +20,10 @@ public class SpringSecurityProperties {
      * 验证码配置
      */
     private ValidateCodeProperties code = new ValidateCodeProperties();
+
+    /**
+     * 第三方登录配置
+     */
+    private SocialProperties social = new SocialProperties();
 }
 

@@ -1,4 +1,4 @@
-package tech.edwardvan.rbacspringsecuritycore.social.qq;
+package tech.edwardvan.rbacspringsecuritycore.social.qq.api;
 
 import lombok.Data;
 
@@ -19,7 +19,7 @@ public class QQUserInfo {
      */
     private String msg;
     /**
-     *
+     * 用户的ID,与QQ号码一一对应
      */
     private String openId;
     /**

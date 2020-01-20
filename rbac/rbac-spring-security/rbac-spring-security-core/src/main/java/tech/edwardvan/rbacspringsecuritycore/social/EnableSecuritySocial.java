@@ -1,7 +1,6 @@
 package tech.edwardvan.rbacspringsecuritycore.social;
 
 import org.springframework.context.annotation.Import;
-import tech.edwardvan.rbacspringsecuritycore.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +11,6 @@ import java.lang.annotation.RetentionPolicy;
  * @author EdwardVan
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Import(SmsCodeAuthenticationSecurityConfig.class)
-public @interface EnableSocial {
+@Import(SecuritySocialConfig.class)
+public @interface EnableSecuritySocial {
 }

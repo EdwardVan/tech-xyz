@@ -16,4 +16,9 @@ rbac:
       code:
         image:
           width: 50
+      social:
+        qq:
+          app-id: 101843871
+          app-secret: 0d0144e363854c3665b56df341bafcdc
+
 

@@ -10,17 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenctiationFailureHandler;
 import tech.edwardvan.rbacspringsecuritybrowser.handler.BrowserAuthenticationSuccessHandler;
 import tech.edwardvan.rbacspringsecuritycore.authentication.mobile.EnableSmsCodeAuthentication;
 import tech.edwardvan.rbacspringsecuritycore.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import tech.edwardvan.rbacspringsecuritycore.properties.SecurityConstants;
 import tech.edwardvan.rbacspringsecuritycore.properties.SpringSecurityProperties;
+import tech.edwardvan.rbacspringsecuritycore.social.EnableSecuritySocial;
 import tech.edwardvan.rbacspringsecuritycore.validate.code.EnableValidateCode;
-import tech.edwardvan.rbacspringsecuritycore.validate.code.ValidateCodeFilter;
 import tech.edwardvan.rbacspringsecuritycore.validate.code.ValidateCodeSecurityConfig;
 
 import javax.sql.DataSource;
@@ -34,6 +34,7 @@ import javax.sql.DataSource;
 @ComponentScan
 @EnableSmsCodeAuthentication
 @EnableValidateCode
+@EnableSecuritySocial
 @EnableConfigurationProperties(SpringSecurityProperties.class)
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -47,9 +48,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private BrowserAuthenctiationFailureHandler browserAuthenctiationFailureHandler;
 
     @Autowired
-    private ValidateCodeFilter validateCodeFilter;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -60,6 +58,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
+    @Autowired
+    private SpringSocialConfigurer springSocialConfigurer;
 
     /**
      * 密码加密解密工具
@@ -88,6 +89,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
             .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
             .apply(validateCodeSecurityConfig)
+                .and()
+            .apply(springSocialConfigurer)
                 .and()
             //表单登录配置
             .formLogin()

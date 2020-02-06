@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 
 spring:
   datasource:
@@ -18,7 +18,7 @@ rbac:
           width: 50
       social:
         qq:
-          app-id: 101843871
-          app-secret: 0d0144e363854c3665b56df341bafcdc
+          app-id: 101850742
+          app-secret: d031caf5291e18be5bdef0d0f7dfa7c1
 
 

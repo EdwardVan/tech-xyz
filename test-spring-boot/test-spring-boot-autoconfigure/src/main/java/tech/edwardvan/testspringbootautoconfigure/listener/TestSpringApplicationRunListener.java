@@ -8,16 +8,25 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
- * 执行时机:SpringApplication->run()->listeners.starting()等
+ * 运行监听器
+ * <p>
+ * 加载:{@link SpringApplication#getRunListeners(String[])}
  *
  * @author EdwardVan
  */
 @Slf4j
 public class TestSpringApplicationRunListener implements SpringApplicationRunListener {
+
+    private final SpringApplication application;
+
+    private final String[] args;
+
     /**
      * 该方法必须存在,否则启动报错
      */
     public TestSpringApplicationRunListener(SpringApplication application, String[] args) {
+        this.application = application;
+        this.args = args;
     }
 
     @Override

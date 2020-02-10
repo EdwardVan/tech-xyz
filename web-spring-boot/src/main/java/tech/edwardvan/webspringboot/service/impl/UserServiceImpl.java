@@ -51,7 +51,7 @@ public class UserServiceImpl implements IUserService {
      * 注意:
      * 缓存对象要实现Serializable接口
      */
-    @Cacheable(keyGenerator = "testKeyGenerator")
+//    @Cacheable(keyGenerator = "testKeyGenerator")
     @Override
     public User getUserById(Integer id) {
         return userMapper.selectByPrimaryKey(id);

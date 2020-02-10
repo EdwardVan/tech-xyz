@@ -2,18 +2,34 @@ package tech.edwardvan.webspringboot;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import tech.edwardvan.testspringbootautoconfigure.model.Test;
 
 /**
  * 项目启动入口
  *
- * 自动配置原理:
- *      xxxxAutoConfiguration:帮开发者向容器中自动配置组件
- *      xxxxProperties:通过配置类来封装配置文件的内容并且提供给对应组件使用
+ * EnableXXX注解模块举例
+ *      框架实现               @Enable 注解模块                  激活模块
+ *      Spring Framework    @EnableWebMvc                    Web MVC 模块
+ *                          @EnableTransactionManagement     事务管理模块
+ *                          @EnableCaching                   Caching 模块
+ *                          @EnableMBeanExport               JMX 模块
+ *                          @EnableAsync                     异步处理模块
+ *                          @EnableWebFlux                   Web Flux 模块
+ *                          @EnableAspectJAutoProxy          AspectJ 代理模块
+ *
+ *      Spring Boot         @EnableAutoConfiguration         自动装配模块
+ *                          @EnableManagementContext         Actuator 管理模块
+ *                          @EnableConfigurationProperties   配置属性绑定模块
+ *                          @EnableOAuth2Sso                 OAuth2 单点登录模块
+ *
+ *
  *
  * WebMvc自动配置配置(WebMvcAutoConfigurationAdapter):
  *      静态资源文件夹映射->addResourceHandlers
@@ -63,7 +79,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class WebSpringBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebSpringBootApplication.class, args);
+        // 启动方式一
+        //SpringApplication.run(WebSpringBootApplication.class, args);
+        // 启动方式二
+        ConfigurableApplicationContext run = new SpringApplicationBuilder(WebSpringBootApplication.class)
+                .web(WebApplicationType.SERVLET)
+                .run(args);
     }
 
 }

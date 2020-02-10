@@ -4,7 +4,13 @@ tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextIni
 
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-tech.edwardvan.testspringbootautoconfigure.config.TestConfiguration
+tech.edwardvan.testspringbootautoconfigure.config.TestAutoConfiguration
+
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+tech.edwardvan.testspringbootautoconfigure.listener.TestApplicationListener,\
+tech.edwardvan.testspringbootautoconfigure.listener.BeforeConfigFileApplicationListener,\
+tech.edwardvan.testspringbootautoconfigure.listener.AfterConfigFileApplicationListener
 
 # Run Listeners
 org.springframework.boot.SpringApplicationRunListener=\

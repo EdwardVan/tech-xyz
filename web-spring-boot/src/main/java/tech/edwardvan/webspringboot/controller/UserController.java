@@ -35,11 +35,6 @@ public class UserController {
         return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
     }
 
-    @DeleteMapping(value = "/{userId}")
-    public ServerResponse deleteUser(@PathVariable(value = "userId") Integer id) {
-        userService.deleteUserById(id);
-        return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
-    }
 
     @RabbitListener(queues = {"testQueue"})
     public void receiveMessage(Message message) {
@@ -47,9 +42,14 @@ public class UserController {
     }
 
     @GetMapping("testAsync")
-    public void testAsync(){
+    public void testAsync() {
         log.info("执行UserController.testAsync开始");
         userService.testAsync();
         log.info("执行UserController.testAsync结束");
+    }
+
+    @GetMapping("testException")
+    public void testException() throws Exception {
+        throw new Exception("testException");
     }
 }

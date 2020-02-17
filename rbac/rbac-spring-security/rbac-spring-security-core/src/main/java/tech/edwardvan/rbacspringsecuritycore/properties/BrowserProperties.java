@@ -9,6 +9,11 @@ import lombok.Data;
  */
 @Data
 public class BrowserProperties {
+
+    /**
+     * 用户注册页面
+     */
+    private String signUpUrl = "/signUp.html";
     /**
      * 登录页配置
      */

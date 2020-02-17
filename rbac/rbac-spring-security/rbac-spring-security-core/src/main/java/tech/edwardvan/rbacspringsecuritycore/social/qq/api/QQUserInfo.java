@@ -1,5 +1,6 @@
 package tech.edwardvan.rbacspringsecuritycore.social.qq.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * @author EdwardVan
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QQUserInfo {
 
     /**

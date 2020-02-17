@@ -11,6 +11,7 @@ import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.security.SpringSocialConfigurer;
 import tech.edwardvan.rbacspringsecuritycore.properties.SpringSecurityProperties;
@@ -33,10 +34,14 @@ public class SecuritySocialConfig extends SocialConfigurerAdapter {
     @Autowired
     private SpringSecurityProperties springSecurityProperties;
 
+    /**
+     * 数据库sql文件位置:{@link org.springframework.social.connect.jdbc}
+     */
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource,
                 connectionFactoryLocator, Encryptors.noOpText());
+        //对应表前缀
         repository.setTablePrefix("social_");
         return repository;
     }
@@ -48,6 +53,21 @@ public class SecuritySocialConfig extends SocialConfigurerAdapter {
 
     @Bean
     public SpringSocialConfigurer socialSecurityConfig() {
-        return new SpringSocialConfigurer();
+        SpringSocialConfigurer springSocialConfigurer = new SpringSocialConfigurer();
+        //设置注册页面地址
+        springSocialConfigurer.signupUrl(springSecurityProperties.getBrowser().getSignUpUrl());
+        return springSocialConfigurer;
+    }
+
+    /**
+     * 该工具类提供的功能:
+     * 1. 在注册过程中拿到spring social的信息
+     * 2. 用户注册完成后将业务系统的用户id传给spring social 并保存
+     */
+    @Bean
+    public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator) {
+        return new ProviderSignInUtils(connectionFactoryLocator,
+                getUsersConnectionRepository(connectionFactoryLocator)) {
+        };
     }
 }

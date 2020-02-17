@@ -13,12 +13,13 @@ rbac:
     security:
       browser:
         loginSuccessReturnType: JSON
+        signUpUrl: /demo-signUp.html
       code:
         image:
           width: 50
       social:
         qq:
-          app-id: 101850742
-          app-secret: d031caf5291e18be5bdef0d0f7dfa7c1
+          app-id:
+          app-secret: 
 
 

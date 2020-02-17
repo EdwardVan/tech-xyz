@@ -118,7 +118,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         springSecurityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*"
+                        springSecurityProperties.getBrowser().getSignUpUrl(),
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                        "/user/regist",
+                        "/social/user"
                 ).permitAll()
                 //任何尚未匹配的URL只需要对用户进行身份验证
                 .anyRequest().authenticated()

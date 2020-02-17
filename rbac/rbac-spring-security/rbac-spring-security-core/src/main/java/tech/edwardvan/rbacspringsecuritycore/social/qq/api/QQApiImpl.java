@@ -1,5 +1,6 @@
 package tech.edwardvan.rbacspringsecuritycore.social.qq.api;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class QQApiImpl extends AbstractOAuth2ApiBinding implements QQApi {
 
     /**
@@ -55,7 +57,7 @@ public class QQApiImpl extends AbstractOAuth2ApiBinding implements QQApi {
         String url = String.format(URL_GET_USERINFO, appId, openId);
         String result = getRestTemplate().getForObject(url, String.class);
 
-        System.out.println(result);
+        log.info("获取QQ信息返回结果:{}", result);
 
         QQUserInfo userInfo = null;
         try {

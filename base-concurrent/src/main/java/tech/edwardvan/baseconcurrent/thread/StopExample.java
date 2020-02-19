@@ -1,8 +1,6 @@
-package tech.edwardvan.baseconcurrent.core;
+package tech.edwardvan.baseconcurrent.thread;
 
 import lombok.extern.slf4j.Slf4j;
-import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
-import tech.edwardvan.baseconcurrent.annoations.Recommend;
 
 /**
  * 线程的停止
@@ -18,7 +16,8 @@ public class StopExample {
         log.info("主线程");
         //rightWayStopThreadWithoutSleep();
         //rightWayStopThreadWithSleep();
-        rightWayStopThreadWithSleepEveryLoop();
+        //rightWayStopThreadWithSleepEveryLoop();
+        cantInterrupt();
     }
 
     /**
@@ -66,8 +65,6 @@ public class StopExample {
 
     /**
      * 如果在执行过程中,每次循环都会调用sleep或wait等方法,那么不需要每次迭代都检查是否已中断
-     *
-     * @throws InterruptedException
      */
     public static void rightWayStopThreadWithSleepEveryLoop() throws InterruptedException {
         Thread thread = new Thread(() -> {
@@ -82,6 +79,32 @@ public class StopExample {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            log.info("子线程执行结束");
+        });
+        thread.start();
+        Thread.sleep(5000);
+        thread.interrupt();
+    }
+
+    /**
+     * 如果while里面放try/catch,会导致中断失效
+     * 一个线程在运行状态中,其中断标志被设置为true之后,一旦线程调用了wait,join,sleep方法中的一种,
+     * 立马抛出个InterruptedException,且中断标志被程序会自动清除,重新设置为false
+     */
+    public static void cantInterrupt() throws InterruptedException {
+        Thread thread = new Thread(() -> {
+            int num = 0;
+            while (num <= 10000 && !Thread.currentThread().isInterrupted()) {
+                if (num % 100 == 0) {
+                    log.info("{}是100的倍数", num);
+                }
+                num++;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             log.info("子线程执行结束");
         });

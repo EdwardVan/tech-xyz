@@ -1,4 +1,4 @@
-package tech.edwardvan.baseconcurrent.core;
+package tech.edwardvan.baseconcurrent.thread;
 
 import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.NotRecommend;

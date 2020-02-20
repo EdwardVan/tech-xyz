@@ -1,6 +1,8 @@
 package tech.edwardvan.baseconcurrent.thread;
 
 import lombok.extern.slf4j.Slf4j;
+import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
+import tech.edwardvan.baseconcurrent.annoations.Recommend;
 
 /**
  * 线程的停止
@@ -17,7 +19,9 @@ public class StopExample {
         //rightWayStopThreadWithoutSleep();
         //rightWayStopThreadWithSleep();
         //rightWayStopThreadWithSleepEveryLoop();
-        cantInterrupt();
+        //cantInterrupt();
+        //rightWayStopThreadInProd();
+        rightWayStopThreadInProd2();
     }
 
     /**
@@ -92,6 +96,7 @@ public class StopExample {
      * 一个线程在运行状态中,其中断标志被设置为true之后,一旦线程调用了wait,join,sleep方法中的一种,
      * 立马抛出个InterruptedException,且中断标志被程序会自动清除,重新设置为false
      */
+    @NotRecommend
     public static void cantInterrupt() throws InterruptedException {
         Thread thread = new Thread(() -> {
             int num = 0;
@@ -112,4 +117,77 @@ public class StopExample {
         Thread.sleep(5000);
         thread.interrupt();
     }
+
+    /**
+     * 最佳实践:传递中断
+     * 在子方法签名中抛出异常,然后在顶层方法run()中try/catch异常进行处理
+     */
+    @Recommend
+    public static void rightWayStopThreadInProd() throws InterruptedException {
+
+        Thread thread = new Thread(() -> {
+            log.info("子线程执行开始");
+            while (true && !Thread.currentThread().isInterrupted()) {
+                log.info("go");
+                try {
+                    throwInMethod();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    //保存日志、停止程序
+                    log.info("保存日志、停止程序等操作");
+                    e.printStackTrace();
+                }
+            }
+            log.info("子线程执行结束");
+
+        });
+        thread.start();
+        Thread.sleep(1000);
+        thread.interrupt();
+    }
+
+    /**
+     * 不要再子方法中try/catch InterruptedException异常
+     */
+    private static void throwInMethod() throws InterruptedException {
+        Thread.sleep(2000);
+    }
+
+    /**
+     * 最佳实践2:恢复中断
+     * 子方法捕获异常但是恢复中断状态,run方法中检查中断状态
+     */
+    @Recommend
+    public static void rightWayStopThreadInProd2() throws InterruptedException {
+        Thread thread = new Thread(() -> {
+            log.info("子线程执行开始");
+            while (true) {
+                if (Thread.currentThread().isInterrupted()) {
+                    log.info("Interrupted,程序运行结束");
+                    break;
+                }
+                reInterrupt();
+            }
+            log.info("子线程执行结束");
+
+        });
+        thread.start();
+        Thread.sleep(1000);
+        thread.interrupt();
+    }
+
+    /**
+     * 如果一定要在子方法中捕获异常,则在catch语句中调用Thread.currentThread().interrupt()来恢复设置中断状态
+     */
+    private static void reInterrupt() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            //恢复中断
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+    }
+
+
 }

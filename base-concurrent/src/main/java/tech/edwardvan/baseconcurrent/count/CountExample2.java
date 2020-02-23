@@ -1,5 +1,6 @@
 package tech.edwardvan.baseconcurrent.count;
 
+import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.util.concurrent.CountDownLatch;
@@ -10,14 +11,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * AtomicInteger示例
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
+@Slf4j
 public class CountExample2 {
 
-    // 请求总数
+    /**
+     * 请求总数
+     */
     public static int clientTotal = 5000;
 
-    // 同时并发执行的线程数
+    /**
+     * 同时并发执行的线程数
+     */
     public static int threadTotal = 200;
 
     public static AtomicInteger count = new AtomicInteger(0);
@@ -41,7 +49,7 @@ public class CountExample2 {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("count:" + count);
+        log.info("count:{}", count);
     }
 
     private static void add() {

@@ -1,5 +1,6 @@
 package tech.edwardvan.baseconcurrent.count;
 
+import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.NotThreadSafe;
 
 import java.util.concurrent.CountDownLatch;
@@ -9,14 +10,21 @@ import java.util.concurrent.Semaphore;
 
 /**
  * volatile示例
+ *
+ * @author EdwardVan
  */
 @NotThreadSafe
+@Slf4j
 public class CountExample4 {
 
-    // 请求总数
+    /**
+     * 请求总数
+     */
     public static int clientTotal = 5000;
 
-    // 同时并发执行的线程数
+    /**
+     * 同时并发执行的线程数
+     */
     public static int threadTotal = 200;
 
     public static volatile int count = 0;
@@ -40,7 +48,7 @@ public class CountExample4 {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("count:" + count);
+        log.info("count:{}", count);
     }
 
     private static void add() {

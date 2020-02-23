@@ -7,8 +7,13 @@ import tech.edwardvan.baseconcurrent.annoations.Recommend;
 /**
  * 线程的停止
  * <p>
- * 正确的停止方法:A线程使用interrupt来通知B线程,而不是强制停止,而且B线程有线程是否停止的决定权
+ * 正确的停止方法:
+ * A线程使用interrupt来通知B线程,而不是强制停止,而且B线程有线程是否停止的决定权
  * 因为每个线程都有自己的业务逻辑,让线程停止应该是完成了一系列保存工作以后再停止
+ * <p>
+ * 错误的停止线程的方法:
+ * 1. 使用stop或者suspend方法
+ * 2. 使用volatile修饰的boolean变量作为标记位来停止线程
  *
  * @author EdwardVan
  */
@@ -21,7 +26,7 @@ public class StopExample {
         //rightWayStopThreadWithSleepEveryLoop();
         //cantInterrupt();
         //rightWayStopThreadInProd();
-        rightWayStopThreadInProd2();
+        //rightWayStopThreadInProd2();
     }
 
     /**
@@ -189,5 +194,29 @@ public class StopExample {
         }
     }
 
+    /**
+     * 各种Interrupted方法的区别
+     */
+    public static void interruptedDifference() throws InterruptedException {
+        Thread thread = new Thread(() -> {
+            for (; ; ) {
+            }
+        });
+
+        // 启动线程
+        thread.start();
+        //设置中断标志
+        thread.interrupt();
+        //获取中断标志
+        log.info("isInterrupted: {}", thread.isInterrupted());
+        //获取中断标志并重置
+        log.info("isInterrupted: {}", thread.interrupted());
+        //获取中断标志并重置
+        log.info("isInterrupted: {}", Thread.interrupted());
+        //获取中断标志
+        log.info("isInterrupted: {}", thread.isInterrupted());
+        thread.join();
+        log.info("Main thread is over.");
+    }
 
 }

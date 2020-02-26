@@ -27,8 +27,14 @@ import java.util.concurrent.Executors;
 public class HappensBeforeExample {
 
     private static int a = 0;
-    private static int b = 0;
+    private volatile static int b = 0;
 
+    /**
+     * happens-before关系分析
+     * 1 happens-before 2 和 3 happens-before 4 是有由程序次序规则产生的
+     * 2 happens-before 3 是由 volatile变量规则
+     * 1 happens-before 4 是由传递性产生的
+     */
     public static void main(String[] args) throws InterruptedException {
 
         while (true) {
@@ -43,7 +49,6 @@ public class HappensBeforeExample {
             Thread thread2 = new Thread(() -> {
                 log.info("b:{}", b);//3
                 log.info("a:{}", a);//4
-                log.info("---------");
             });
 
             //符合线程启动规则

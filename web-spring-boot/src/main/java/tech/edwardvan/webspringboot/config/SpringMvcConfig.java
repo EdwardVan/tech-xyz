@@ -4,12 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
+import tech.edwardvan.webspringboot.converter.PropertiesHttpMessageConverter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * WebMvc扩展配置类
@@ -65,5 +68,16 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         //.ignoreAcceptHeader(true) // 禁用Accept协商方式
         //.defaultContentType(MediaType.APPLICATION_JSON) // 它的效果是new FixedContentNegotiationStrategy(contentTypes)
         ;
+    }
+
+    /**
+     * 添加HttpMessageConverter
+     */
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 添加到converters的末尾
+//        converters.add(new PropertiesHttpMessageConverter());
+        // 添加到converters的首位
+        converters.set(0, new PropertiesHttpMessageConverter());
     }
 }

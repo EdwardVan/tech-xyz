@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class ControllerAdviceConfig {
 
     @ModelAttribute("acceptLanguage")
-    public String acceptLanguage(@RequestHeader("Accept-Language") String acceptLanguage) {
+    public String acceptLanguage(@RequestHeader(value = "Accept-Language", required = false) String acceptLanguage) {
         return acceptLanguage;
     }
 

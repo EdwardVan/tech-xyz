@@ -1,10 +1,8 @@
 package tech.edwardvan.webspringboot.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import tech.edwardvan.webspringboot.converter.PropertiesHttpMessageConverter;
@@ -18,13 +16,21 @@ import java.util.Properties;
  *
  * @author EdwardVan
  */
-@RestController
+@Controller
 @RequestMapping("/test")
 @Slf4j
 public class TestController {
-    
+
     /**
-     * 自定义MessageConverter测试
+     * 测试自定义Properties方法参数解析器及
+     */
+    @PostMapping(value = "/testHandlerMethodArgumentResolver")
+    public Properties testHandlerMethodArgumentResolver(Properties properties) {
+        return properties;
+    }
+
+    /**
+     * 测试自定义MessageConverter
      * <p>
      * RequestBody注解决定了{@link RequestResponseBodyMethodProcessor}处理参数和返回值
      * 请求头中Content-Type为 text/properties 决定了{@link PropertiesHttpMessageConverter}处理转换
@@ -34,8 +40,10 @@ public class TestController {
      * 原理:{@link AbstractMessageConverterMethodProcessor#getProducibleMediaTypes(HttpServletRequest, Class, Type)}
      */
     @PostMapping(value = "/testMessageConverter", consumes = "text/properties", produces = "text/properties")
+    @ResponseBody
     public Object testMessageConverter(@RequestBody Properties properties) {
         return properties;
     }
+
 
 }

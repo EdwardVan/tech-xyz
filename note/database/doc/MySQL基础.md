@@ -5,10 +5,10 @@
 
 ## 数据库存储数据的特点
 1. 将数据放到表中,表再放到库中
-2. 一个数据库中可以有多个表,每个表都有一个的名字,用来标识自己。表名具有唯一性。
-3. 表具有一些特性,这些特性定义了数据在表中如何存储,类似java中 “类”的设计。
-4. 表由列组成,我们也称为字段。所有表都是由一个或多个列组成的,每一列类似java 中的”属性”
-5. 表中的数据是按行存储的,每一行类似于java中的“对象”。
+2. 一个数据库中可以有多个表,每个表都有一个的名字,用来标识自己.表名具有唯一性.
+3. 表具有一些特性,这些特性定义了数据在表中如何存储,类似java中 "类"的设计.
+4. 表由列组成,我们也称为字段.所有表都是由一个或多个列组成的,每一列类似java 中的"属性"
+5. 表中的数据是按行存储的,每一行类似于java中的"对象".
 
 ## SQL的语言分类
 1. DQL(Data Query Language):数据查询语言 select 
@@ -19,47 +19,47 @@
 ## DQL语言的学习
 ### 进阶1:基础查询
 1. 查询表中的单个字段
->SELECT last_name FROM employees;
+    >SELECT last_name FROM employees;
 2. 查询表中的多个字段
->SELECT last_name,salary,email FROM employees;
+    >SELECT last_name,salary,email FROM employees;
 3. 查询表中的所有字段
->SELECT * FROM employees;
+    >SELECT * FROM employees;
 4. 查询常量值
->SELECT 100;
->SELECT 'john';
+    >SELECT 100;
+    >SELECT 'john';
 5. 查询表达式
->SELECT 100%98;
+    >SELECT 100%98;
 6. 查询函数
-SELECT VERSION();
-SELECT IFNULL(manager_id,'999');
+    >SELECT VERSION();
+    >SELECT IFNULL(manager_id,'999');
 7. 起别名
 	1. 使用as
-	>SELECT 100%98 AS 结果;
-	>SELECT last_name AS 姓,first_name AS 名 FROM employees;
+        >SELECT 100%98 AS 结果;
+        >SELECT last_name AS 姓,first_name AS 名 FROM employees;
 	2. 使用空格
-	>SELECT last_name 姓,first_name 名 FROM employees;
+	    >SELECT last_name 姓,first_name 名 FROM employees;
 	3. 案例:查询salary,显示结果为 out put
-	>SELECT salary AS "out put" FROM employees;
+	    >SELECT salary AS "out put" FROM employees;
 8. 去重
->查询员工表中涉及到的所有的部门编号
->SELECT DISTINCT department_id FROM employees;
+    >查询员工表中涉及到的所有的部门编号
+    >SELECT DISTINCT department_id FROM employees;
 9. +号的作用(运算符)
 	1. select 100+90; 两个操作数都为数值型,则做加法运算
 	2. select '123'+90;只要其中一方为字符型,试图将字符型数值转换成数值型,如果转换成功,则继续做加法运算
 	3. select 'john'+90;	如果转换失败,则将字符型数值转换成0
 	4. select null+10; 只要其中一方为null,则结果肯定为null
 10. 案例:查询员工名和姓连接成一个字段,并显示为 姓名
->SELECT CONCAT(last_name,first_name) AS 姓名 FROM employees;
+    >SELECT CONCAT(last_name,first_name) AS 姓名 FROM employees;
 
 ### 进阶2:条件查询
 1. 分类
-	1. 条件运算符
-	> < > = != <> >= <=
-	2. 逻辑运算符(用于连接条件表达式)
-	> && || ! 
-	> and or not
-	3. 模糊查询
-	>like & between and & in & is null
+	- 条件运算符
+	    > < > = != <> >= <=
+	- 逻辑运算符(用于连接条件表达式)
+	    > && || ! 
+	    > and or not
+	- 模糊查询
+	    >like & between and & in & is null
 2. 按条件表达式筛选
 	- 案例:查询工资>12000的员工信息
 	>SELECT * FROM employees WHERE salary>12000;
@@ -92,7 +92,7 @@ SELECT IFNULL(manager_id,'999');
 
 ### 进阶3:排序查询	
 1. 按单个字段排序
->SELECT * FROM employees ORDER BY salary DESC;
+    >SELECT * FROM employees ORDER BY salary DESC;
 2. 添加筛选条件再排序
 	- 查询部门编号>=90的员工信息,并按员工编号降序
 	>SELECT * FROM employees WHERE department_id>=90 ORDER BY employee_id DESC;
@@ -192,7 +192,6 @@ SELECT IFNULL(manager_id,'999');
         1. sum、avg一般用于处理数值型,max、min、count可以处理任何类型
         2. 以上分组函数都忽略null值
         3. 可以和distinct搭配实现去重的运算
-        4. 和分组函数一同查询的字段要求是group by后的字段
 
 ## 进阶5:分组查询
 1. 简单的分组
@@ -211,6 +210,7 @@ SELECT IFNULL(manager_id,'999');
 4. 按多个字段分组
 	- 查询每个工种每个部门的最低工资,并按最低工资降序
 	>SELECT MIN(salary),job_id,department_id FROM employees GROUP BY department_id,job_id ORDER BY MIN(salary) DESC;
+                                        >
 ## 进阶6:多表连接查询
 1. 内连接
 	1. 等值连接

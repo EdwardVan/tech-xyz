@@ -1,14 +1,20 @@
 package tech.edwardvan.baseconcurrent.threadpool;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * Executors.newCachedThreadPool()示例
+ *
+ * @author EdwardVan
  */
+@Slf4j
 public class ThreadPoolExample {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -20,9 +26,13 @@ public class ThreadPoolExample {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("task:" + index);
+                log.info("task:{}", index);
             });
         }
         executorService.shutdown();
+        log.info("是否真正停止:{}", executorService.isTerminated());
+        Thread.sleep(500);
+        List<Runnable> runnables = executorService.shutdownNow();
+        log.info("是否真正停止:{}", executorService.isTerminated());
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 /**
- * 应用上下文初始器
+ * 用于在spring容器刷新之前初始化ApplicationContext的回调接口
  * <p>
  * 加载:{@link SpringApplication#getSpringFactoriesInstances(Class)}
  * 执行:{@link SpringApplication#applyInitializers(ConfigurableApplicationContext)}

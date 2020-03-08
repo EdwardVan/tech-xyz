@@ -1,16 +1,25 @@
 package tech.edwardvan.baseconcurrent.danger;
 
+import lombok.extern.slf4j.Slf4j;
+import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+
 /**
  * SimpleDateFormat并发问题解决方法
+ * 线程封闭
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
+@NotRecommend("每一个线程创建一个对象造成了内存浪费")
+@Slf4j
 public class DateFormatExample2 {
 
     // 请求总数
@@ -43,7 +52,7 @@ public class DateFormatExample2 {
     private static void update() {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            simpleDateFormat.parse("20180101");
+            simpleDateFormat.parse("20200202");
         } catch (Exception e) {
             e.printStackTrace();
         }

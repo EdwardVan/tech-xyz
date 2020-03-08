@@ -1,11 +1,16 @@
 package tech.edwardvan.baseconcurrent.threadpool;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * Executors.newFixedThreadPool(n)示例
+ *
+ * @author EdwardVan
  */
+@Slf4j
 public class ThreadPoolExample2 {
 
     public static void main(String[] args) {
@@ -20,7 +25,7 @@ public class ThreadPoolExample2 {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("task:" + index);
+                log.info("task:{}", index);
             });
         }
         executorService.shutdown();

@@ -1,8 +1,10 @@
 package tech.edwardvan.baseconcurrent.danger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import tech.edwardvan.baseconcurrent.annoations.Recommend;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.util.concurrent.CountDownLatch;
@@ -12,8 +14,13 @@ import java.util.concurrent.Semaphore;
 
 /**
  * SimpleDateFormat并发问题解决方法
+ * 使用JodaTime
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
+@Recommend
+@Slf4j
 public class DateFormatExample3 {
 
     // 请求总数
@@ -47,6 +54,6 @@ public class DateFormatExample3 {
     }
 
     private static void update(int i) {
-        System.out.println(i + "-" + DateTime.parse("20180101", dateTimeFormatter).toDate());
+        log.info("第{}次:{}", i, DateTime.parse("20200202", dateTimeFormatter).toDate());
     }
 }

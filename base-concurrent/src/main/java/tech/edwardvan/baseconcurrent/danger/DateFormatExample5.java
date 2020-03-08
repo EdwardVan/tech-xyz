@@ -1,28 +1,27 @@
 package tech.edwardvan.baseconcurrent.danger;
 
 import lombok.extern.slf4j.Slf4j;
-import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
+import tech.edwardvan.baseconcurrent.annoations.Recommend;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 
 /**
  * SimpleDateFormat并发问题解决方法
- * 添加锁
+ * <p>
+ * ThreadLocal原理:每一个Thread类中都有一个ThreadLocalMap,ThreadLocalMap中保存键值对,键为ThreadLocal
  *
  * @author EdwardVan
  */
 @ThreadSafe
-@NotRecommend("同步执行效率太低")
+@Recommend
 @Slf4j
-public class DateFormatExample4 {
+public class DateFormatExample5 {
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+    public static ThreadLocal<SimpleDateFormat> simpleDateFormatThreadLocal = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyyMMdd"));
 
     // 请求总数
     public static int clientTotal = 5000;
@@ -31,15 +30,13 @@ public class DateFormatExample4 {
     public static int threadTotal = 200;
 
     public static void main(String[] args) throws Exception {
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        final Semaphore semaphore = new Semaphore(threadTotal);
+        //与前面例子不同,此处使用newFixedThreadPool
+        ExecutorService executorService = Executors.newFixedThreadPool(threadTotal);
         final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
         for (int i = 0; i < clientTotal; i++) {
             executorService.execute(() -> {
                 try {
-                    semaphore.acquire();
                     update();
-                    semaphore.release();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -51,9 +48,9 @@ public class DateFormatExample4 {
         executorService.shutdown();
     }
 
-    private static synchronized void update() {
+    private static void update() {
         try {
-            simpleDateFormat.parse("20200202");
+            simpleDateFormatThreadLocal.get().parse("20200202");
         } catch (Exception e) {
             e.printStackTrace();
         }

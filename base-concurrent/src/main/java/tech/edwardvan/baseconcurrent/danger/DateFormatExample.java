@@ -1,8 +1,10 @@
 package tech.edwardvan.baseconcurrent.danger;
 
+import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.NotThreadSafe;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,8 +12,11 @@ import java.util.concurrent.Semaphore;
 
 /**
  * SimpleDateFormat示例
+ *
+ * @author EdwardVan
  */
 @NotThreadSafe
+@Slf4j
 public class DateFormatExample {
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -45,7 +50,7 @@ public class DateFormatExample {
 
     private static void update() {
         try {
-            simpleDateFormat.parse("20180101");
+            simpleDateFormat.parse("20200202");
         } catch (Exception e) {
             e.printStackTrace();
         }

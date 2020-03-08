@@ -1,8 +1,6 @@
 package tech.edwardvan.webspringboot.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +15,6 @@ import tech.edwardvan.webspringboot.service.IUserService;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private IUserService userService;
@@ -46,10 +42,5 @@ public class UserController {
         log.info("执行UserController.testAsync开始");
         userService.testAsync();
         log.info("执行UserController.testAsync结束");
-    }
-
-    @GetMapping("testException")
-    public void testException() throws Exception {
-        throw new Exception("testException");
     }
 }

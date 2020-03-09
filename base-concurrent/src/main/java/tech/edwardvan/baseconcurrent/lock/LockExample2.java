@@ -1,6 +1,7 @@
 package tech.edwardvan.baseconcurrent.lock;
 
 
+import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.util.concurrent.CountDownLatch;
@@ -12,8 +13,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * ReentrantLock示例
+ * <p>
+ * Lock不会像synchronized一样在异常时自动释放锁,因此最佳实践是,在finally中释放锁,以保证发生异常时锁一定被释放
  */
 @ThreadSafe
+@Slf4j
 public class LockExample2 {
 
     // 请求总数
@@ -45,7 +49,7 @@ public class LockExample2 {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("count:" + count);
+        log.info("count:{}", count);
     }
 
     private static void add() {

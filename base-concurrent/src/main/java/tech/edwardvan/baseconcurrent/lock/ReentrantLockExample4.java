@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * ReentrantLock Condition示例
  */
 @Slf4j
-public class ReentrantLockExample7 {
+public class ReentrantLockExample4 {
 
     public static void main(String[] args) throws InterruptedException {
 

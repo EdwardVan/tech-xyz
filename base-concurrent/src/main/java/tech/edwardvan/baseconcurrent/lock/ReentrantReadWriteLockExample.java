@@ -8,8 +8,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * ReentrantReadWriteLock示例
+ * <p>
+ * 读写锁适用于读多写少的场景
+ *
+ * @author EdwardVan
  */
-public class LockExample3 {
+public class ReentrantReadWriteLockExample {
 
     private final Map<String, Object> map = new TreeMap<>();
 

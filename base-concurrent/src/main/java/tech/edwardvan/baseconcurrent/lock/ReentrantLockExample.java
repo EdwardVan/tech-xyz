@@ -3,6 +3,7 @@ package tech.edwardvan.baseconcurrent.lock;
 
 import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
+import tech.edwardvan.baseconcurrent.deadlock.DeadLockExample7;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -15,10 +16,13 @@ import java.util.concurrent.locks.ReentrantLock;
  * ReentrantLock示例
  * <p>
  * Lock不会像synchronized一样在异常时自动释放锁,因此最佳实践是,在finally中释放锁,以保证发生异常时锁一定被释放
+ * {@link DeadLockExample7}展示了tryLock的使用方式
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
 @Slf4j
-public class LockExample2 {
+public class ReentrantLockExample {
 
     // 请求总数
     public static int clientTotal = 5000;

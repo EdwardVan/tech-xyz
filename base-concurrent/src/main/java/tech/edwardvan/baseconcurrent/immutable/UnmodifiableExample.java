@@ -1,16 +1,18 @@
 package tech.edwardvan.baseconcurrent.immutable;
 
 import com.google.common.collect.Maps;
-import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.Map;
 
 /**
  * Collections.unmodifiableXXX的不可变性
+ *
+ * @author EdwardVan
  */
-@ThreadSafe
-public class ImmutableExample2 {
+@Slf4j
+public class UnmodifiableExample {
 
     private static Map<Integer, Integer> map = Maps.newHashMap();
 
@@ -22,8 +24,9 @@ public class ImmutableExample2 {
     }
 
     public static void main(String[] args) {
-//        map.put(1, 3);
-        System.out.println("map key:1 , value:" + map.get(1));
+        //直接抛出异常UnsupportedOperationException
+        map.put(1, 3);
+        log.info("map key:1 , value:{}", map.get(1));
     }
 
 }

@@ -12,9 +12,9 @@ package tech.edwardvan.basedesignpattern.pattern.creational.builder;
  * 建造者模式所创建的产品一般具有较多的共同点,其组成部分相似,如果产品之间的差异性很大,则不适合使用建造者模式,因此其使用范围受到一定的限制.
  * 如果产品的内部变化复杂,可能会导致需要定义很多具体建造者类来实现这种变化,导致系统变得很庞大.
  * 举例:
- * java.lang.StringBuilder
- * com.google.common.collect.ImmutableSet
- * org.springframework.beans.factory.support.BeanDefinitionBuilder
+ * {@link StringBuilder}
+ * {@link com.google.common.collect.ImmutableSet.Builder}
+ * {@link org.springframework.beans.factory.support.BeanDefinitionBuilder}
  *
  * @author EdwardVan
  */

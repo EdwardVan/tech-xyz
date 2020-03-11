@@ -1,10 +1,13 @@
 package tech.edwardvan.basedesignpattern.pattern.creational.simplefactory;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 简单工厂模式
  *
  * @author EdwardVan
  */
+@Slf4j
 public class SimpleFactoryExample2 {
     public static void main(String[] args) {
         //方法中只引入VideoFactory类
@@ -46,7 +49,7 @@ public class SimpleFactoryExample2 {
     public static class JavaVideo extends Video {
         @Override
         public void produce() {
-            System.out.println("录制Java课程视频");
+            log.info("录制Java课程视频");
         }
     }
 
@@ -56,7 +59,7 @@ public class SimpleFactoryExample2 {
     public static class PythonVideo extends Video {
         @Override
         public void produce() {
-            System.out.println("录制Python课程视频");
+            log.info("录制Python课程视频");
         }
     }
 }

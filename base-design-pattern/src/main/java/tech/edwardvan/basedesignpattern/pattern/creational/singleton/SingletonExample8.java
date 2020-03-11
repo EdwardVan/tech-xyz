@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.creational.singleton;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 静态内部类实现
  * <p>
@@ -14,11 +16,19 @@ package tech.edwardvan.basedesignpattern.pattern.creational.singleton;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class SingletonExample8 {
 
     public static void main(String[] args) {
         SingletonExample8.print();
         SingletonExample8.getInstance();
+    }
+
+    /**
+     * 静态代码块
+     */
+    static {
+        log.info("SingletonExample8类静态代码块");
     }
 
     /**
@@ -31,15 +41,8 @@ public class SingletonExample8 {
         }
     }
 
-    /**
-     * 静态代码块
-     */
-    static {
-        System.out.println("SingletonExample8类静态代码块");
-    }
-
     public static void print() {
-        System.out.println("测试只调用外部类方法时,内部类是否加载");
+        log.info("测试只调用外部类方法时,内部类是否加载");
     }
 
     /**
@@ -60,7 +63,7 @@ public class SingletonExample8 {
          * 内部类静态代码块
          */
         static {
-            System.out.println("SingletonHolder内部类静态代码块");
+            log.info("SingletonHolder内部类静态代码块");
         }
     }
 }

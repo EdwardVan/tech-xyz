@@ -16,11 +16,9 @@ package tech.edwardvan.basedesignpattern.pattern.creational.singleton;
  * 单例实例在第一次使用时进行创建
  * <p>
  * 线程不安全
- *
+ * <p>
  * 举例:
- * java.lang.Runtime
- * org.springframework.beans.factory.config.AbstractFactoryBean
- * org.apache.ibatis.executor.ErrorContext
+ * {@link Runtime}
  *
  * @author EdwardVan
  */

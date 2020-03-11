@@ -1,17 +1,26 @@
-package tech.edwardvan.baseconcurrent.concurrentcontainer;
+package tech.edwardvan.baseconcurrent.container.sync;
 
+import lombok.extern.slf4j.Slf4j;
+import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 /**
- * CopyOnWriteArrayList示例
- * 不能用于实时读,读不加锁写加锁,读写分离思想
- * 适合读多写少的场景
+ * Collections.synchronizedMap示例
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
-public class CopyOnWriteArrayListExample {
+@NotRecommend("每个方法加锁,效率低下")
+@Slf4j
+public class CollectionsExample3 {
 
     // 请求总数
     public static int clientTotal = 5000;
@@ -19,7 +28,7 @@ public class CopyOnWriteArrayListExample {
     // 同时并发执行的线程数
     public static int threadTotal = 200;
 
-    private static List<Integer> list = new CopyOnWriteArrayList<>();
+    private static Map<Integer, Integer> map = Collections.synchronizedMap(new HashMap<>());
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -41,10 +50,10 @@ public class CopyOnWriteArrayListExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("size:" + list.size());
+        log.info("size:{}", map.size());
     }
 
     private static void update(int i) {
-        list.add(i);
+        map.put(i, i);
     }
 }

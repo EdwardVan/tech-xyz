@@ -1,32 +1,29 @@
-package tech.edwardvan.baseconcurrent.danger;
-
+package tech.edwardvan.baseconcurrent.container.concurrent;
 
 import lombok.extern.slf4j.Slf4j;
-import tech.edwardvan.baseconcurrent.annoations.NotThreadSafe;
+import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
+import tech.edwardvan.baseconcurrent.danger.HashMapExample;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
+import java.util.Map;
+import java.util.concurrent.*;
 
 /**
- * ArrayList示例
+ * ConcurrentHashMap示例
+ * <p>
+ * {@link HashMapExample}
  *
  * @author EdwardVan
  */
-@NotThreadSafe
+@ThreadSafe
 @Slf4j
-public class ArrayListExample {
-
+public class ConcurrentHashMapExample {
     // 请求总数
     public static int clientTotal = 5000;
 
     // 同时并发执行的线程数
     public static int threadTotal = 200;
 
-    private static List<Integer> list = new ArrayList<>();
+    private static Map<Integer, Integer> map = new ConcurrentHashMap<>();
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -48,10 +45,10 @@ public class ArrayListExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("size:{}", list.size());
+        log.info("size:{}", map.size());
     }
 
     private static void update(int i) {
-        list.add(i);
+        map.put(i, i);
     }
 }

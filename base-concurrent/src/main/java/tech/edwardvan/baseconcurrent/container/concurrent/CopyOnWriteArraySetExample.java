@@ -1,11 +1,16 @@
-package tech.edwardvan.baseconcurrent.concurrentcontainer;
+package tech.edwardvan.baseconcurrent.container.concurrent;
 
+import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.util.Set;
 import java.util.concurrent.*;
 
+/**
+ * @author EdwardVan
+ */
 @ThreadSafe
+@Slf4j
 public class CopyOnWriteArraySetExample {
 
     // 请求总数
@@ -36,7 +41,7 @@ public class CopyOnWriteArraySetExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("size:" + set.size());
+        log.info("size:{}", set.size());
     }
 
     private static void update(int i) {

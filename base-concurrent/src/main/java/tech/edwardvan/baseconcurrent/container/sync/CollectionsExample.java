@@ -1,6 +1,8 @@
-package tech.edwardvan.baseconcurrent.synchronizedcontainer;
+package tech.edwardvan.baseconcurrent.container.sync;
 
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
+import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
 import java.util.Collections;
@@ -12,8 +14,12 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Collections.synchronizedList示例
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
+@NotRecommend("每个方法加锁,效率低下")
+@Slf4j
 public class CollectionsExample {
 
     // 请求总数
@@ -44,7 +50,7 @@ public class CollectionsExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("size:" + list.size());
+        log.info("size:{}", list.size());
     }
 
     private static void update(int i) {

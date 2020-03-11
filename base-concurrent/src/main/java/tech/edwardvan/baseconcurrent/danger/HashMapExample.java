@@ -1,6 +1,7 @@
 package tech.edwardvan.baseconcurrent.danger;
 
 
+import lombok.extern.slf4j.Slf4j;
 import tech.edwardvan.baseconcurrent.annoations.NotThreadSafe;
 
 import java.util.HashMap;
@@ -12,8 +13,11 @@ import java.util.concurrent.Semaphore;
 
 /**
  * HashMap示例
+ *
+ * @author EdwardVan
  */
 @NotThreadSafe
+@Slf4j
 public class HashMapExample {
 
     // 请求总数
@@ -44,7 +48,7 @@ public class HashMapExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("size:" + map.size());
+        log.info("size:{}", map.size());
     }
 
     private static void update(int i) {

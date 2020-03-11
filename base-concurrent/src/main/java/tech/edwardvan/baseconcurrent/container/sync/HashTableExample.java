@@ -1,20 +1,26 @@
-package tech.edwardvan.baseconcurrent.synchronizedcontainer;
+package tech.edwardvan.baseconcurrent.container.sync;
 
+
+import lombok.extern.slf4j.Slf4j;
+import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
 import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
-import java.util.List;
-import java.util.Vector;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 /**
- * Vector示例
- * 其线程安全的实现方式是对所有操作都加上了synchronized关键字,这种方式严重影响效率,因此不再推荐使用Vector
+ * Hashtable示例
+ *
+ * @author EdwardVan
  */
 @ThreadSafe
-public class VectorExample {
+@NotRecommend("每个方法加锁,效率低下")
+@Slf4j
+public class HashTableExample {
 
     // 请求总数
     public static int clientTotal = 5000;
@@ -22,7 +28,7 @@ public class VectorExample {
     // 同时并发执行的线程数
     public static int threadTotal = 200;
 
-    private static List<Integer> list = new Vector<>();
+    private static Map<Integer, Integer> map = new Hashtable<>();
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -44,10 +50,10 @@ public class VectorExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println("size:" + list.size());
+        log.info("size:{}", map.size());
     }
 
     private static void update(int i) {
-        list.add(i);
+        map.put(i, i);
     }
 }

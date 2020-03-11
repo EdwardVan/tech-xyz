@@ -1,24 +1,27 @@
-package tech.edwardvan.baseconcurrent.danger;
-
+package tech.edwardvan.baseconcurrent.container.sync;
 
 import lombok.extern.slf4j.Slf4j;
-import tech.edwardvan.baseconcurrent.annoations.NotThreadSafe;
+import tech.edwardvan.baseconcurrent.annoations.NotRecommend;
+import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 /**
- * ArrayList示例
+ * Vector示例
+ * 等价于线程安全的List
+ * 其线程安全的实现方式是对所有操作都加上了synchronized关键字,这种方式严重影响效率,因此不再推荐使用Vector
  *
  * @author EdwardVan
  */
-@NotThreadSafe
+@ThreadSafe
+@NotRecommend("每个方法加锁,效率低下")
 @Slf4j
-public class ArrayListExample {
+public class VectorExample {
 
     // 请求总数
     public static int clientTotal = 5000;
@@ -26,7 +29,7 @@ public class ArrayListExample {
     // 同时并发执行的线程数
     public static int threadTotal = 200;
 
-    private static List<Integer> list = new ArrayList<>();
+    private static List<Integer> list = new Vector<>();
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();

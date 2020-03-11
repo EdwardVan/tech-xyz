@@ -1,24 +1,24 @@
-package tech.edwardvan.baseconcurrent.danger;
-
+package tech.edwardvan.baseconcurrent.container.concurrent;
 
 import lombok.extern.slf4j.Slf4j;
-import tech.edwardvan.baseconcurrent.annoations.NotThreadSafe;
+import tech.edwardvan.baseconcurrent.annoations.ThreadSafe;
+import tech.edwardvan.baseconcurrent.danger.ArrayListExample;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.*;
 
 /**
- * ArrayList示例
+ * CopyOnWriteArrayList示例
+ * 不能用于实时读,读不加锁写加锁,读写分离思想
+ * 适合读多写少的场景
+ * <p>
+ * {@link ArrayListExample}
  *
  * @author EdwardVan
  */
-@NotThreadSafe
+@ThreadSafe
 @Slf4j
-public class ArrayListExample {
+public class CopyOnWriteArrayListExample {
 
     // 请求总数
     public static int clientTotal = 5000;
@@ -26,7 +26,7 @@ public class ArrayListExample {
     // 同时并发执行的线程数
     public static int threadTotal = 200;
 
-    private static List<Integer> list = new ArrayList<>();
+    private static List<Integer> list = new CopyOnWriteArrayList<>();
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();

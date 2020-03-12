@@ -1,12 +1,17 @@
 package tech.edwardvan.baseconcurrent.aqs;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * CyclicBarrier示例
+ *
+ * @author EdwardVan
  */
+@Slf4j
 public class CyclicBarrierExample {
 
     private static CyclicBarrier barrier = new CyclicBarrier(5);
@@ -30,8 +35,8 @@ public class CyclicBarrierExample {
     }
 
     private static void race(int threadNum) throws Exception {
-        System.out.println(threadNum + " is ready");
+        log.info("{} is ready", threadNum);
         barrier.await();
-        System.out.println(threadNum + " continue");
+        log.info("{} continue", threadNum);
     }
 }

@@ -1,12 +1,17 @@
 package tech.edwardvan.baseconcurrent.aqs;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * CountDownLatch示例
+ *
+ * @author EdwardVan
  */
+@Slf4j
 public class CountDownLatchExample {
 
     private final static int threadCount = 200;
@@ -21,7 +26,8 @@ public class CountDownLatchExample {
             final int threadNum = i;
             exec.execute(() -> {
                 try {
-                    test(threadNum);
+                    log.info("threadNum:{}", threadNum);
+                    Thread.sleep(3000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -30,13 +36,7 @@ public class CountDownLatchExample {
             });
         }
         countDownLatch.await();
-        System.out.println("finish");
+        log.info("finish");
         exec.shutdown();
-    }
-
-    private static void test(int threadNum) throws Exception {
-        Thread.sleep(100);
-        System.out.println("threadNum:" + threadNum);
-        Thread.sleep(100);
     }
 }

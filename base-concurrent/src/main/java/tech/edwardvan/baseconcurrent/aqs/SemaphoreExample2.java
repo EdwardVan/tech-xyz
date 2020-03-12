@@ -1,9 +1,15 @@
 package tech.edwardvan.baseconcurrent.aqs;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+/**
+ * @author EdwardVan
+ */
+@Slf4j
 public class SemaphoreExample2 {
 
     private final static int threadCount = 20;
@@ -19,7 +25,8 @@ public class SemaphoreExample2 {
             exec.execute(() -> {
                 try {
                     semaphore.acquire(3); // 获取多个许可
-                    test(threadNum);
+                    log.info("threadNum:{}", threadNum);
+                    Thread.sleep(1000);
                     semaphore.release(3); // 释放多个许可
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -27,10 +34,5 @@ public class SemaphoreExample2 {
             });
         }
         exec.shutdown();
-    }
-
-    private static void test(int threadNum) throws Exception {
-        System.out.println("threadNum:" + threadNum);
-        Thread.sleep(1000);
     }
 }

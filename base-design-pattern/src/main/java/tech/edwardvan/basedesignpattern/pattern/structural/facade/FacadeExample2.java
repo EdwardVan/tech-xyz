@@ -1,10 +1,13 @@
 package tech.edwardvan.basedesignpattern.pattern.structural.facade;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 外观模式
  *
  * @author EdwardVan
  */
+@Slf4j
 public class FacadeExample2 {
     public static void main(String[] args) {
         ApproveFacade approveFacade = new ApproveFacade();
@@ -24,7 +27,7 @@ public class FacadeExample2 {
     static class HealthOffice implements Executive {
         @Override
         public void approve() {
-            System.out.println("卫生局通过审批");
+            log.info("卫生局通过审批");
         }
     }
 
@@ -34,7 +37,7 @@ public class FacadeExample2 {
     static class RevenueOffice implements Executive {
         @Override
         public void approve() {
-            System.out.println("税务局完成登记");
+            log.info("税务局完成登记");
         }
     }
 
@@ -44,7 +47,7 @@ public class FacadeExample2 {
     static class SaicOffice implements Executive {
         @Override
         public void approve() {
-            System.out.println("工商局办理营业执照");
+            log.info("工商局办理营业执照");
         }
     }
 

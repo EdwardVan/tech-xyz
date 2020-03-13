@@ -1,19 +1,20 @@
 package tech.edwardvan.basedesignpattern.pattern.structural.decorator;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 装饰者模式
  *
  * @author EdwardVan
  */
+@Slf4j
 public class DecoratorExample2 {
 
     public static void main(String[] args) {
-        ICake battercakeWithEggSausage = new SausageDecorator(new EggDecorator(new Battercake()));
-        System.out.println(battercakeWithEggSausage.getDesc());
-        System.out.println(battercakeWithEggSausage.cost());
-        ICake sesameCakeWithEggSausage = new EggDecorator(new SausageDecorator(new SesameCake()));
-        System.out.println(sesameCakeWithEggSausage.getDesc());
-        System.out.println(sesameCakeWithEggSausage.cost());
+        ICake battercakeWithEggSausage = new AddSausageCake(new AddEggCake(new Battercake()));
+        log.info("{}的价格为:{}", battercakeWithEggSausage.getDesc(), battercakeWithEggSausage.cost());
+        ICake sesameCakeWithEggSausage = new AddEggCake(new AddSausageCake(new SesameCake()));
+        log.info("{}的价格为:{}", sesameCakeWithEggSausage.getDesc(), sesameCakeWithEggSausage.cost());
     }
 
     /**
@@ -66,10 +67,10 @@ public class DecoratorExample2 {
     /**
      * 抽象装饰者
      */
-    public abstract static class AbstractDecorator implements ICake {
+    public static abstract class AbstractCakeDecorator implements ICake {
         ICake cake;
 
-        public AbstractDecorator(ICake cake) {
+        public AbstractCakeDecorator(ICake cake) {
             this.cake = cake;
         }
 
@@ -87,9 +88,9 @@ public class DecoratorExample2 {
     /**
      * 鸡蛋装饰者
      */
-    public static class EggDecorator extends AbstractDecorator {
+    public static class AddEggCake extends AbstractCakeDecorator {
 
-        public EggDecorator(ICake cake) {
+        public AddEggCake(ICake cake) {
             super(cake);
         }
 
@@ -107,9 +108,9 @@ public class DecoratorExample2 {
     /**
      * 香肠装饰者
      */
-    public static class SausageDecorator extends AbstractDecorator {
+    public static class AddSausageCake extends AbstractCakeDecorator {
 
-        public SausageDecorator(ICake cake) {
+        public AddSausageCake(ICake cake) {
             super(cake);
         }
 

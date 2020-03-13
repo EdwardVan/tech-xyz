@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.structural.flyweight;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 享元模式
  * <p>
@@ -7,6 +9,7 @@ package tech.edwardvan.basedesignpattern.pattern.structural.flyweight;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class FlyweightExample2 {
 
     public static void main(String[] args) {
@@ -17,9 +20,9 @@ public class FlyweightExample2 {
         Integer c = Integer.valueOf(1000);
         Integer d = 1000;
 
-        System.out.println("a==b:" + (a == b));
+        log.info("a==b:{}", a == b);
 
-        System.out.println("c==d:" + (c == d));
+        log.info("c==d:{}", c == d);
 
     }
 }

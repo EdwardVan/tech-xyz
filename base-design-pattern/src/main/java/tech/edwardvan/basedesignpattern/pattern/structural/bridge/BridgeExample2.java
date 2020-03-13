@@ -1,54 +1,66 @@
 package tech.edwardvan.basedesignpattern.pattern.structural.bridge;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 桥接模式
  *
  * @author EdwardVan
  */
+@Slf4j
 public class BridgeExample2 {
 
     public static void main(String[] args) {
         // 创建具体的实现对象
-        MessageImplementor impl = new MessageSMS();
+        MessageSender sender = new SMSSender();
         //创建普通消息对象
-        AbstractMessage message = new CommonMessage(impl);
-        message.sendMessage("消息内容", "EdwardVan");
+        Message message = new CommonMessage(sender);
+        message.sendMessage("回家吃饭啦", "EdwardVan");
 
         //将实现方式切换成邮件，再次发送
-        impl = new MessageEmail();
+        sender = new EmailSender();
         //创建加急消息对象
-        message = new UrgencyMessage(impl);
-        message.sendMessage("消息内容", "EdwardVan");
+        message = new UrgencyMessage(sender);
+        message.sendMessage("回家吃饭啦", "EdwardVan");
     }
 
     /**
-     * 消息处理抽象层
+     * 消息接口
      */
-    public abstract static class AbstractMessage {
+    public interface Message {
+        void sendMessage(String message, String toUser);
+    }
+
+
+    /**
+     * 消息抽象类
+     */
+    public abstract static class AbstractMessage implements Message {
         /**
          * 持有一个实现部分的对象
          */
-        MessageImplementor impl;
+        MessageSender sender;
 
-        public AbstractMessage(MessageImplementor impl) {
-            this.impl = impl;
+        public AbstractMessage(MessageSender sender) {
+            this.sender = sender;
         }
 
         /**
          * 发送消息,委派给实现部分的方法
          */
+        @Override
         public void sendMessage(String message, String toUser) {
-            this.impl.send(message, toUser);
+            this.sender.send(message, toUser);
         }
     }
 
     /**
-     * 普通消息发送
+     * 普通消息
      */
     public static class CommonMessage extends AbstractMessage {
 
-        public CommonMessage(MessageImplementor impl) {
-            super(impl);
+        public CommonMessage(MessageSender sender) {
+            super(sender);
         }
 
         @Override
@@ -59,12 +71,12 @@ public class BridgeExample2 {
     }
 
     /**
-     * 加急消息发送
+     * 加急消息
      */
     public static class UrgencyMessage extends AbstractMessage {
 
-        public UrgencyMessage(MessageImplementor impl) {
-            super(impl);
+        public UrgencyMessage(MessageSender sender) {
+            super(sender);
         }
 
         @Override
@@ -84,9 +96,9 @@ public class BridgeExample2 {
 
 
     /**
-     * 消息种类
+     * 消息传送
      */
-    public interface MessageImplementor {
+    public interface MessageSender {
         /**
          * 发送消息
          */
@@ -96,34 +108,34 @@ public class BridgeExample2 {
     /**
      * 系统内消息
      */
-    public static class MessageSMS implements MessageImplementor {
+    public static class SMSSender implements MessageSender {
 
         @Override
         public void send(String message, String toUser) {
 
-            System.out.println("使用系统内短消息的方法,发送消息'" + message + "'给" + toUser);
+            log.info("使用系统内短消息的方法,{} 发送消息给 {}", message, toUser);
         }
     }
 
     /**
      * 邮件消息
      */
-    public static class MessageEmail implements MessageImplementor {
+    public static class EmailSender implements MessageSender {
 
         @Override
         public void send(String message, String toUser) {
-            System.out.println("使用邮件短消息的方法,发送消息'" + message + "'给" + toUser);
+            log.info("使用邮件短消息的方法,{} 发送消息给 {}", message, toUser);
         }
     }
 
     /**
      * 手机消息
      */
-    public static class MessageMobile implements MessageImplementor {
+    public static class MobileSender implements MessageSender {
 
         @Override
         public void send(String message, String toUser) {
-            System.out.println("使用手机的方法,发送消息'" + message + "'给" + toUser);
+            log.info("使用手机的方法,{} 发送消息给 {}", message, toUser);
         }
     }
 }

@@ -1,46 +1,53 @@
 package tech.edwardvan.basedesignpattern.pattern.structural.flyweight;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Random;
 
 /**
  * 享元模式
+ * <p>
  * 优点:
  * 享元模式的优点在于它可以极大减少内存中对象的数量,使得相同对象或相似对象在内存中只保存一份.
  * 享元模式的外部状态相对独立,而且不会影响其内部状态,从而使得享元对象可以在不同的环境中被共享.
+ * <p>
  * 缺点:
  * 享元模式使得系统更加复杂,需要分离出内部状态和外部状态,这使得程序的逻辑复杂化.
  * 为了使对象可以共享,享元模式需要将享元对象的状态外部化,而读取外部状态使得运行时间变长.
+ * <p>
  * 举例:
  * {@link java.lang.Integer#valueOf(int)}
- * 连接池
+ * 数据库连接池
  *
  * @author EdwardVan
  */
+@Slf4j
 public class FlyweightExample {
-
-    private static final String colors[] = {"Red", "Green", "Blue", "White", "Black"};
 
     public static void main(String[] args) {
         for (int i = 0; i < 20; ++i) {
             Circle circle =
                     (Circle) CircleFactory.getCircle(getRandomColor());
-            circle.setX(getRandomX());
-            circle.setY(getRandomY());
-            circle.setRadius(100);
+            circle.setX(getRandom());
+            circle.setY(getRandom());
+            circle.setRadius(getRandom());
             circle.draw();
         }
     }
 
+    /**
+     * 随机获取颜色
+     */
     private static String getRandomColor() {
+        final String colors[] = {"Red", "Green", "Blue", "White", "Black"};
         return colors[new Random().nextInt(colors.length)];
     }
 
-    private static int getRandomX() {
-        return new Random().nextInt(100);
-    }
-
-    private static int getRandomY() {
+    /**
+     * 随机获取坐标
+     */
+    private static int getRandom() {
         return new Random().nextInt(100);
     }
 
@@ -85,24 +92,23 @@ public class FlyweightExample {
 
         @Override
         public void draw() {
-            System.out.println("Circle: Draw() [Color : " + color
-                    + ", x : " + x + ", y :" + y + ", radius :" + radius);
+            log.info("Circle: [Color :{}, x : {}, y :{}, radius :{}", color, x, y, radius);
         }
     }
 
     /**
-     * 圆工厂
+     * 制圆工厂
      */
     public static class CircleFactory {
 
-        private static final HashMap<String, Shape> circleMap = new HashMap<>();
+        private static final HashMap<String, Circle> circleMap = new HashMap<>();
 
         public static Shape getCircle(String color) {
-            Circle circle = (Circle) circleMap.get(color);
+            Circle circle = circleMap.get(color);
             if (circle == null) {
                 circle = new Circle(color);
                 circleMap.put(color, circle);
-                System.out.println("Creating circle of color : " + color);
+                log.info("Creating circle of color : {}", color);
             }
             return circle;
         }

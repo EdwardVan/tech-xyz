@@ -1,4 +1,4 @@
-# Application Context Initializers
+# 系统初始化器
 org.springframework.context.ApplicationContextInitializer=\
 tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextInitializer
 
@@ -6,12 +6,12 @@ tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextIni
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 tech.edwardvan.testspringbootautoconfigure.config.TestAutoConfiguration
 
-# Application Listeners
+# 应用事件监听器
 org.springframework.context.ApplicationListener=\
 tech.edwardvan.testspringbootautoconfigure.listener.TestApplicationListener,\
 tech.edwardvan.testspringbootautoconfigure.listener.BeforeConfigFileApplicationListener,\
 tech.edwardvan.testspringbootautoconfigure.listener.AfterConfigFileApplicationListener
 
-# Run Listeners
+# 运行监听器
 org.springframework.boot.SpringApplicationRunListener=\
 tech.edwardvan.testspringbootautoconfigure.listener.TestSpringApplicationRunListener

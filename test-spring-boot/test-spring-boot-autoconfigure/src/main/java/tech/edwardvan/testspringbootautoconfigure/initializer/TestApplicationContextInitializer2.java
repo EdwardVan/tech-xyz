@@ -2,6 +2,7 @@ package tech.edwardvan.testspringbootautoconfigure.initializer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
@@ -9,20 +10,16 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ResourceLoader;
 
 /**
- * 系统初始化器
+ * 系统初始化器2
  * <p>
- * 通过 spring.factories 配置方式添加
- * <p>
- * 介绍:Spring容器刷新之前执行的一个回调函数
- * 作用:向SpringBoot容器中注册属性
- * 加载:{@link SpringApplication#SpringApplication(ResourceLoader, Class[])}
- * 执行:{@link SpringApplication#applyInitializers(ConfigurableApplicationContext)}
+ * 通过创建ApplicationContext时添加
+ * 加载:{@link SpringApplicationBuilder#initializers(ApplicationContextInitializer[])}
  *
  * @author EdwardVan
  */
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class TestApplicationContextInitializer implements ApplicationContextInitializer {
+@Order(1)
+public class TestApplicationContextInitializer2 implements ApplicationContextInitializer {
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {

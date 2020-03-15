@@ -1,9 +1,25 @@
-# tech-xyz
-知点无限
+## tech-xyz介绍
+tech-xyz 是本人的一个知识仓库。主要目的是为了通过这个仓库来记录自己在学习Java和框架源码过程中的笔记和心得。
 
-#### 项目介绍
-EdwardVan的java知识体系
+## 目录
 
-#### 相关链接
-https://gitee.com/EdwardVan/tech-xyz.git
-https://github.com/EdwardVan/tech-xyz.git
+- [Java基础](#Java基础)
+- [数据结构&算法](#数据结构&算法)
+    - [数据结构](#数据结构)
+    - [算法](#算法)
+- [并发&高并发](#并发&高并发)
+    - [并发](#并发)
+    - [高并发](#高并发)
+- [设计模式](#设计模式)
+- [RBAC](#RBAC)
+    - [自己实现RBAC](#自己实现RBAC)
+    - [Spring Security](#Spring Security)
+- [SSM搭建](#SSM搭建)
+    - [XML版本](#XML版本)
+    - [注解版本](#注解版本)
+- [Spring Boot](#Spring Boot)
+    - [源码解析](#源码解析)
+    - [自定义starter](#自定义starter)
+- [Spring Cloud](#Spring Cloud)
+- [待办](#待办)
+- [说明](#说明)

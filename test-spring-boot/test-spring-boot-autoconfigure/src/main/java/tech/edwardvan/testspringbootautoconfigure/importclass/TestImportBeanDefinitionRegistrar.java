@@ -13,6 +13,6 @@ public class TestImportBeanDefinitionRegistrar implements ImportBeanDefinitionRe
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        log.info("This is TestImportBeanDefinitionRegistrar.class log");
+        log.warn("This is {}", Thread.currentThread().getStackTrace()[1].getMethodName());
     }
 }

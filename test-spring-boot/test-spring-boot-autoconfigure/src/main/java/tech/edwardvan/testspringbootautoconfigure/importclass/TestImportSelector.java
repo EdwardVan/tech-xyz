@@ -11,7 +11,7 @@ import org.springframework.core.type.AnnotationMetadata;
 public class TestImportSelector implements ImportSelector {
     @Override
     public String[] selectImports(AnnotationMetadata annotationMetadata) {
-        log.info("This is TestImportSelector.class log");
+        log.warn("This is {}", Thread.currentThread().getStackTrace()[1].getMethodName());
         return new String[0];
     }
 }

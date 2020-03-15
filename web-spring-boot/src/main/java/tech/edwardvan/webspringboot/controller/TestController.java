@@ -22,7 +22,7 @@ import java.util.Properties;
 public class TestController {
 
     /**
-     * 测试自定义Properties方法参数解析器及
+     * 测试{@link PropertiesHttpMessageConverter}
      */
     @PostMapping(value = "/testHandlerMethodArgumentResolver")
     public Properties testHandlerMethodArgumentResolver(Properties properties) {
@@ -32,7 +32,7 @@ public class TestController {
     /**
      * 测试自定义MessageConverter
      * <p>
-     * RequestBody注解决定了{@link RequestResponseBodyMethodProcessor}处理参数和返回值
+     * RequestBody和ResponseBody注解决定了{@link RequestResponseBodyMethodProcessor}处理参数和返回值
      * 请求头中Content-Type为 text/properties 决定了{@link PropertiesHttpMessageConverter}处理转换
      * <p>
      * consumes:指定请求头Content-Type的MediaType

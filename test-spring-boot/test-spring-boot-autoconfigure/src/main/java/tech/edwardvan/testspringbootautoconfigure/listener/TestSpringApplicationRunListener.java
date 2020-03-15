@@ -30,37 +30,7 @@ public class TestSpringApplicationRunListener implements SpringApplicationRunLis
     }
 
     @Override
-    public void starting() {
-        log.info("TestSpringApplicationRunListener.starting()");
-    }
-
-    @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
-        log.info("TestSpringApplicationRunListener.environmentPrepared()");
-    }
-
-    @Override
-    public void contextPrepared(ConfigurableApplicationContext context) {
-        log.info("TestSpringApplicationRunListener.contextPrepared()");
-    }
-
-    @Override
-    public void contextLoaded(ConfigurableApplicationContext context) {
-        log.info("TestSpringApplicationRunListener.contextLoaded()");
-    }
-
-    @Override
-    public void started(ConfigurableApplicationContext context) {
-        log.info("TestSpringApplicationRunListener.started()");
-    }
-
-    @Override
-    public void running(ConfigurableApplicationContext context) {
-        log.info("TestSpringApplicationRunListener.running()");
-    }
-
-    @Override
-    public void failed(ConfigurableApplicationContext context, Throwable exception) {
-        log.info("TestSpringApplicationRunListener.failed()");
+        log.warn("This is {}", Thread.currentThread().getStackTrace()[1].getMethodName());
     }
 }

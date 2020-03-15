@@ -1,6 +1,12 @@
 server:
   port: 8080
 
+context:
+  initializer:
+    classes: tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextInitializer3
+  listener:
+    classes: tech.edwardvan.testspringbootautoconfigure.listener.TestApplicationListener3
+
 spring:
   #激活配置
   profiles:

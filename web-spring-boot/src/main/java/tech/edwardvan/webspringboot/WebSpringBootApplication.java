@@ -1,7 +1,6 @@
 package tech.edwardvan.webspringboot;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +18,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextInitializer2;
+import tech.edwardvan.testspringbootautoconfigure.listener.TestApplicationListener2;
 
 /**
  * 项目启动入口
@@ -63,7 +64,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  *      3.使用缓存注解
  */
 @EnableCaching
-@EnableRabbit
 public class WebSpringBootApplication {
 
     public static void main(String[] args) {
@@ -71,6 +71,8 @@ public class WebSpringBootApplication {
         //SpringApplication.run(WebSpringBootApplication.class, args);
         // 启动方式二
         ConfigurableApplicationContext run = new SpringApplicationBuilder(WebSpringBootApplication.class)
+                .initializers(new TestApplicationContextInitializer2())
+                .listeners(new TestApplicationListener2())
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }

@@ -11,6 +11,9 @@ import tech.edwardvan.webspringboot.model.User;
 import tech.edwardvan.webspringboot.service.IUserService;
 
 
+/**
+ * @author EdwardVan
+ */
 @RestController
 @RequestMapping("/user")
 @Slf4j
@@ -29,12 +32,6 @@ public class UserController {
     public ServerResponse updateUser(@RequestBody User user) {
         userService.updateUserSelective(user);
         return new ServerResponse(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getDesc());
-    }
-
-
-    @RabbitListener(queues = {"testQueue"})
-    public void receiveMessage(Message message) {
-        System.out.println(message);
     }
 
     @GetMapping("testAsync")

@@ -6,18 +6,24 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.MethodParameter;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.support.*;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import tech.edwardvan.webspringboot.converter.PropertiesHttpMessageConverter;
 import tech.edwardvan.webspringboot.handler.PropertiesHandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import tech.edwardvan.webspringboot.handler.PropertiesHandlerMethodReturnValueHandler;
 
 import javax.annotation.PostConstruct;
@@ -25,16 +31,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * WebMvc扩展配置类
  * <p>
+ * SpringMVC处理请求核心步骤:
+ * 处理器映射器:{@link DispatcherServlet#getHandler(HttpServletRequest)}
+ * 处理器适配器:{@link DispatcherServlet#getHandlerAdapter(Object)}
+ * 执行适配入口:{@link RequestMappingHandlerAdapter#handleInternal(HttpServletRequest, HttpServletResponse, HandlerMethod)}
+ * 解析方法参数:{@link InvocableHandlerMethod#getMethodArgumentValues(NativeWebRequest, ModelAndViewContainer, Object...)}
+ * 寻找方法参数解析器:{@link HandlerMethodArgumentResolverComposite#getArgumentResolver(MethodParameter)}
+ * 执行方法参数解析器:{@link HandlerMethodArgumentResolver#resolveArgument(MethodParameter, ModelAndViewContainer, NativeWebRequest, WebDataBinderFactory)}
+ * 执行方法且返回结果:{@link InvocableHandlerMethod#doInvoke(Object...)}
+ * 寻找方法返回值处理器{@link HandlerMethodReturnValueHandlerComposite#selectHandler(Object, MethodParameter)}
+ * 处理返回值:{@link HandlerMethodReturnValueHandler#handleReturnValue(Object, MethodParameter, ModelAndViewContainer, NativeWebRequest)}
+ * 视图内容协商器解析得到View:{@link ContentNegotiatingViewResolver#resolveViewName(String, Locale)}
+ * 输出结果:{@link View#render(Map, HttpServletRequest, HttpServletResponse)}
+ * <p>
+ * 标注与不标注@EnableWebMvc的区别
  * 不标注 @EnableWebMvc,既保留了所有的自动配置,也能用我们扩展的配置
  * 自动配置:{@link WebMvcAutoConfiguration.EnableWebMvcConfiguration}
  * 加载扩展:{@link WebMvcAutoConfiguration.EnableWebMvcConfiguration#setConfigurers}
- * <p>
- * 标注@EnableWebMvc,全面接管SpringMVC配置
- * 原理:
+ * 标注@EnableWebMvc,此类全面接管SpringMVC配置
  * {@link EnableWebMvc} -> @Import(DelegatingWebMvcConfiguration.class)
  * 自动配置失效:{@link WebMvcAutoConfiguration} -> @ConditionalOnMissingBean(WebMvcConfigurationSupport.class)
  * <p>

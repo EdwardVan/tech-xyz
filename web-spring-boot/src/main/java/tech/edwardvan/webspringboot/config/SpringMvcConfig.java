@@ -38,8 +38,8 @@ import java.util.Map;
  * WebMvc扩展配置类
  * <p>
  * SpringMVC处理请求核心步骤:
- * 处理器映射器:{@link DispatcherServlet#getHandler(HttpServletRequest)}
- * 处理器适配器:{@link DispatcherServlet#getHandlerAdapter(Object)}
+ * 处理器映射器执行:{@link DispatcherServlet#getHandler(HttpServletRequest)}
+ * 获取处理器适配器:{@link DispatcherServlet#getHandlerAdapter(Object)}
  * 执行适配入口:{@link RequestMappingHandlerAdapter#handleInternal(HttpServletRequest, HttpServletResponse, HandlerMethod)}
  * 解析方法参数:{@link InvocableHandlerMethod#getMethodArgumentValues(NativeWebRequest, ModelAndViewContainer, Object...)}
  * 寻找方法参数解析器:{@link HandlerMethodArgumentResolverComposite#getArgumentResolver(MethodParameter)}
@@ -134,10 +134,18 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * 原理:
      * {@link WebMvcAutoConfiguration.EnableWebMvcConfiguration#requestMappingHandlerAdapter(ContentNegotiationManager, FormattingConversionService, Validator)}
      * {@link WebMvcConfigurationSupport#getArgumentResolvers()}
+     * {@link RequestMappingHandlerAdapter#afterPropertiesSet()}
      * {@link RequestMappingHandlerAdapter#getDefaultArgumentResolvers()}
+     * 问题:
+     * 该方法中第一行为什么输出为 true ?
+     * {@link SpringMvcConfig}实例化过程中需要{@link RequestMappingHandlerAdapter}
+     * {@link RequestMappingHandlerAdapter}实例化过程中需要{@link WebMvcAutoConfiguration.EnableWebMvcConfiguration}
+     * {@link WebMvcAutoConfiguration.EnableWebMvcConfiguration}实例化过程中需要{@link SpringMvcConfig}
+     * 因为构成了死循环,程序会报错吗?
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        log.warn("SpringMvcConfig.requestMappingHandlerAdapter is null? {}", requestMappingHandlerAdapter == null);
         //注意:此方法无法添加解析器到队列第一个位置
 //        resolvers.add(0, new PropertiesHandlerMethodArgumentResolver());
     }

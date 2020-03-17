@@ -64,13 +64,4 @@ public class SpringConfig {
         user.setUsername("conditionalUser");
         return user;
     }
-
-    /**
-     * 工厂注册Bean
-     * 注册到容器中的bean实际上是new UserFactoryBean().getObject()返回的对象,而不是new UserFactoryBean()对象
-     */
-    @Bean
-    public UserFactoryBean userFactoryBean(){
-        return new UserFactoryBean();
-    }
 }

@@ -2,15 +2,13 @@
 org.springframework.context.ApplicationContextInitializer=\
 tech.edwardvan.testspringbootautoconfigure.initializer.TestApplicationContextInitializer
 
-# Auto Configure
+# 自动配置
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 tech.edwardvan.testspringbootautoconfigure.config.TestAutoConfiguration
 
 # 应用事件监听器
 org.springframework.context.ApplicationListener=\
-tech.edwardvan.testspringbootautoconfigure.listener.TestApplicationListener,\
-tech.edwardvan.testspringbootautoconfigure.listener.BeforeConfigFileApplicationListener,\
-tech.edwardvan.testspringbootautoconfigure.listener.AfterConfigFileApplicationListener
+tech.edwardvan.testspringbootautoconfigure.listener.TestApplicationListener
 
 # 运行监听器
 org.springframework.boot.SpringApplicationRunListener=\

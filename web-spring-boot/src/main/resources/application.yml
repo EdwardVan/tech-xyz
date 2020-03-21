@@ -56,3 +56,8 @@ logging:
 
 #让控制台打印自动配置报告
 debug: false
+
+#配置优先级测试
+properties:
+  priority:
+    test: prioritytest-3

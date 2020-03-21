@@ -2,11 +2,11 @@ package tech.edwardvan.testspringbootautoconfigure.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.event.EventPublishingRunListener;
 import org.springframework.boot.context.event.SpringApplicationEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ResourceLoader;
 
@@ -21,11 +21,13 @@ import org.springframework.core.io.ResourceLoader;
  * @author EdwardVan
  */
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(ConfigFileApplicationListener.DEFAULT_ORDER - 1)
 public class TestApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        log.warn("This is {},event'source is {}", Thread.currentThread().getStackTrace()[1].getMethodName(), event.getSource());
+        System.out.println("This is " + Thread.currentThread().getStackTrace()[1].getMethodName());
+        //如果将Order设置为(ConfigFileApplicationListener.DEFAULT_ORDER + 1),则可以获取到属性
+        System.out.println("environment.getProperty(\"server.port\") :" + event.getEnvironment().getProperty("server.port"));
     }
 }

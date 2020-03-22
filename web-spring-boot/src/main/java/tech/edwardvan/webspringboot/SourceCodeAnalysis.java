@@ -1,20 +1,32 @@
 package tech.edwardvan.webspringboot;
 
+import org.apache.catalina.Host;
+import org.apache.catalina.startup.Tomcat;
 import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
-import org.springframework.beans.factory.support.AbstractBeanFactory;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.beans.factory.support.*;
 import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
+import org.springframework.boot.web.server.WebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ConfigurationClassPostProcessor;
+import org.springframework.context.annotation.ConfigurationCondition;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -26,8 +38,10 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * 源码解析集合类
@@ -42,7 +56,7 @@ public interface SourceCodeAnalysis {
      * 创建SpringApplication:{@link SpringApplication#SpringApplication(ResourceLoader, Class[])}
      * 加载RunListener:{@link SpringApplication#getRunListeners(String[])}
      * RunListeners.starting 执行:{@link SpringApplicationRunListeners#starting()}
-     * 准备环境入口:{@link SpringApplication#prepareEnvironment(org.springframework.boot.SpringApplicationRunListeners, ApplicationArguments)}
+     * 准备环境入口:{@link SpringApplication#prepareEnvironment(SpringApplicationRunListeners, ApplicationArguments)}
      * 创建环境:{@link SpringApplication#getOrCreateEnvironment()}
      * 配置环境:{@link SpringApplication#configureEnvironment(ConfigurableEnvironment, String[])}
      * RunListeners.environmentPrepared 执行:{@link SpringApplicationRunListeners#environmentPrepared(ConfigurableEnvironment)}
@@ -63,12 +77,29 @@ public interface SourceCodeAnalysis {
      * 创建web容器:{@link ServletWebServerApplicationContext#createWebServer()}
      * 注册监听器:{@link AbstractApplicationContext#registerListeners()}
      * 创建所有非懒加载的单例类:{@link AbstractApplicationContext#finishBeanFactoryInitialization(ConfigurableListableBeanFactory)}
-     * 刷新完成:{@link AbstractApplicationContext#finishRefresh()}
+     * 刷新完成:{@link ServletWebServerApplicationContext#finishRefresh()}
      * RunListeners.started 执行:{@link SpringApplicationRunListeners#started(ConfigurableApplicationContext)}
      * 执行启动加载器:{@link SpringApplication#callRunners(ApplicationContext, ApplicationArguments)}
      * RunListeners.running 执行:{@link SpringApplicationRunListeners#running(ConfigurableApplicationContext)}
      */
     void SpringBoot启动过程();
+
+    /**
+     * 配置类解析过程
+     * <p>
+     * BeanDefinitionRegistryPostProcessor:{@link ConfigurationClassPostProcessor#processConfigBeanDefinitions(BeanDefinitionRegistry)}
+     * 筛选配置类:{@link org.springframework.context.annotation.ConfigurationClassUtils#checkConfigurationClassCandidate(BeanDefinition, MetadataReaderFactory)}
+     * 解析配置类入口:{@link org.springframework.context.annotation.ConfigurationClassParser#processConfigurationClass(org.springframework.context.annotation.ConfigurationClass, Predicate)}
+     * 判断条件是否跳过:{@link org.springframework.context.annotation.ConditionEvaluator#shouldSkip(AnnotatedTypeMetadata, ConfigurationCondition.ConfigurationPhase)}
+     * 核心处理入口:{@link org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass(org.springframework.context.annotation.ConfigurationClass, org.springframework.context.annotation.ConfigurationClassParser.SourceClass, Predicate)}
+     * 处理内部类:{@link org.springframework.context.annotation.ConfigurationClassParser#processMemberClasses(org.springframework.context.annotation.ConfigurationClass, org.springframework.context.annotation.ConfigurationClassParser.SourceClass, Predicate)}
+     * 处理@PropertySource:{@link org.springframework.context.annotation.ConfigurationClassParser#processPropertySource(AnnotationAttributes)}
+     * 处理@ComponentScan:{@link org.springframework.context.annotation.ComponentScanAnnotationParser#parse(AnnotationAttributes, String)}
+     * 处理@Import:{@link org.springframework.context.annotation.ConfigurationClassParser#processImports(org.springframework.context.annotation.ConfigurationClass, org.springframework.context.annotation.ConfigurationClassParser.SourceClass, Collection, Predicate, boolean)}
+     * 处理@Bean:{@link org.springframework.context.annotation.ConfigurationClassParser#retrieveBeanMethodMetadata(org.springframework.context.annotation.ConfigurationClassParser.SourceClass)}
+     * 返回并处理父类:{@link org.springframework.context.annotation.ConfigurationClassParser.SourceClass#getSuperClass()}
+     */
+    void 配置类解析过程();
 
     /**
      * Bean实例化过程
@@ -124,4 +155,23 @@ public interface SourceCodeAnalysis {
      * 输出结果:{@link View#render(Map, HttpServletRequest, HttpServletResponse)}
      */
     void SpringMVC处理请求步骤();
+
+    /**
+     * 内置web容器启动过程
+     * <p>
+     * 创建web容器入口:{@link ServletWebServerApplicationContext#createWebServer()}
+     * 获取web容器工厂入口:{@link ServletWebServerApplicationContext#getWebServerFactory()}
+     * 执行PostProcessor前置处理器:{@link WebServerFactoryCustomizerBeanPostProcessor#postProcessBeforeInitialization(Object, String)}
+     * 获取Customizer对象:{@link WebServerFactoryCustomizerBeanPostProcessor#getWebServerFactoryCustomizerBeans()}
+     * 应用Customizer:{@link WebServerFactoryCustomizer#customize(WebServerFactory)}
+     * 获取Tomcat容器入口:{@link TomcatServletWebServerFactory#getWebServer(ServletContextInitializer...)}
+     * 准备环境:{@link TomcatServletWebServerFactory#prepareContext(Host, ServletContextInitializer[])}
+     * 创建Tomcat容器:{@link TomcatWebServer#TomcatWebServer(Tomcat, boolean)}
+     * 启动容器:{@link TomcatWebServer#start()}
+     * <p>
+     * 相关配置类
+     * {@link ServletWebServerFactoryAutoConfiguration}
+     * {@link org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryConfiguration}
+     */
+    void 内置web容器启动过程();
 }

@@ -1,4 +1,4 @@
-package tech.edwardvan.webspringboot;
+package tech.edwardvan.sourcecodeanalysis;
 
 import org.apache.catalina.Host;
 import org.apache.catalina.startup.Tomcat;
@@ -44,11 +44,11 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * 源码解析集合类
+ * SpringBoot源码解析
  *
  * @author EdwardVan
  */
-public interface SourceCodeAnalysis {
+public interface SpringBoot {
 
     /**
      * SpringBoot启动过程

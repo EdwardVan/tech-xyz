@@ -12,4 +12,13 @@
     <groupId>tech.edwardvan</groupId>
     <artifactId>base-design-pattern</artifactId>
     <name>base-design-pattern</name>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+    </dependencies>
 </project>

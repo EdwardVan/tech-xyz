@@ -36,6 +36,8 @@
         <module>spring-cloud</module>
         <!--权限控制-->
         <module>rbac</module>
+        <!--源码解析-->
+        <module>source-code-analysis</module>
     </modules>
     <name>tech-xyz</name>
 

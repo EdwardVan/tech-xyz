@@ -1,16 +1,30 @@
 package tech.edwardvan.sourcecodeanalysis;
 
 
+import org.apache.ibatis.binding.MapperProxy;
+import org.apache.ibatis.executor.CachingExecutor;
 import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.SimpleExecutor;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
-import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.plugin.InterceptorChain;
+import org.apache.ibatis.reflection.ParamNameResolver;
+import org.apache.ibatis.session.*;
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
+import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+import org.apache.ibatis.transaction.Transaction;
+import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.type.TypeHandler;
+import org.mybatis.spring.SqlSessionUtils;
+import org.springframework.dao.support.PersistenceExceptionTranslator;
+
+import javax.sql.DataSource;
+import java.lang.reflect.Method;
 
 /**
  * MyBatis源码解析集
@@ -35,4 +49,25 @@ public interface MyBatis {
      */
     void MyBatis主要部件();
 
+
+    /**
+     * 调用Mapper接口执行过程
+     * <p>
+     * 执行Mapper代理方法-入口:{@link MapperProxy.PlainMethodInvoker#invoke(Object, Method, Object[], SqlSession)}
+     * 封装方法参数:{@link ParamNameResolver#getNamedParams(Object[])}
+     * [获取SqlSession]-入口:{@link SqlSessionUtils#getSqlSession(SqlSessionFactory, ExecutorType, PersistenceExceptionTranslator)}
+     * [创建SqlSession]-入口:{@link DefaultSqlSessionFactory#openSessionFromDataSource(ExecutorType, TransactionIsolationLevel, boolean)}
+     * 获取事务工厂:{@link DefaultSqlSessionFactory#getTransactionFactoryFromEnvironment(Environment)}
+     * 创建事务:{@link TransactionFactory#newTransaction(DataSource, TransactionIsolationLevel, boolean)}
+     * [创建Executor]-入口:{@link Configuration#newExecutor(Transaction, ExecutorType)}
+     * 创建Executor对象:{@link SimpleExecutor#SimpleExecutor(Configuration, Transaction)}
+     * 使用二级缓存包装Executor:{@link CachingExecutor#CachingExecutor(Executor)}
+     * 使用拦截器包装Executor:{@link InterceptorChain#pluginAll(Object)}
+     * [创建Executor]-出口
+     * 创建SqlSession对象:{@link DefaultSqlSession#DefaultSqlSession(Configuration, Executor, boolean)}
+     * [创建SqlSession]-出口
+     * 注册到SessionHolder:{@link SqlSessionUtils#registerSessionHolder(SqlSessionFactory, ExecutorType, PersistenceExceptionTranslator, SqlSession)}
+     * [获取SqlSession]-出口
+     */
+    void 调用Mapper接口执行过程();
 }

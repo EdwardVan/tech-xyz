@@ -134,8 +134,8 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         // 添加到converters的末尾
-//        converters.add(new PropertiesHttpMessageConverter());
+        converters.add(new PropertiesHttpMessageConverter());
         // 添加到converters的首位
-        converters.set(0, new PropertiesHttpMessageConverter());
+//        converters.set(0, new PropertiesHttpMessageConverter());
     }
 }

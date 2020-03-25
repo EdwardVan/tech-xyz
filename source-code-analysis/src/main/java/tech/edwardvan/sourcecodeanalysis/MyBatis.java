@@ -20,6 +20,8 @@ import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.type.TypeHandler;
+import org.mybatis.spring.SqlSessionHolder;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
@@ -53,9 +55,13 @@ public interface MyBatis {
     /**
      * 调用Mapper接口执行过程
      * <p>
-     * 执行Mapper代理方法-入口:{@link MapperProxy.PlainMethodInvoker#invoke(Object, Method, Object[], SqlSession)}
+     * Mapper代理类方法执行:{@link MapperProxy#invoke(Object, Method, Object[])}
+     * 执行简单的方法执行器:{@link MapperProxy.PlainMethodInvoker#invoke(Object, Method, Object[], SqlSession)}
      * 封装方法参数:{@link ParamNameResolver#getNamedParams(Object[])}
+     * [SqlSession代理类方法执行]-入口:{@link SqlSessionTemplate.SqlSessionInterceptor#invoke(Object, Method, Object[])}
+     * <p>
      * [获取SqlSession]-入口:{@link SqlSessionUtils#getSqlSession(SqlSessionFactory, ExecutorType, PersistenceExceptionTranslator)}
+     * 尝试从Holder中获取SqlSession:{@link SqlSessionUtils#sessionHolder(ExecutorType, SqlSessionHolder)}
      * [创建SqlSession]-入口:{@link DefaultSqlSessionFactory#openSessionFromDataSource(ExecutorType, TransactionIsolationLevel, boolean)}
      * 获取事务工厂:{@link DefaultSqlSessionFactory#getTransactionFactoryFromEnvironment(Environment)}
      * 创建事务:{@link TransactionFactory#newTransaction(DataSource, TransactionIsolationLevel, boolean)}
@@ -68,6 +74,8 @@ public interface MyBatis {
      * [创建SqlSession]-出口
      * 注册到SessionHolder:{@link SqlSessionUtils#registerSessionHolder(SqlSessionFactory, ExecutorType, PersistenceExceptionTranslator, SqlSession)}
      * [获取SqlSession]-出口
+     * <p>
+     * [执行查询]-入口:{@link DefaultSqlSession#selectList(String, Object, RowBounds)}
      */
     void 调用Mapper接口执行过程();
 }

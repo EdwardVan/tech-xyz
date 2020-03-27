@@ -22,35 +22,35 @@ import java.lang.reflect.Proxy;
 @Slf4j
 public class ProxyExample2 {
     public static void main(String[] args) {
-        Subject subject = new SubjectInvocationHandler(new RealSubject()).getProxy();
-        subject.doSomething();
+        Target proxy = TargetProxy.getProxy(new TargetImpl());
+        proxy.execute();
     }
 
     /**
-     * 抽象主题角色
+     * 目标接口
      */
-    public interface Subject {
-        void doSomething();
+    public interface Target {
+        void execute();
     }
 
     /**
-     * 真实主题角色
+     * 目标接口实现
      */
-    private static class RealSubject implements Subject {
+    private static class TargetImpl implements Target {
         @Override
-        public void doSomething() {
-            log.info("RealSubject doSomething");
+        public void execute() {
+            log.info("HelloWord");
         }
     }
 
     /**
-     * JDK代理处理器
+     * 代理类
      */
-    private static class SubjectInvocationHandler implements InvocationHandler {
+    private static class TargetProxy implements InvocationHandler {
 
-        private Subject target;
+        private Target target;
 
-        public SubjectInvocationHandler(Subject target) {
+        public TargetProxy(Target target) {
             this.target = target;
         }
 
@@ -66,15 +66,15 @@ public class ProxyExample2 {
         /**
          * 获取代理对象
          */
-        public <T> T getProxy() {
-            return (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+        public static Target getProxy(Target target) {
+            return (Target) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), new TargetProxy(target));
         }
     }
 
     /**
      * JDK动态代理原理模拟
      */
-    public final class $Proxy1 implements Subject {
+    public final class $Proxy1 implements Target {
 
         private InvocationHandler h;
 
@@ -86,10 +86,10 @@ public class ProxyExample2 {
         }
 
         @Override
-        public void doSomething() {
+        public void execute() {
             try {
                 //创建method对象
-                Method method = Subject.class.getMethod("doSomething");
+                Method method = Target.class.getMethod(Thread.currentThread().getStackTrace()[1].getMethodName());
                 //调用了invoke方法
                 h.invoke(this, method, new Object[]{});
             } catch (Throwable t) {

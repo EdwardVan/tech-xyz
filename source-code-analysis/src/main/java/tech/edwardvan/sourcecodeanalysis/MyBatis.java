@@ -83,7 +83,7 @@ public interface MyBatis {
      * [创建Executor]-入口:{@link Configuration#newExecutor(Transaction, ExecutorType)}
      * 真正创建Executor对象:{@link SimpleExecutor#SimpleExecutor(Configuration, Transaction)}
      * 使用二级缓存包装Executor:{@link CachingExecutor#CachingExecutor(Executor)}
-     * 使用拦截器包装Executor:{@link InterceptorChain#pluginAll(Object)}
+     * 使用拦截器封装Executor:{@link InterceptorChain#pluginAll(Object)}
      * [创建Executor]-出口
      * 真正创建SqlSession对象:{@link DefaultSqlSession#DefaultSqlSession(Configuration, Executor, boolean)}
      * [创建SqlSession]-出口
@@ -103,6 +103,7 @@ public interface MyBatis {
      * 创建StatementHandler:{@link Configuration#newStatementHandler(Executor, MappedStatement, Object, RowBounds, ResultHandler, BoundSql)}
      * 创建ParameterHandler:{@link Configuration#newParameterHandler(MappedStatement, Object, BoundSql)}
      * 创建ResultSetHandler:{@link Configuration#newResultSetHandler(Executor, MappedStatement, RowBounds, ParameterHandler, ResultHandler, BoundSql)}
+     * 上面三个对象都被拦截器封装:{@link InterceptorChain#pluginAll(Object)}
      * 获取Connection:{@link BaseExecutor#getConnection(Log)}
      * 获取Statement:{@link RoutingStatementHandler#prepare(Connection, Integer)}
      * 设置Statement执行时需要的参数:{@link DefaultParameterHandler#setParameters(PreparedStatement)}

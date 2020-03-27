@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  * 实现代理模式需要额外的工作,有些代理模式的实现非常复杂.
  * <p>
  * 举例:
+ * {@link org.apache.ibatis.executor.CachingExecutor}
  * {@link org.springframework.aop.framework.JdkDynamicAopProxy}
  * {@link org.springframework.aop.framework.CglibAopProxy}
  * {@link org.apache.ibatis.binding.MapperProxy}

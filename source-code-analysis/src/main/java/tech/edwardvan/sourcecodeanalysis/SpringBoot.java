@@ -110,15 +110,17 @@ public interface SpringBoot {
      * Bean实例化过程
      * <p>
      * 实例化剩余所有对象:{@link DefaultListableBeanFactory#preInstantiateSingletons()}
-     * 获取实例对象:{@link AbstractBeanFactory#doGetBean(String, Class, Object[], boolean)}
+     * [获取实例对象]-入口:{@link AbstractBeanFactory#doGetBean(String, Class, Object[], boolean)}
+     * 尝试从已创建的对象中获取:{@link DefaultSingletonBeanRegistry#getSingleton(String, boolean)}
      * [实例化对象]-入口:{@link AbstractAutowireCapableBeanFactory#doCreateBean(String, RootBeanDefinition, Object[])}
-     * 实例化对象:{@link AbstractAutowireCapableBeanFactory#createBeanInstance(String, RootBeanDefinition, Object[])}
-     * Autowired的依赖注入:{@link AbstractAutowireCapableBeanFactory#populateBean(String, RootBeanDefinition, BeanWrapper)}
+     * 真正实例化对象:{@link AbstractAutowireCapableBeanFactory#createBeanInstance(String, RootBeanDefinition, Object[])}
+     * 处理Autowired的依赖注入:{@link AbstractAutowireCapableBeanFactory#populateBean(String, RootBeanDefinition, BeanWrapper)}
      * 检查Aware相关方法:{@link AbstractAutowireCapableBeanFactory#invokeAwareMethods(String, Object)}
      * BeanPostProcessor前置处理:{@link AbstractAutowireCapableBeanFactory#applyBeanPostProcessorsBeforeInitialization(Object, String)}
      * 自定义初始化:{@link AbstractAutowireCapableBeanFactory#invokeInitMethods(String, Object, RootBeanDefinition)}
      * BeanPostProcessor后置处理:{@link AbstractAutowireCapableBeanFactory#applyBeanPostProcessorsAfterInitialization(Object, String)}
      * [实例化对象]-出口
+     * [获取实例对象]-出口
      */
     void Bean实例化过程();
 

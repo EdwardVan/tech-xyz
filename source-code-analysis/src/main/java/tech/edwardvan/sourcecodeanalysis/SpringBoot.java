@@ -21,26 +21,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.annotation.ConfigurationCondition;
 import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.method.support.*;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
-import java.util.Locale;
-import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -111,7 +98,7 @@ public interface SpringBoot {
      * <p>
      * 实例化剩余所有对象:{@link DefaultListableBeanFactory#preInstantiateSingletons()}
      * [获取实例对象]-入口:{@link AbstractBeanFactory#doGetBean(String, Class, Object[], boolean)}
-     * 尝试从已创建的对象中获取:{@link DefaultSingletonBeanRegistry#getSingleton(String, boolean)}
+     * 尝试从已创建的集合中获取:{@link DefaultSingletonBeanRegistry#getSingleton(String, boolean)}
      * [实例化对象]-入口:{@link AbstractAutowireCapableBeanFactory#doCreateBean(String, RootBeanDefinition, Object[])}
      * 真正实例化对象:{@link AbstractAutowireCapableBeanFactory#createBeanInstance(String, RootBeanDefinition, Object[])}
      * 处理Autowired的依赖注入:{@link AbstractAutowireCapableBeanFactory#populateBean(String, RootBeanDefinition, BeanWrapper)}
@@ -120,6 +107,7 @@ public interface SpringBoot {
      * 自定义初始化:{@link AbstractAutowireCapableBeanFactory#invokeInitMethods(String, Object, RootBeanDefinition)}
      * BeanPostProcessor后置处理:{@link AbstractAutowireCapableBeanFactory#applyBeanPostProcessorsAfterInitialization(Object, String)}
      * [实例化对象]-出口
+     * 添加到已创建的集合:{@link DefaultSingletonBeanRegistry#addSingleton(String, Object)}
      * [获取实例对象]-出口
      */
     void Bean实例化过程();
@@ -145,27 +133,6 @@ public interface SpringBoot {
      * 12.应用默认属性,使用SpringApplication.setDefaultProperties定义的属性内容.
      */
     void 配置优先级();
-
-    /**
-     * SpringMVC处理请求步骤
-     * <p>
-     * 处理器映射器执行:{@link DispatcherServlet#getHandler(HttpServletRequest)}
-     * 获取处理器适配器:{@link DispatcherServlet#getHandlerAdapter(Object)}
-     * [执行适配]-入口:{@link RequestMappingHandlerAdapter#handleInternal(HttpServletRequest, HttpServletResponse, HandlerMethod)}
-     * [解析方法参数]-入口:{@link InvocableHandlerMethod#getMethodArgumentValues(NativeWebRequest, ModelAndViewContainer, Object...)}
-     * 寻找参数解析器:{@link HandlerMethodArgumentResolverComposite#getArgumentResolver(MethodParameter)}
-     * 执行参数解析器:{@link HandlerMethodArgumentResolver#resolveArgument(MethodParameter, ModelAndViewContainer, NativeWebRequest, WebDataBinderFactory)}
-     * [解析方法参数]-出口
-     * 执行方法且返回结果:{@link InvocableHandlerMethod#doInvoke(Object...)}
-     * [解析方法返回值]-入口:{@link HandlerMethodReturnValueHandlerComposite#handleReturnValue(Object, MethodParameter, ModelAndViewContainer, NativeWebRequest)}
-     * 寻找返回值处理器:{@link HandlerMethodReturnValueHandlerComposite#selectHandler(Object, MethodParameter)}
-     * 执行返回值处理器:{@link HandlerMethodReturnValueHandler#handleReturnValue(Object, MethodParameter, ModelAndViewContainer, NativeWebRequest)}
-     * [解析方法返回值]-出口
-     * [执行适配]-出口
-     * 视图内容协商器解析得到View:{@link ContentNegotiatingViewResolver#resolveViewName(String, Locale)}
-     * 输出结果:{@link View#render(Map, HttpServletRequest, HttpServletResponse)}
-     */
-    void SpringMVC处理请求步骤();
 
     /**
      * 内置web容器启动过程

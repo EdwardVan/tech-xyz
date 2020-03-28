@@ -21,7 +21,10 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.InterceptorChain;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.reflection.ParamNameResolver;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.*;
@@ -38,10 +41,13 @@ import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
 import javax.sql.DataSource;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Map;
 
 /**
  * MyBatis源码解析集
@@ -118,4 +124,22 @@ public interface MyBatis {
      * [执行查询]-出口
      */
     void 调用Mapper接口执行过程();
+
+    /**
+     * 插件原理
+     * <p>
+     * 处理所有插件:{@link InterceptorChain#pluginAll(Object)}
+     * [使用插件封装目标对象生成代理对象]-入口:{@link Plugin#wrap(Object, Interceptor)}
+     * 获取插件要拦截的接口和方法集合:{@link Plugin#getSignatureMap(Interceptor)}
+     * 获取目标对象中符合插件指定接口的集合:{@link Plugin#getAllInterfaces(Class, Map)}
+     * 生成插件代理对象:{@link Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)}
+     * [使用插件封装目标对象生成代理对象]-出口
+     * <p>
+     * 执行插件代理方法:{@link Plugin#invoke(Object, Method, Object[])}
+     * 判断当前Method是否包含在插件指定的Method内
+     * 封装需要的参数:{@link Invocation#Invocation(Object, Method, Object[])}
+     * 执行插件方法:{@link Interceptor#intercept(Invocation)}
+     * 执行目标对象方法:{@link Invocation#proceed()}
+     */
+    void 插件原理();
 }

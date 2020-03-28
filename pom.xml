@@ -16,14 +16,6 @@
             对于继承的父pom而言,它不知道有哪些子模块继承它,但那些子模块都必须知道自己的父POM是什么
     -->
     <modules>
-        <!--web xml版-->
-        <module>web-ssm-xml</module>
-        <!--web 注解版-->
-        <module>web-ssm-annotation</module>
-        <!--自定义starter-->
-        <module>test-spring-boot</module>
-        <!--web springbootb版-->
-        <module>web-spring-boot</module>
         <!--java基础-->
         <module>base-java</module>
         <!--设计模式-->
@@ -32,10 +24,18 @@
         <module>base-algorithm-structure</module>
         <!--并发-->
         <module>base-concurrent</module>
-        <!--spring cloud全家桶-->
-        <module>spring-cloud</module>
         <!--权限控制-->
         <module>rbac</module>
+        <!--web xml版-->
+        <module>web-ssm-xml</module>
+        <!--web 注解版-->
+        <module>web-ssm-annotation</module>
+        <!--自定义starter-->
+        <module>web-spring-boot-starter</module>
+        <!--web spring boot版-->
+        <module>web-spring-boot</module>
+        <!--spring cloud全家桶-->
+        <module>spring-cloud</module>
         <!--源码解析-->
         <module>source-code-analysis</module>
     </modules>
@@ -51,9 +51,9 @@
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
         <mybatis.version>3.5.4</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-        <mybatis.spring.version>2.0.3</mybatis.spring.version>
+        <mybatis.spring.version>2.0.4</mybatis.spring.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-        <mybatis.spring.boot.version>2.1.1</mybatis.spring.boot.version>
+        <mybatis.spring.boot.version>2.1.2</mybatis.spring.boot.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
         <druid.version>1.1.21</druid.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->

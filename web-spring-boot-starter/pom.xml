@@ -8,11 +8,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>test-spring-boot</artifactId>
+    <artifactId>web-spring-boot-starter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>test-spring-boot</name>
+    <name>web-spring-boot-starter</name>
 
     <modules>
         <module>test-spring-boot-starter</module>

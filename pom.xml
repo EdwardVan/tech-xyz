@@ -38,6 +38,8 @@
         <module>spring-cloud</module>
         <!--源码解析-->
         <module>source-code-analysis</module>
+        <!--mybatis-plus-->
+        <module>os-mybatis-plus</module>
     </modules>
     <name>tech-xyz</name>
 

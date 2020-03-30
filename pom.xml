@@ -68,6 +68,10 @@
         <swagger.version>2.9.2</swagger.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>28.2-jre</guava.version>
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <mybatis.plus.version>3.3.1</mybatis.plus.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
+        <velocity.version>2.2</velocity.version>
     </properties>
     <!--
         只是对jar包版本进行管理,不会实际引入jar
@@ -142,6 +146,24 @@
             </dependency>
             <!-- mybatis end -->
 
+            <!--mybatis-plus start-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+            <!--mybatis-plus end-->
+
             <!-- swagger start-->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -168,7 +190,6 @@
                 <version>${commons.collections4.version}</version>
             </dependency>
             <!--util end-->
-
         </dependencies>
     </dependencyManagement>
 

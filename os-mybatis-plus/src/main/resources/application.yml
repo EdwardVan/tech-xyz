@@ -3,8 +3,16 @@ server:
 
 spring:
   datasource:
-    druid:
-      url: jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
-      username: root
-      password: 123456
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+
+
+#Mybatis打印sql
+logging:
+  level:
+    tech.edwardvan.osmybatisplus.mapper: debug

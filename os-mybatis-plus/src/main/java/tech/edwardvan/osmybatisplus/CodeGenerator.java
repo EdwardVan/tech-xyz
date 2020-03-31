@@ -3,8 +3,13 @@ package tech.edwardvan.osmybatisplus;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 代码生成器
@@ -86,6 +91,30 @@ public class CodeGenerator {
         pc.setEntity("entity");
         pc.setXml("mapper");
         mpg.setPackageInfo(pc);
+
+        // 自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+
+            }
+        };
+        // 自定义xml的存放路径
+        List<FileOutConfig> focList = new ArrayList<>();
+        focList.add(new FileOutConfig("/templates/mapper.xml.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义Mapper.xml文件存放的路径
+                return PROJECT_PATH + "\\src\\main\\resources\\mappers\\" + tableInfo.getEntityName() + "Mapper.xml";
+            }
+        });
+        cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);
+
+        // 关闭默认 xml生成,调整生成至根目录
+        TemplateConfig tc = new TemplateConfig();
+        tc.setXml(null);
+        mpg.setTemplate(tc);
 
         /**
          * 全局策略

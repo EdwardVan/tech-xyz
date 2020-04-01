@@ -21,4 +21,7 @@
         id, username, password, email, phone, question, answer, role, create_time, update_time
     </sql>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from demo_user ${ew.customSqlSegment}
+    </select>
 </mapper>

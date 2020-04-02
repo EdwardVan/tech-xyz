@@ -2,8 +2,10 @@ package tech.edwardvan.osmybatisplus;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,7 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class MyBatisPlusTest {
+public class MyBatisPlusMapperTest {
 
     @Autowired
     UserMapper userMapper;
@@ -30,7 +32,7 @@ public class MyBatisPlusTest {
      * 插入数据
      */
     @Test
-    public void mapperInsert() {
+    public void insert() {
         User user = new User();
         user.setUsername("username-test")
                 .setPassword("password-test").setRole(1)
@@ -45,7 +47,7 @@ public class MyBatisPlusTest {
      * 根据 ID 查询
      */
     @Test
-    public void mapperSelectById() {
+    public void selectById() {
         User user = userMapper.selectById(1);
         log.warn("user:{}", user);
     }
@@ -66,7 +68,7 @@ public class MyBatisPlusTest {
      * 根据 ID 批量查询
      */
     @Test
-    public void mapperSelectBatchIds() {
+    public void selectBatchIds() {
         List<User> userList = userMapper.selectBatchIds(Arrays.asList(1, 2, 3));
         log.warn("selectBatchIds:{}", userList);
     }
@@ -76,7 +78,7 @@ public class MyBatisPlusTest {
      * key值对应数据库表中的列名,而不是对应实体对象中的字段名
      */
     @Test
-    public void mapperSelectByMap() {
+    public void selectByMap() {
         Map<String, Object> columnMap = Map.of("username", "admin", "role", 1);
         List<User> users = userMapper.selectByMap(columnMap);
         log.warn("selectByMap:{}", users);
@@ -86,7 +88,7 @@ public class MyBatisPlusTest {
      * 通过条件构造器查询
      */
     @Test
-    public void mapperSelectList() {
+    public void selectList() {
         //通过条件构造器QueryWrapper
         QueryWrapper<User> queryWrapper = Wrappers.query();
         queryWrapper
@@ -109,7 +111,7 @@ public class MyBatisPlusTest {
      * 通过条件构造器查询,返回Map
      */
     @Test
-    public void mapperSelectMaps() {
+    public void selectMaps() {
         User paraUser = new User().setUsername("admin").setRole(1);
         QueryWrapper<User> userQueryWrapper = Wrappers.query(paraUser);
         userQueryWrapper.select("id", "username", "email");
@@ -122,7 +124,7 @@ public class MyBatisPlusTest {
      * 通过条件构造器查询,只返回第一个字段的值
      */
     @Test
-    public void mapperSelectObjs() {
+    public void selectObjs() {
         User paraUser = new User().setRole(1);
         QueryWrapper<User> userQueryWrapper = Wrappers.query(paraUser);
         userQueryWrapper.select("id", "username", "email");
@@ -134,7 +136,7 @@ public class MyBatisPlusTest {
      * 通过条件构造器统计
      */
     @Test
-    public void mapperSelectCount() {
+    public void selectCount() {
         User paraUser = new User().setRole(1);
         QueryWrapper<User> userQueryWrapper = Wrappers.query(paraUser);
         Integer integer = userMapper.selectCount(userQueryWrapper);
@@ -181,4 +183,71 @@ public class MyBatisPlusTest {
         List<User> selectAll = userMapper.selectAll(lambdaQueryWrapper);
         log.warn("selectAll:{}", selectAll);
     }
+
+    /**
+     * 分页查询
+     */
+    @Test
+    public void selectPage() {
+        Page<User> page = new Page<>(1, 5);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = Wrappers.lambdaQuery();
+        lambdaQueryWrapper.eq(User::getRole, 1);
+        Page<User> userPage = userMapper.selectPage(page, lambdaQueryWrapper);
+        log.warn("userPage:{}", userPage);
+    }
+
+    /**
+     * 分页查询
+     */
+    @Test
+    public void selectMapsPage() {
+        Page page = new Page<>(1, 5);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = Wrappers.lambdaQuery();
+        lambdaQueryWrapper.select(User::getId, User::getUsername).eq(User::getRole, 1);
+        Page mapsPage = userMapper.selectMapsPage(page, lambdaQueryWrapper);
+        log.warn("mapsPage:{}", mapsPage);
+    }
+
+    /**
+     * 更新
+     */
+    @Test
+    public void updateById() {
+        User user = new User().setId(1).setEmail("admin@qq.com");
+        int i = userMapper.updateById(user);
+        log.warn("i:{}", i);
+    }
+
+    /**
+     * 更新
+     */
+    @Test
+    public void update() {
+        LambdaUpdateWrapper<User> lambdaUpdateWrapper = Wrappers.lambdaUpdate();
+        lambdaUpdateWrapper.set(User::getEmail, "edwardvan@qq.com").ge(User::getRole, 1).between(User::getId, 1, 4);
+        int update = userMapper.update(null, lambdaUpdateWrapper);
+        log.warn("update:{}", update);
+    }
+
+
+    /**
+     * 根据id删除
+     */
+    @Test
+    public void deleteById() {
+        int i = userMapper.deleteById(8);
+        log.warn("i:{}", i);
+    }
+
+    /**
+     * 删除
+     */
+    @Test
+    public void delete() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = Wrappers.lambdaQuery();
+        lambdaQueryWrapper.ge(User::getId, 7);
+        int delete = userMapper.delete(lambdaQueryWrapper);
+        log.warn("delete:{}", delete);
+    }
+
 }

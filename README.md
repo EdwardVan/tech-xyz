@@ -22,7 +22,6 @@ tech-xyz 是本人的一个知识仓库。主要目的是为了通过这个仓�
     - [注解版本](#注解版本)
     - [SpringBoot版本](#SpringBoot版本)
     - [自定义SpringBootStarter](#自定义SpringBootStarter)
-    - [SpringBoot脚手架](#SpringBoot脚手架)
 - [微服务](#微服务)
     - [SpringCloud](#SpringCloud)
 - [源码解析](#源码解析)

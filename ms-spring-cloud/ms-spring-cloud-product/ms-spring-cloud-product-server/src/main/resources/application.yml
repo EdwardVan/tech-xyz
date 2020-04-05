@@ -10,16 +10,7 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:mappers/*.xml
-  type-aliases-package: tech.edwardvan.osmybatisplus.entity
-  configuration:
-    map-underscore-to-camel-case: true
-  global-config:
-    db-config:
-      table-prefix: demo_
-      logic-delete-field: delFlag
-      logic-delete-value: 1
-      logic-not-delete-value: 0
-
+  type-aliases-package: tech.edwardvan.*.model
 
 #Mybatis打印sql
 logging:

@@ -35,7 +35,7 @@
         <!--web spring boot版-->
         <module>web-spring-boot</module>
         <!--spring cloud全家桶-->
-        <module>spring-cloud</module>
+        <module>ms-spring-cloud</module>
         <!--源码解析-->
         <module>source-code-analysis</module>
         <!--mybatis-plus-->
@@ -44,10 +44,14 @@
     <name>tech-xyz</name>
 
     <properties>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
+        <!-- https://start.spring.io/actuator/info -->
+        
+        <!-- https://spring.io/projects/spring-boot#learn -->
         <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+        <!-- https://spring.io/projects/spring-cloud#learn -->
         <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
+        <!-- https://spring.io/projects/spring-cloud-alibaba#learn -->
+        <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-core -->
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
@@ -92,6 +96,14 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

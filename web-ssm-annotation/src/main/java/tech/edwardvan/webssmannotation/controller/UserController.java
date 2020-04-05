@@ -58,10 +58,6 @@ public class UserController {
     @Qualifier("conditionalUser")
     private User user;
 
-    @Autowired
-    @Qualifier("userFactoryBean")
-    private User user2;
-
     @ApiOperation(value = "获取用户信息", notes = "测试Restful接口")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "int")
     @RequestMapping(value = "/info/{userId}", method = RequestMethod.GET)

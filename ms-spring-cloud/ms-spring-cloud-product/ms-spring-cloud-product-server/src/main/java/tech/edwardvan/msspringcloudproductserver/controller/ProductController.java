@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import tech.edwardvan.msspringcloudclient.client.UserClient;
 import tech.edwardvan.msspringcloudcommon.entity.ResponseResult;
 import tech.edwardvan.msspringcloudproductcommon.model.Product;
 import tech.edwardvan.msspringcloudproductcommon.pojo.ProductSaveVo;
 import tech.edwardvan.msspringcloudproductcommon.pojo.ProductUpdateVo;
 import tech.edwardvan.msspringcloudproductserver.service.IProductService;
+import tech.edwardvan.msspringcloudusercommon.model.User;
 
 /**
  * <p>
@@ -30,10 +32,14 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
+    @Autowired
+    UserClient userClient;
+
     @GetMapping(value = "/{productId}")
     @ApiOperation(value = "获取商品信息")
     @ApiImplicitParam(paramType = "path", name = "productId", value = "商品id", required = true, dataType = "int")
     public ResponseResult<Product> getProduct(@PathVariable(value = "productId") Integer productId) {
+        ResponseResult<User> user = userClient.getUser(1);
         return ResponseResult.SUCCESS(productService.getById(productId));
     }
 

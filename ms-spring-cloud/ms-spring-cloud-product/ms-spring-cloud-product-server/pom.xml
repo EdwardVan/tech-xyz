@@ -20,5 +20,11 @@
             <groupId>tech.edwardvan</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <artifactId>ms-spring-cloud-user-client</artifactId>
+            <groupId>tech.edwardvan</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

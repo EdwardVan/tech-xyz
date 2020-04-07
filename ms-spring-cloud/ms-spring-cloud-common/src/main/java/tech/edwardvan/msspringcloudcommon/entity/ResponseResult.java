@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tech.edwardvan.msspringcloudcommon.exception.CustomException;
 import tech.edwardvan.msspringcloudcommon.exception.IllegalArgumentException;
 
@@ -19,6 +20,7 @@ import java.io.Serializable;
  */
 @ApiModel
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseResult<T> implements Serializable {

@@ -4,12 +4,14 @@ package tech.edwardvan.msspringclouduserserver.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import tech.edwardvan.msspringcloudcommon.entity.ResponseResult;
+import tech.edwardvan.msspringcloudusercommon.api.UserApi;
 import tech.edwardvan.msspringcloudusercommon.model.User;
 import tech.edwardvan.msspringcloudusercommon.pojo.UserSaveVo;
 import tech.edwardvan.msspringcloudusercommon.pojo.UserUpdateVo;
@@ -22,11 +24,13 @@ import tech.edwardvan.msspringclouduserserver.service.IUserService;
 @Api(value = "用户模块", tags = "用户模块接口")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+@Slf4j
+public class UserController implements UserApi {
 
     @Autowired
     IUserService userService;
 
+    @Override
     @GetMapping(value = "/{userId}")
     @ApiOperation(value = "获取用户信息")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "int")
@@ -34,6 +38,7 @@ public class UserController {
         return ResponseResult.SUCCESS(userService.getById(userId));
     }
 
+    @Override
     @PostMapping
     @ApiOperation(value = "新增用户信息")
     public ResponseResult addUser(@RequestBody @Validated UserSaveVo userSaveVo) {
@@ -45,6 +50,7 @@ public class UserController {
         return ResponseResult.ERROR();
     }
 
+    @Override
     @PutMapping
     @ApiOperation(value = "更新用户信息")
     public ResponseResult updateUser(@RequestBody @Validated UserUpdateVo userUpdateVo) {
@@ -56,6 +62,7 @@ public class UserController {
         return ResponseResult.ERROR();
     }
 
+    @Override
     @DeleteMapping(value = "/{userId}")
     @ApiOperation(value = "删除用户信息")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "int")

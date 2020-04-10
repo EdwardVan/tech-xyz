@@ -14,11 +14,11 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: user-service-provider
-          uri: lb://user-service-provider
+        - id: user-service-route
+          uri: lb://user-service
           predicates:
             - Path= /user/**
-        - id: product-service-provider
-          uri: lb://product-service-provider
+        - id: product-service-route
+          uri: lb://product-service
           predicates:
             - Path= /product/**

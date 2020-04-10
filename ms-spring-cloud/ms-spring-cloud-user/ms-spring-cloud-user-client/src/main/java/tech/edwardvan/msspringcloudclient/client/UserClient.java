@@ -6,6 +6,6 @@ import tech.edwardvan.msspringcloudusercommon.api.UserApi;
 /**
  * @author EdwardVan
  */
-@FeignClient(name = "user-service-provider")
+@FeignClient(name = "user-service")
 public interface UserClient extends UserApi {
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import tech.edwardvan.msspringcloudclient.client.UserClient;
 import tech.edwardvan.msspringcloudcommon.entity.ResponseResult;
+import tech.edwardvan.msspringcloudproductcommon.api.ProductApi;
 import tech.edwardvan.msspringcloudproductcommon.model.Product;
 import tech.edwardvan.msspringcloudproductcommon.pojo.ProductSaveVo;
 import tech.edwardvan.msspringcloudproductcommon.pojo.ProductUpdateVo;
@@ -28,13 +29,14 @@ import tech.edwardvan.msspringcloudusercommon.model.User;
 @Api(value = "商品模块", tags = "商品模块接口")
 @RestController
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController implements ProductApi {
     @Autowired
     IProductService productService;
 
     @Autowired
     UserClient userClient;
 
+    @Override
     @GetMapping(value = "/{productId}")
     @ApiOperation(value = "获取商品信息")
     @ApiImplicitParam(paramType = "path", name = "productId", value = "商品id", required = true, dataType = "int")
@@ -43,6 +45,7 @@ public class ProductController {
         return ResponseResult.SUCCESS(productService.getById(productId));
     }
 
+    @Override
     @PostMapping
     @ApiOperation(value = "新增商品信息")
     public ResponseResult addProduct(@RequestBody @Validated ProductSaveVo productSaveVo) {
@@ -54,6 +57,7 @@ public class ProductController {
         return ResponseResult.ERROR();
     }
 
+    @Override
     @PutMapping
     @ApiOperation(value = "更新商品信息")
     public ResponseResult updateProduct(@RequestBody @Validated ProductUpdateVo productUpdateVo) {
@@ -65,6 +69,7 @@ public class ProductController {
         return ResponseResult.ERROR();
     }
 
+    @Override
     @DeleteMapping(value = "/{productId}")
     @ApiOperation(value = "删除商品信息")
     @ApiImplicitParam(paramType = "path", name = "productId", value = "商品id", required = true, dataType = "int")

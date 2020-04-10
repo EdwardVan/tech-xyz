@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: product-service-provider
+    name: product-service
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
     username: root

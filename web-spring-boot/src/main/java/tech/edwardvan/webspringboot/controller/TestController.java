@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import tech.edwardvan.webspringboot.converter.PropertiesHttpMessageConverter;
+import tech.edwardvan.webspringboot.handler.PropertiesHandlerMethodArgumentResolver;
+import tech.edwardvan.webspringboot.handler.PropertiesHandlerMethodReturnValueHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
@@ -22,7 +24,7 @@ import java.util.Properties;
 public class TestController {
 
     /**
-     * 测试{@link PropertiesHttpMessageConverter}
+     * 测试{@link PropertiesHandlerMethodArgumentResolver}和{@link PropertiesHandlerMethodReturnValueHandler}
      */
     @PostMapping(value = "/testHandlerMethodArgumentResolver")
     public Properties testHandlerMethodArgumentResolver(Properties properties) {
@@ -30,7 +32,7 @@ public class TestController {
     }
 
     /**
-     * 测试自定义MessageConverter
+     * 测试自定义MessageConverter{@link PropertiesHttpMessageConverter}
      * <p>
      * RequestBody和ResponseBody注解决定了{@link RequestResponseBodyMethodProcessor}处理参数和返回值
      * 请求头中Content-Type为 text/properties 决定了{@link PropertiesHttpMessageConverter}处理转换

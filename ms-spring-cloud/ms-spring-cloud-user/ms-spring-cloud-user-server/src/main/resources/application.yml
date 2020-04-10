@@ -11,8 +11,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
+      #Nacos服务注册中心地址
       discovery:
         server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        #sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认端口,如果被占用则从8719依次+1扫描
+        port: 8719
 
 
 mybatis-plus:
@@ -22,4 +29,4 @@ mybatis-plus:
 #Mybatis打印sql
 logging:
   level:
-    tech.edwardvan.osmybatisplus.mapper: debug
+    tech.edwardvan.msspringclouduserserver.mapper: debug

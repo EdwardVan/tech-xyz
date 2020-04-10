@@ -21,4 +21,4 @@ mybatis-plus:
 #Mybatis打印sql
 logging:
   level:
-    tech.edwardvan.osmybatisplus.mapper: debug
+    tech.edwardvan.msspringcloudproductserver.mapper: debug

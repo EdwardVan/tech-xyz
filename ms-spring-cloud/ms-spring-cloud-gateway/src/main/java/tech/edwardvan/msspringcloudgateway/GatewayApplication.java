@@ -1,23 +1,21 @@
-package tech.edwardvan.msspringclouduserserver;
+package tech.edwardvan.msspringcloudgateway;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Idea启动参数:
- * --server.port=8081
- * --server.port=8082
+ * --server.port=80
+ * --server.port=81
  *
  * @author EdwardVan
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients("tech.edwardvan.msspringcloudclient.client")
-public class UserApplication {
+public class GatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 }

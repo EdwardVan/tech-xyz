@@ -16,6 +16,7 @@
 
     <modules>
         <module>ms-spring-cloud-common</module>
+        <module>ms-spring-cloud-gateway</module>
         <module>ms-spring-cloud-generator</module>
         <module>ms-spring-cloud-user</module>
         <module>ms-spring-cloud-product</module>

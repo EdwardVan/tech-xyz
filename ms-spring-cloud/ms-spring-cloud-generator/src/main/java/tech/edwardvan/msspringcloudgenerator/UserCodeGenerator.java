@@ -28,7 +28,7 @@ public class UserCodeGenerator {
      * 数据库基本信息
      */
     private static String DATA_SOURCE_URL = "jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
-    private static String DATA_SOURCE_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+    private static String DATA_SOURCE_DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static String DATA_SOURCE_USERNAME = "root";
     private static String DATA_SOURCE_PASSWORD = "123456";
     private static DbType DB_TYPE = DbType.MYSQL;

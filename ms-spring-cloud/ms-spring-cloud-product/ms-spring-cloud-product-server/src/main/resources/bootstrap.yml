@@ -1,26 +1,25 @@
 server:
-  port: 8080
+  port: 8091
 
 spring:
   application:
-    name: user-service
+    name: product-service
+  profiles:
+    active: dev
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
     username: root
     password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
   cloud:
     nacos:
       #Nacos服务注册中心地址
       discovery:
         server-addr: 127.0.0.1:8848
-    sentinel:
-      transport:
-        #sentinel dashboard地址
-        dashboard: localhost:8080
-        #默认端口,如果被占用则从8719依次+1扫描
-        port: 8719
-
+      #Nacos服务配置中心地址
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
 
 mybatis-plus:
   mapper-locations: classpath*:mappers/*.xml
@@ -29,4 +28,4 @@ mybatis-plus:
 #Mybatis打印sql
 logging:
   level:
-    tech.edwardvan.msspringclouduserserver.mapper: debug
+    tech.edwardvan.msspringcloudproductserver.mapper: debug

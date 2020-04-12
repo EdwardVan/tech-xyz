@@ -4,11 +4,24 @@ server:
 spring:
   application:
     name: gateway-service
+  profiles:
+    active: dev
   cloud:
     nacos:
       #Nacos服务注册中心地址
       discovery:
         server-addr: 127.0.0.1:8848
+      #Nacos服务配置中心地址
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+    #sentinel配置
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        #默认端口,如果被占用则从8719依次+1扫描
+        port: 8719
+    #网关配置
     gateway:
       discovery:
         locator:
@@ -22,3 +35,10 @@ spring:
           uri: lb://product-service
           predicates:
             - Path= /product/**
+  #指定zipkin服务器地址  
+  zipkin:
+    base-url: http://localhost:9411/
+  #设置采样比例为1.0即全部都需要
+  sleuth:
+    sampler:
+      probability: 1.0

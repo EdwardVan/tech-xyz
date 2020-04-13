@@ -1,6 +1,7 @@
 package tech.edwardvan.msspringclouduserserver.controller;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import tech.edwardvan.msspringcloudcommon.entity.ResponseResult;
+import tech.edwardvan.msspringclouduserserver.handler.UserBlockHandler;
 import tech.edwardvan.msspringcloudusercommon.api.UserApi;
 import tech.edwardvan.msspringcloudusercommon.model.User;
 import tech.edwardvan.msspringcloudusercommon.pojo.UserSaveVo;
@@ -34,7 +36,12 @@ public class UserController implements UserApi {
     @GetMapping(value = "/{userId}")
     @ApiOperation(value = "获取用户信息")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "int")
+    @SentinelResource(value = "getUser", blockHandlerClass = UserBlockHandler.class, blockHandler = "getUser")
     public ResponseResult<User> getUser(@PathVariable(value = "userId") Integer userId) {
+        //测试熔断降级
+        if (userId == 0) {
+            int i = 10 / 0;
+        }
         return ResponseResult.SUCCESS(userService.getById(userId));
     }
 

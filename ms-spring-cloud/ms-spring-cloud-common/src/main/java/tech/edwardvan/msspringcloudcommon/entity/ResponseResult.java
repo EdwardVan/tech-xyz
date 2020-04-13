@@ -81,6 +81,14 @@ public class ResponseResult<T> implements Serializable {
         return new ResponseResult(ResponseCode.ERROR.getCode(), ResponseCode.ERROR.getDesc());
     }
 
+    public static ResponseResult ERROR(String msg) {
+        return new ResponseResult(ResponseCode.ERROR.getCode(), msg);
+    }
+
+    public static ResponseResult ERROR(int status, String msg) {
+        return new ResponseResult(status, msg);
+    }
+
     public static ResponseResult ERROR(String msg, Object data) {
         return new ResponseResult(ResponseCode.ERROR.getCode(), msg, data);
     }
@@ -93,14 +101,4 @@ public class ResponseResult<T> implements Serializable {
         return new ResponseResult(status, msg, data);
     }
 
-    public static ResponseResult ERROR(int status, String msg) {
-        return new ResponseResult(status, msg);
-    }
-
-    public static void main(String[] args) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ResponseResult hehe = ResponseResult.SUCCESS("hehe", "1");
-        String s = mapper.writeValueAsString(hehe);
-        System.out.println(s);
-    }
 }

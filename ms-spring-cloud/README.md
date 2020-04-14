@@ -56,16 +56,28 @@ java -jar xxx.jar
  - 执行nacos-server-1.2.1\conf\nacos-mysql.sql
  - 修改nacos-server-1.2.1\conf\application.properties中和数据库有关的配置
  - jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
- - 打开控制台新建配置,Data ID为: user-service-dev.yml  product-service-dev.yml  gateway-service-dev.yml
+ - 打开控制台新建配置,Data ID为: user-service-dev.yml  product-service-dev.yml
 ```yaml
 spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
   cloud:
     #sentinel配置
     sentinel:
       transport:
         dashboard: localhost:8080
-        #默认端口,如果被占用则从8719依次+1扫描
-        port: 8719
+      #sentinel配置持久化
+      datasource:
+        dsl:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: ${spring.application.name}-sentinel
+            groupId: DEFAULT_GROUP
+            data_type: json
+            rule-type: flow
   #指定zipkin服务器地址  
   zipkin:
     base-url: http://localhost:9411/
@@ -77,4 +89,23 @@ spring:
 feign:
   sentinel:
     enabled: true
+
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:mappers/*.xml
+  type-aliases-package: tech.edwardvan.*.model
+```
+ - 新建Sentinel流控规则 user-service-sentinel
+```json
+[
+    {
+        "resource": "getUser",
+        "limitApp": "default",
+        "grade": 1,
+        "count": 5,
+        "strategy": 0,
+        "controlBehavior": 0,
+        "clusterMode": false
+    }
+]
 ```

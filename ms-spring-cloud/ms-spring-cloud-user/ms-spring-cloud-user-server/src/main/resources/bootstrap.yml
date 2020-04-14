@@ -7,7 +7,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/demo_mall?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
+    url: jdbc:mysql://127.0.0.1:3306/demo_mall_user?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
@@ -20,10 +20,6 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yml
-
-mybatis-plus:
-  mapper-locations: classpath*:mappers/*.xml
-  type-aliases-package: tech.edwardvan.*.model
 
 #Mybatis打印sql
 logging:

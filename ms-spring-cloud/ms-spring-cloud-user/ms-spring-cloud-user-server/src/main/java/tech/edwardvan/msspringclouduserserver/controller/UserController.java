@@ -36,11 +36,12 @@ public class UserController implements UserApi {
     @GetMapping(value = "/{userId}")
     @ApiOperation(value = "获取用户信息")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "int")
-    @SentinelResource(value = "getUser", blockHandlerClass = UserBlockHandler.class, blockHandler = "getUser")
+    @SentinelResource(value = "getUser", blockHandlerClass = UserBlockHandler.class, blockHandler = "getUser",
+            fallbackClass = UserBlockHandler.class, fallback = "getUser")
     public ResponseResult<User> getUser(@PathVariable(value = "userId") Integer userId) {
-        //测试熔断降级
+        //测试降级
         if (userId == 0) {
-            int i = 10 / 0;
+            throw new RuntimeException("测试降级");
         }
         return ResponseResult.SUCCESS(userService.getById(userId));
     }

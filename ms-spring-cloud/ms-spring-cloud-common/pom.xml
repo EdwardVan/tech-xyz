@@ -78,6 +78,18 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- 分布式事务 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- swagger start-->
         <dependency>
             <groupId>io.springfox</groupId>

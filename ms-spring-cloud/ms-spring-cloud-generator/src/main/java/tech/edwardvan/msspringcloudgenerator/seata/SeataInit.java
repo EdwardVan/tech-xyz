@@ -40,17 +40,17 @@ public class SeataInit {
      */
     public static void registerNacosConfig(Properties properties, String nacosUrl) {
         properties.forEach((k, v) -> {
-            final String kk = k.toString();
-            final String vv = v.toString();
+            final String key = k.toString();
+            final String value = v.toString();
             try {
                 TimeUnit.MILLISECONDS.sleep(300);
                 MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-                params.add("dataId", kk);
+                params.add("dataId", key);
                 params.add("namespace", "public");
                 params.add("group", "SEATA_GROUP");
-                params.add("content", vv);
+                params.add("content", value);
                 //发送Post数据并返回数据
-                String resultVo = sendPostRequest(nacosUrl, params);
+                sendPostRequest(nacosUrl, params);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -59,10 +59,6 @@ public class SeataInit {
 
     /**
      * 向目的URL发送post请求
-     *
-     * @param url    目的url
-     * @param params 发送的参数
-     * @return ResultVO
      */
     public static String sendPostRequest(String url, MultiValueMap<String, String> params) {
         RestTemplate client = new RestTemplate();

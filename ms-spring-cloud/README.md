@@ -149,8 +149,8 @@ mybatis-plus:
 ]
 ```
 > Seata配置
- - 配置存储信息,修改 seata\conf\file.conf, store.mode 改为 db,并修改 store.db对应数据库相关信息
  - 在数据库中创建seata库, https://github.com/seata/seata/blob/1.1.0/script/server/db/mysql.sql ,运行sql
  - 每个业务库下增加一张表,https://github.com/seata/seata/blob/1.1.0/script/client/at/db/mysql.sql,执行sql
- - 修改 seata\conf\registry.conf 中 registry.type 为 nacos, 修改nacos.serverAddr 为 127.0.0.1:8848
+ - 修改 seata\conf\registry.conf 中 registry.type 和 config.type 为 nacos, 修改nacos.serverAddr 为 127.0.0.1:8848
+ - 执行 SeataInit 工具类创建配置规则
  

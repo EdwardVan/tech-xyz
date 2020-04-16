@@ -26,6 +26,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>tech.edwardvan</groupId>
+            <artifactId>ms-spring-cloud-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
-  
 </project>

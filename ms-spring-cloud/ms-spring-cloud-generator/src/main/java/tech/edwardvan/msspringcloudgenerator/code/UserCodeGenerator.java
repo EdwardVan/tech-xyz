@@ -1,4 +1,4 @@
-package tech.edwardvan.msspringcloudgenerator;
+package tech.edwardvan.msspringcloudgenerator.code;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author EdwardVan
  */
-public class ProductCodeGenerator {
+public class UserCodeGenerator {
 
     /**
      * 数据库基本信息
@@ -41,12 +41,12 @@ public class ProductCodeGenerator {
     /**
      * 模块地址
      */
-    private static String MODULE_PATH = PROJECT_PATH + "\\ms-spring-cloud\\ms-spring-cloud-product\\ms-spring-cloud-product-server";
+    private static String MODULE_PATH = PROJECT_PATH + "\\ms-spring-cloud\\ms-spring-cloud-user\\ms-spring-cloud-user-server";
 
     /**
      * 包名称
      */
-    private static String PARENT_PACKAGE = "tech.edwardvan.msspringcloudproductserver";
+    private static String PARENT_PACKAGE = "tech.edwardvan.msspringclouduserserver";
 
     /**
      * 表名前缀
@@ -55,7 +55,7 @@ public class ProductCodeGenerator {
     /**
      * 数据库表名
      */
-    private static String[] TABLES = {"demo_product"};
+    private static String[] TABLES = {"demo_user"};
 
     public static void main(String[] args) {
         // 代码生成器

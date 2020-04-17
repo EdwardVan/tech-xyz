@@ -14,6 +14,11 @@ import tech.edwardvan.msspringcloudproductcommon.pojo.ProductUpdateVo;
 public class ProductFallbackService implements ProductClient {
 
     @Override
+    public ResponseResult testProductTx() {
+        return ResponseResult.ERROR("测试事务失败");
+    }
+
+    @Override
     public ResponseResult<Product> getProduct(Integer productId) {
         return ResponseResult.ERROR("获取商品失败");
     }

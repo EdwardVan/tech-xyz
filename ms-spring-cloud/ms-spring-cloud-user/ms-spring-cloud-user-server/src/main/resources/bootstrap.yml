@@ -25,23 +25,3 @@ spring:
 logging:
   level:
     tech.edwardvan.msspringclouduserserver.mapper: debug
-
-#分布式事务配置
-seata:
-  enabled: true
-  application-id: ${spring.application.name}
-  tx-service-group: my_test_tx_group
-  enable-auto-data-source-proxy: true
-  #配置相关
-  config:
-    type: nacos
-    nacos:
-      namespace:
-      serverAddr: 127.0.0.1:8848
-      group: SEATA_GROUP
-  #注册相关
-  registry:
-    type: nacos
-    nacos:
-      server-addr: 127.0.0.1:8848
-      namespace:

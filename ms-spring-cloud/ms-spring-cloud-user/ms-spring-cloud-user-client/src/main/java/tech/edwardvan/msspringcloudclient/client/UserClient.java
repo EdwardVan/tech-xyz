@@ -17,6 +17,10 @@ import tech.edwardvan.msspringcloudusercommon.pojo.UserUpdateVo;
 public interface UserClient extends UserApi {
 
     @Override
+    @GetMapping("/user/testUserTx")
+    ResponseResult testUserTx();
+
+    @Override
     @GetMapping("/user/{userId}")
     ResponseResult<User> getUser(@PathVariable(value = "userId") Integer userId);
 

@@ -17,4 +17,6 @@ public interface UserApi {
     ResponseResult updateUser(UserUpdateVo userUpdateVo);
 
     ResponseResult deleteUser(Integer userId);
+
+    ResponseResult testUserTx();
 }

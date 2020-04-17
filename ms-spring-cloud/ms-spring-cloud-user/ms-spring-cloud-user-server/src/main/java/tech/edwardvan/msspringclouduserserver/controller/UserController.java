@@ -33,6 +33,14 @@ public class UserController implements UserApi {
     IUserService userService;
 
     @Override
+    @GetMapping(value = "/testUserTx")
+    @ApiOperation(value = "测试事务")
+    public ResponseResult testUserTx() {
+        int i = userService.testUserTx();
+        return ResponseResult.SUCCESS(i);
+    }
+
+    @Override
     @GetMapping(value = "/{userId}")
     @ApiOperation(value = "获取用户信息")
     @ApiImplicitParam(paramType = "path", name = "userId", value = "用户id", required = true, dataType = "int")

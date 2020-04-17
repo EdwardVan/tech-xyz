@@ -37,6 +37,14 @@ public class ProductController implements ProductApi {
     UserClient userClient;
 
     @Override
+    @GetMapping(value = "/testProductTx")
+    @ApiOperation(value = "测试分布式事务")
+    public ResponseResult testProductTx() {
+        int i = productService.testProductTx();
+        return ResponseResult.SUCCESS(i);
+    }
+
+    @Override
     @GetMapping(value = "/{productId}")
     @ApiOperation(value = "获取商品信息")
     @ApiImplicitParam(paramType = "path", name = "productId", value = "商品id", required = true, dataType = "int")

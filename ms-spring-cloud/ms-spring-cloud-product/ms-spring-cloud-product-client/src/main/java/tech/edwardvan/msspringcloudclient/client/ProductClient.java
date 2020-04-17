@@ -16,6 +16,10 @@ import tech.edwardvan.msspringcloudproductcommon.pojo.ProductUpdateVo;
 public interface ProductClient extends ProductApi {
 
     @Override
+    @GetMapping("/product/testProductTx")
+    ResponseResult testProductTx();
+
+    @Override
     @GetMapping("/product/{productId}")
     ResponseResult<Product> getProduct(@PathVariable(value = "productId") Integer productId);
 

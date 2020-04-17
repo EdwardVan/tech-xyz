@@ -13,6 +13,11 @@ import tech.edwardvan.msspringcloudusercommon.pojo.UserUpdateVo;
 @Component
 public class UserFallbackService implements UserClient {
     @Override
+    public ResponseResult testUserTx() {
+        return ResponseResult.ERROR("测试事务失败");
+    }
+
+    @Override
     public ResponseResult<User> getUser(Integer userId) {
         return ResponseResult.ERROR("获取用户失败");
     }

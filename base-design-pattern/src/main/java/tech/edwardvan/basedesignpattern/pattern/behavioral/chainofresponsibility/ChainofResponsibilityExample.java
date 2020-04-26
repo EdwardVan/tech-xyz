@@ -1,12 +1,21 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.chainofresponsibility;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 责任链模式
+ * <p>
+ * 有多个对象共同对一个任务进行处理.
+ * 这些对象使用链式存储结构,形成一个链,每个对象知道自己的下一个对象.
+ * 一个对象对任务进行处理,可以添加一些操作后将对象传递个下一个任务.也可以在此对象上结束任务的处理,并结束任务.
+ * 客户端负责组装链式结构,但是客户端不需要关心最终是谁来处理了任务.
+ * <p>
  * 举例:
  * {@link javax.servlet.FilterChain}
  *
  * @author EdwardVan
  */
+@Slf4j
 public class ChainofResponsibilityExample {
 
     public static void main(String[] args) {
@@ -50,12 +59,12 @@ public class ChainofResponsibilityExample {
         @Override
         public void handleRequest(int LeaveDays) {
             if (LeaveDays <= 2) {
-                System.out.println("班主任批准您请假" + LeaveDays + "天.");
+                log.info("班主任批准您请假{}天.", LeaveDays);
             } else {
                 if (getNext() != null) {
                     getNext().handleRequest(LeaveDays);
                 } else {
-                    System.out.println("请假天数太多,没有人批准该假条!");
+                    log.info("请假天数太多,没有人批准该假条!");
                 }
             }
         }
@@ -68,12 +77,12 @@ public class ChainofResponsibilityExample {
         @Override
         public void handleRequest(int LeaveDays) {
             if (LeaveDays <= 7) {
-                System.out.println("系主任批准您请假" + LeaveDays + "天.");
+                log.info("系主任批准您请假{}天.", LeaveDays);
             } else {
                 if (getNext() != null) {
                     getNext().handleRequest(LeaveDays);
                 } else {
-                    System.out.println("请假天数太多,没有人批准该假条!");
+                    log.info("请假天数太多,没有人批准该假条!");
                 }
             }
         }
@@ -86,12 +95,12 @@ public class ChainofResponsibilityExample {
         @Override
         public void handleRequest(int LeaveDays) {
             if (LeaveDays <= 10) {
-                System.out.println("院长批准您请假" + LeaveDays + "天.");
+                log.info("院长批准您请假{}天.", LeaveDays);
             } else {
                 if (getNext() != null) {
                     getNext().handleRequest(LeaveDays);
                 } else {
-                    System.out.println("请假天数太多,没有人批准该假条!");
+                    log.info("请假天数太多,没有人批准该假条!");
                 }
             }
         }

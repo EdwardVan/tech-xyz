@@ -1,10 +1,13 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.strategy;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 策略模式
  *
  * @author EdwardVan
  */
+@Slf4j
 public class StrategyExample2 {
 
     public static void main(String[] args) {
@@ -19,7 +22,7 @@ public class StrategyExample2 {
      * 武器接口
      */
     public interface Weapon {
-        public void gun();
+        void gun();
     }
 
     /**
@@ -29,7 +32,7 @@ public class StrategyExample2 {
 
         @Override
         public void gun() {
-            System.out.println("使用AWM狙击步枪");
+            log.info("使用AWM狙击步枪");
         }
 
     }
@@ -41,7 +44,7 @@ public class StrategyExample2 {
 
         @Override
         public void gun() {
-            System.out.println("使用S12K霰弹枪");
+            log.info("使用S12K霰弹枪");
         }
 
     }

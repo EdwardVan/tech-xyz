@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.iterator;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class IteratorExample {
 
     public static void main(String[] args) {
@@ -18,7 +21,7 @@ public class IteratorExample {
         concreteContainer.add(3);
         Iterator iterator = concreteContainer.iterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            log.info(iterator.next().toString());
         }
     }
 

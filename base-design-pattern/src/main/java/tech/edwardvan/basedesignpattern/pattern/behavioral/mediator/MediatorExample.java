@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.mediator;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class MediatorExample {
 
     public static void main(String[] args) {
@@ -99,13 +102,13 @@ public class MediatorExample {
 
         @Override
         public void send(String message) {
-            System.out.println("ConcreteColleague发送消息:" + message);
+            log.info("ConcreteColleague发送消息:{}", message);
             mediator.operation(message);
         }
 
         @Override
         public void receive(String message) {
-            System.out.println("ConcreteColleague收到消息:" + message);
+            log.info("ConcreteColleague收到消息:{}", message);
         }
     }
 
@@ -120,13 +123,13 @@ public class MediatorExample {
 
         @Override
         public void send(String message) {
-            System.out.println("ConcreteColleague2发送消息:" + message);
+            log.info("ConcreteColleague2发送消息:{}", message);
             mediator.operation(message);
         }
 
         @Override
         public void receive(String message) {
-            System.out.println("ConcreteColleague2收到消息:" + message);
+            log.info("ConcreteColleague2收到消息:{}", message);
         }
     }
 }

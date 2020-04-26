@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.state;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 状态模式
  * 优点:
@@ -14,6 +16,7 @@ package tech.edwardvan.basedesignpattern.pattern.behavioral.state;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class StateExample {
 
     public static void main(String[] args) {
@@ -50,27 +53,27 @@ public class StateExample {
         /**
          * 设置电梯的状态
          */
-        public void setState(int state);
+        void setState(int state);
 
         /**
          * 开门
          */
-        public void open();
+        void open();
 
         /**
          * 关门
          */
-        public void close();
+        void close();
 
         /**
          * 运行
          */
-        public void run();
+        void run();
 
         /**
          * 停止
          */
-        public void stop();
+        void stop();
     }
 
     /**
@@ -95,18 +98,18 @@ public class StateExample {
         public void open() {
             switch (state) {
                 case OPENING_STATE:
-                    System.out.println("电梯门已经打开,无需再次打开");
+                    log.info("电梯门已经打开,无需再次打开");
                     break;
                 case CLOSING_STATE:
                     this.setState(OPENING_STATE);
-                    System.out.println("电梯门打开");
+                    log.info("电梯门打开");
                     break;
                 case RUNNING_STATE:
-                    System.out.println("运行时电梯不能开门");
+                    log.info("运行时电梯不能开门");
                     break;
                 case STOPPING_STATE:
                     this.setState(OPENING_STATE);
-                    System.out.println("电梯门打开");
+                    log.info("电梯门打开");
                     break;
                 default:
                     break;
@@ -118,16 +121,16 @@ public class StateExample {
             switch (state) {
                 case OPENING_STATE:
                     this.setState(CLOSING_STATE);
-                    System.out.println("电梯门关闭");
+                    log.info("电梯门关闭");
                     break;
                 case CLOSING_STATE:
-                    System.out.println("电梯门已经关闭,无需再次关闭");
+                    log.info("电梯门已经关闭,无需再次关闭");
                     break;
                 case RUNNING_STATE:
-                    System.out.println("运行时电梯门已经关闭,无需再次关闭");
+                    log.info("运行时电梯门已经关闭,无需再次关闭");
                     break;
                 case STOPPING_STATE:
-                    System.out.println("停止时电梯门已经关闭,无需再次关闭");
+                    log.info("停止时电梯门已经关闭,无需再次关闭");
                     break;
                 default:
                     break;
@@ -139,18 +142,18 @@ public class StateExample {
         public void run() {
             switch (state) {
                 case OPENING_STATE:
-                    System.out.println("开门时电梯不能运行");
+                    log.info("开门时电梯不能运行");
                     break;
                 case CLOSING_STATE:
                     this.setState(RUNNING_STATE);
-                    System.out.println("电梯开始运行");
+                    log.info("电梯开始运行");
                     break;
                 case RUNNING_STATE:
-                    System.out.println("运行时电梯已经运行,无需再次运行");
+                    log.info("运行时电梯已经运行,无需再次运行");
                     break;
                 case STOPPING_STATE:
                     this.setState(RUNNING_STATE);
-                    System.out.println("电梯开始运行");
+                    log.info("电梯开始运行");
                     break;
                 default:
                     break;
@@ -161,18 +164,18 @@ public class StateExample {
         public void stop() {
             switch (state) {
                 case OPENING_STATE:
-                    System.out.println("开门时电梯已经停止,无需再次停止");
+                    log.info("开门时电梯已经停止,无需再次停止");
                     break;
                 case CLOSING_STATE:
                     this.setState(STOPPING_STATE);
-                    System.out.println("电梯停止");
+                    log.info("电梯停止");
                     break;
                 case RUNNING_STATE:
                     this.setState(STOPPING_STATE);
-                    System.out.println("电梯停止");
+                    log.info("电梯停止");
                     break;
                 case STOPPING_STATE:
-                    System.out.println("停止时电梯已经停止,无需再次停止");
+                    log.info("停止时电梯已经停止,无需再次停止");
                     break;
                 default:
                     break;

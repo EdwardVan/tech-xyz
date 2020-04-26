@@ -1,5 +1,10 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.memento;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Stack;
 
 /**
@@ -12,6 +17,7 @@ import java.util.Stack;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class MementoExample {
 
     public static void main(String[] args) {
@@ -22,39 +28,25 @@ public class MementoExample {
         careTaker.add(memento);
         originator.setState("world");
 
-        System.out.println(originator);
-        originator.getStateFromMemento(careTaker.get());
-        System.out.println(originator);
+        log.info(originator.toString());
+        originator.setStateFromMemento(careTaker.get());
+        log.info(originator.toString());
 
     }
 
     /**
      * 原始对象
      */
+    @Data
     public static class Originator {
         private String state;
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public String getState() {
-            return state;
-        }
 
         public Memento saveStateToMemento() {
             return new Memento(state);
         }
 
-        public void getStateFromMemento(Memento memento) {
+        public void setStateFromMemento(Memento memento) {
             state = memento.getState();
-        }
-
-        @Override
-        public String toString() {
-            return "Originator{" +
-                    "state='" + state + '\'' +
-                    '}';
         }
     }
 
@@ -62,17 +54,10 @@ public class MementoExample {
      * 快照
      * 无需set方法
      */
+    @AllArgsConstructor
+    @Getter
     public static class Memento {
-
         private String state;
-
-        public Memento(String state) {
-            this.state = state;
-        }
-
-        public String getState() {
-            return state;
-        }
     }
 
     /**

@@ -1,5 +1,10 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.memento;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Stack;
 
 /**
@@ -7,6 +12,7 @@ import java.util.Stack;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class MementoExample2 {
 
     public static void main(String[] args) {
@@ -15,16 +21,17 @@ public class MementoExample2 {
         edit.write("world!").ctrlS();
         edit.write("java").ctrlS();
         edit.ctrlZ();
-        System.out.println(edit);
+        log.info(edit.toString());
         edit.ctrlZ();
-        System.out.println(edit);
+        log.info(edit.toString());
         edit.ctrlZ();
-        System.out.println(edit);
+        log.info(edit.toString());
     }
 
     /**
      * 文本编辑器
      */
+    @ToString
     public static class Edit {
 
         private Stack<Memento> mementoStack = new Stack<>();
@@ -50,23 +57,10 @@ public class MementoExample2 {
             text = mementoStack.pop().getText();
         }
 
-        @Override
-        public String toString() {
-            return "Edit{" +
-                    "text='" + text + '\'' +
-                    '}';
-        }
-
+        @AllArgsConstructor
+        @Getter
         private static class Memento {
             private String text;
-
-            public Memento(String text) {
-                this.text = text;
-            }
-
-            public String getText() {
-                return text;
-            }
         }
     }
 }

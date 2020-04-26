@@ -1,6 +1,8 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.templatemethod;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 模板方法
  * 举例:
@@ -8,6 +10,7 @@ package tech.edwardvan.basedesignpattern.pattern.behavioral.templatemethod;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class TemplateMethodExample {
     public static void main(String[] args) {
         AbstractDevelopmentProcess independentDeveloper = new IndependentDeveloper();
@@ -35,7 +38,7 @@ public class TemplateMethodExample {
          * 发布
          */
         public final void release() {
-            System.out.println("发布App到各大市场");
+            log.info("发布App到各大市场");
         }
 
         /**
@@ -54,12 +57,12 @@ public class TemplateMethodExample {
     public static class IndependentDeveloper extends AbstractDevelopmentProcess {
         @Override
         public void design() {
-            System.out.println("自己设计App");
+            log.info("自己设计App");
         }
 
         @Override
         public void develop() {
-            System.out.println("独立开发App");
+            log.info("独立开发App");
         }
     }
 
@@ -69,13 +72,13 @@ public class TemplateMethodExample {
     public static class CompanyDeveloper extends AbstractDevelopmentProcess {
         @Override
         public void design() {
-            System.out.println("产品设计App原型");
-            System.out.println("设计师设计App UI");
+            log.info("产品设计App原型");
+            log.info("设计师设计App UI");
         }
 
         @Override
         public void develop() {
-            System.out.println("团队共同开发App");
+            log.info("团队共同开发App");
         }
     }
 }

@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.chainofresponsibility;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class ChainofResponsibilityExample2 {
 
     public static void main(String[] args) {
@@ -61,7 +64,7 @@ public class ChainofResponsibilityExample2 {
         @Override
         public void handleRequest(int leaveDays, LeaderChain leaderChain) {
             if (leaveDays <= 2) {
-                System.out.println("班主任批准您请假" + leaveDays + "天.");
+                log.info("班主任批准您请假{}天.", leaveDays);
             } else {
                 leaderChain.handleRequest(leaveDays);
             }
@@ -75,7 +78,7 @@ public class ChainofResponsibilityExample2 {
         @Override
         public void handleRequest(int leaveDays, LeaderChain leaderChain) {
             if (leaveDays <= 7) {
-                System.out.println("系主任批准您请假" + leaveDays + "天.");
+                log.info("系主任批准您请假{}天.", leaveDays);
             } else {
                 leaderChain.handleRequest(leaveDays);
             }
@@ -89,9 +92,9 @@ public class ChainofResponsibilityExample2 {
         @Override
         public void handleRequest(int leaveDays, LeaderChain leaderChain) {
             if (leaveDays <= 10) {
-                System.out.println("院长批准您请假" + leaveDays + "天.");
+                log.info("院长批准您请假{}天.", leaveDays);
             } else {
-                System.out.println("请假天数太多,没有人批准该假条!");
+                log.info("请假天数太多,没有人批准该假条!");
             }
         }
     }

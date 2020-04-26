@@ -1,10 +1,13 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.state;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 状态模式
  *
  * @author EdwardVan
  */
+@Slf4j
 public class StateExample2 {
 
     public static void main(String[] args) {
@@ -61,23 +64,23 @@ public class StateExample2 {
 
         @Override
         public void open() {
-            System.out.println("电梯门已经打开,无需再次打开");
+            log.info("电梯门已经打开,无需再次打开");
         }
 
         @Override
         public void close() {
             context.setLiftState(context.CLOSING_STATE);
-            System.out.println("电梯门关闭");
+            log.info("电梯门关闭");
         }
 
         @Override
         public void run() {
-            System.out.println("开门时电梯不能运行");
+            log.info("开门时电梯不能运行");
         }
 
         @Override
         public void stop() {
-            System.out.println("开门时电梯已经停止,无需再次停止");
+            log.info("开门时电梯已经停止,无需再次停止");
         }
     }
 
@@ -93,24 +96,24 @@ public class StateExample2 {
         @Override
         public void open() {
             context.setLiftState(context.OPENING_STATE);
-            System.out.println("电梯门打开");
+            log.info("电梯门打开");
         }
 
         @Override
         public void close() {
-            System.out.println("电梯门已经关闭,无需再次关闭");
+            log.info("电梯门已经关闭,无需再次关闭");
         }
 
         @Override
         public void run() {
             context.setLiftState(context.RUNNING_STATE);
-            System.out.println("电梯开始运行");
+            log.info("电梯开始运行");
         }
 
         @Override
         public void stop() {
             context.setLiftState(context.STOPPING_STATE);
-            System.out.println("电梯停止");
+            log.info("电梯停止");
         }
     }
 
@@ -126,23 +129,23 @@ public class StateExample2 {
 
         @Override
         public void open() {
-            System.out.println("运行时电梯不能开门");
+            log.info("运行时电梯不能开门");
         }
 
         @Override
         public void close() {
-            System.out.println("运行时电梯门已经关闭,无需再次关闭");
+            log.info("运行时电梯门已经关闭,无需再次关闭");
         }
 
         @Override
         public void run() {
-            System.out.println("运行时电梯已经运行,无需再次运行");
+            log.info("运行时电梯已经运行,无需再次运行");
         }
 
         @Override
         public void stop() {
             context.setLiftState(context.STOPPING_STATE);
-            System.out.println("电梯停止");
+            log.info("电梯停止");
         }
     }
 
@@ -158,23 +161,23 @@ public class StateExample2 {
         @Override
         public void open() {
             context.setLiftState(context.OPENING_STATE);
-            System.out.println("电梯门打开");
+            log.info("电梯门打开");
         }
 
         @Override
         public void close() {
-            System.out.println("停止时电梯门已经关闭,无需再次关闭");
+            log.info("停止时电梯门已经关闭,无需再次关闭");
         }
 
         @Override
         public void run() {
             context.setLiftState(context.RUNNING_STATE);
-            System.out.println("电梯开始运行");
+            log.info("电梯开始运行");
         }
 
         @Override
         public void stop() {
-            System.out.println("停止时电梯已经停止,无需再次停止");
+            log.info("停止时电梯已经停止,无需再次停止");
         }
     }
 

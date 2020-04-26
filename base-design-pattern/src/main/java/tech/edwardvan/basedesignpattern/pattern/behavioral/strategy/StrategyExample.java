@@ -1,5 +1,7 @@
 package tech.edwardvan.basedesignpattern.pattern.behavioral.strategy;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 策略模式
  * 举例:
@@ -7,6 +9,7 @@ package tech.edwardvan.basedesignpattern.pattern.behavioral.strategy;
  *
  * @author EdwardVan
  */
+@Slf4j
 public class StrategyExample {
 
     public static void main(String[] args) {
@@ -38,11 +41,11 @@ public class StrategyExample {
          */
         public void gun() {
             if ("AWM".equals(weaponName)) {
-                System.out.println("使用AWM狙击步枪");
+                log.info("使用AWM狙击步枪");
             } else if ("S12K".equals(weaponName)) {
-                System.out.println("使用S12K霰弹枪");
+                log.info("使用S12K霰弹枪");
             } else {
-                System.out.println("请设置武器");
+                log.info("请设置武器");
             }
         }
     }

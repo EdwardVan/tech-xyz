@@ -1,9 +1,12 @@
 package tech.edwardvan.basejava.nested;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * lambda 表达式
  */
-public class NonStaticNestedClassesExample4 {
+@Slf4j
+public class LambdaExample {
 
     private static int i = 1;
     private int j = 10;
@@ -13,14 +16,14 @@ public class NonStaticNestedClassesExample4 {
         int k = 20;
 
         new Thread(() -> {
-            System.out.println("i:" + i);
-            System.out.println("j:" + j);
-            System.out.println("k:" + k);
+            log.info("i:{}", i);
+            log.info("j:{}", j);
+            log.info("k:{}", k);
         }).start();
     }
 
     public static void main(String[] args) {
-        new NonStaticNestedClassesExample4().f();
+        new LambdaExample().f();
     }
 }
 

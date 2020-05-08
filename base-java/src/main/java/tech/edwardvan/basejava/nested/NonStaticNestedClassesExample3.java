@@ -1,5 +1,7 @@
 package tech.edwardvan.basejava.nested;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 匿名内部类
  * 1. 匿名内部类不能有构造方法.
@@ -9,6 +11,7 @@ package tech.edwardvan.basejava.nested;
  * 5. 一个匿名内部类一定是在new的后面,用其隐含实现一个接口或实现一个类.
  * 6. 因匿名内部类为局部内部类,所以局部内部类的所有限制都对其生效.
  */
+@Slf4j
 public class NonStaticNestedClassesExample3 {
 
     private static int i = 1;
@@ -21,18 +24,18 @@ public class NonStaticNestedClassesExample3 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("i:" + i);
-                System.out.println("j:" + j);
-                System.out.println("k:" + k);
+                log.info("i:{}", i);
+                log.info("j:{}", j);
+                log.info("k:{}", k);
             }
         }).start();
 
         new Thread() {
             @Override
             public void run() {
-                System.out.println("i:" + i);
-                System.out.println("j:" + j);
-                System.out.println("k:" + k);
+                log.info("i:{}", i);
+                log.info("j:{}", j);
+                log.info("k:{}", k);
             }
         }.start();
 

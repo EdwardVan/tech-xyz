@@ -1,51 +1,54 @@
 package tech.edwardvan.basejava.nested;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 局部内部类
  * 1.局部内部类只能在定义该内部类的方法内实例化,不可以在此方法外对其实例化.
  * 2.局部内部类对象不能使用该内部类所在方法的非final局部变量.
  */
+@Slf4j
 public class NonStaticNestedClassesExample2 {
 
-    private int s = 100;
-    private int out_i = 1;
+    private int outer_i = 1;
+    private int outer_j = 100;
 
-    public void f(final int k) {
-        final int s = 200;
-        int i = 1;
-        final int j = 10;
 
-        // 定义在方法内部
+    public void f() {
+
+        final int i = 1;
+
+        /**
+         * 定义在方法内部
+         */
         class Inner {
-            int s = 300;// 可以定义与外部类同名的变量
+            //内部类中不允许定义静态变量
+            // static int inner_i = 100;
+            /**
+             * 内部类和外部类的实例变量可以共存
+             */
+            int inner_j = 100;
 
-            // static int m = 20;//不可以定义静态变量
-            Inner(int k) {
-                inner_f(k);
-            }
-
-            int inner_i = 100;
-
-            void inner_f(int k) {
-                // 如果内部类没有与外部类同名的变量,在内部类中可以直接访问外部类的实例变量
-                System.out.println(out_i);
+            void inner_f1() {
+                // 在内部类中访问内部类自己的变量直接用变量名
+                log.info("inner_f1->inner_j:{}", inner_j);
+                // 在内部类中访问内部类自己的变量也可以用this.变量名
+                log.info("inner_f1->inner_j:{}", this.inner_j);
+                // 在内部类中访问外部类静态变量
+                log.info("inner_f1->outer_i:{}", outer_i);
+                // 在内部类中访问外部类中实例变量用外部类名.this.变量名
+                log.info("inner_f1->outer_j:{}", NonStaticNestedClassesExample2.this.outer_j);
                 // 可以访问外部类的局部变量(即方法内的变量),但是变量必须是final的
-                System.out.println(j);
-                // System.out.println(i);
-                // 如果内部类中有与外部类同名的变量,直接用变量名访问的是内部类的变量
-                System.out.println(s);
-                // 用this.变量名访问的也是内部类变量
-                System.out.println(this.s);
-                // 用外部类名.this.内部类变量名访问的是外部类变量
-                System.out.println(NonStaticNestedClassesExample2.this.s);
+                log.info("inner_f1->i:{}", i);
+
             }
         }
-        new Inner(k);
+        new Inner().inner_f1();
     }
 
     public static void main(String[] args) {
         // 访问局部内部类必须先有外部类对象
         NonStaticNestedClassesExample2 out = new NonStaticNestedClassesExample2();
-        out.f(3);
+        out.f();
     }
 }

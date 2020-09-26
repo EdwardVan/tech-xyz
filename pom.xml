@@ -34,30 +34,36 @@
         <module>web-spring-boot-starter</module>
         <!--web spring boot版-->
         <module>web-spring-boot</module>
-        <!--spring cloud全家桶-->
-        <module>ms-spring-cloud</module>
         <!--源码解析-->
         <module>source-code-analysis</module>
         <!--mybatis-plus-->
         <module>os-mybatis-plus</module>
+        <!--商城项目-单体-->
+        <module>mall-mono</module>
+        <!--商城项目-微服务-->
+        <module>mall-micro</module>
+        <!--开源中间件 rabbitmq-->
+        <module>os-rabbit-mq</module>
     </modules>
     <name>tech-xyz</name>
 
     <properties>
         <!-- https://spring.io/projects/spring-boot#learn -->
-        <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
+        <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
         <!-- https://spring.io/projects/spring-cloud#learn -->
-        <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
+        <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
         <!-- https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E -->
-        <spring.cloud.alibaba.version>2.2.1.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2.2.3.RELEASE</spring.cloud.alibaba.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-core -->
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-        <mybatis.version>3.5.4</mybatis.version>
+        <mybatis.version>3.5.5</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-        <mybatis.spring.version>2.0.4</mybatis.spring.version>
+        <mybatis.spring.version>2.0.5</mybatis.spring.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-        <mybatis.spring.boot.version>2.1.2</mybatis.spring.boot.version>
+        <mybatis.spring.boot.version>2.1.3</mybatis.spring.boot.version>
+        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+        <mybatis.plus.version>3.3.2</mybatis.plus.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
         <druid.version>1.1.21</druid.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
@@ -70,8 +76,8 @@
         <swagger.version>2.9.2</swagger.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>29.0-jre</guava.version>
-        <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
-        <mybatis.plus.version>3.3.1</mybatis.plus.version>
+        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+        <joda.time.version>2.10.6</joda.time.version>
         <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
         <velocity.version>2.2</velocity.version>
     </properties>
@@ -193,6 +199,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda.time.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

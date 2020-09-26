@@ -1,3 +1,0 @@
-# 自动配置
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-tech.edwardvan.msspringcloudcommon.CommonConfig

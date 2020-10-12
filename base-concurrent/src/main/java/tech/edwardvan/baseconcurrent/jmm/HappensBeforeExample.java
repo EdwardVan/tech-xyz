@@ -2,14 +2,11 @@ package tech.edwardvan.baseconcurrent.jmm;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * 先行发生原则(happens-before)
+ * JMM可以通过happens-before关系向程序员提供跨线程的内存可见性保证
  * <p>
- * 如果一个操作的执行结果需要对另一个操作可见,那么这两个操作之间必须要存在happens-before关系,而且第一个操作的执行顺序排在第二个操作之前,这个的两个操作既可以在同一个线程,也可以在不同的两个线程中
+ * 如果一个操作happens-before另一个操作,那么第一个操作的执行结果将对第二个操作可见,而且第一个操作的执行顺序排在第二个操作之前,这个的两个操作既可以在同一个线程,也可以在不同的两个线程中
  * 两个操作之间存在happens-before关系,并不意味着一定要按照happens-before原则制定的顺序来执行.如果重排序之后的执行结果与按照happens-before关系来执行的结果一致,那么这种重排序并不非法.
  * <p>
  * 1.程序次序规则(Program Order Rule):在一个线程内,一段代码的执行结果是有序的.依然会有指令重排,但是不论怎么重排序,结果都是按照代码顺序生成的不会变
@@ -45,7 +42,7 @@ public class HappensBeforeExample {
                 a = 1;//1
                 b = a;//2
             });
-
+            //绝对不会出现 b:1 a:0 的情况
             Thread thread2 = new Thread(() -> {
                 log.info("b:{}", b);//3
                 log.info("a:{}", a);//4

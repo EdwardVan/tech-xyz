@@ -41,9 +41,8 @@
         <!--商城项目-单体-->
         <module>mall-mono</module>
         <!--商城项目-微服务-->
-        <module>mall-micro</module>
+<!--        <module>mall-micro</module>-->
         <!--开源中间件 rabbitmq-->
-        <module>os-rabbit-mq</module>
     </modules>
     <name>tech-xyz</name>
 
@@ -73,7 +72,7 @@
         <!--https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring -->
         <logback.spring.version>0.1.5</logback.spring.version>
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-        <swagger.version>2.9.2</swagger.version>
+        <swagger.version>3.0.0</swagger.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>29.0-jre</guava.version>
         <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
@@ -191,6 +190,13 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
             <!-- swagger end-->
 
 

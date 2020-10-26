@@ -1,4 +1,4 @@
-package tech.edwardvan.mallmonoapi;
+package tech.edwardvan.mallmono;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

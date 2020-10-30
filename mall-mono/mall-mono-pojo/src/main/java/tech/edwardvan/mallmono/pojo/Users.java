@@ -1,11 +1,9 @@
 package tech.edwardvan.mallmono.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,7 +29,7 @@ public class Users extends Model<Users> {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键id 用户id")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private String id;
 
     @ApiModelProperty(value = "用户名 用户名")
@@ -62,9 +60,11 @@ public class Users extends Model<Users> {
     private LocalDate birthday;
 
     @ApiModelProperty(value = "创建时间 创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createdTime;
 
     @ApiModelProperty(value = "更新时间 更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedTime;
 
 

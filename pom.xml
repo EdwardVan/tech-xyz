@@ -41,7 +41,7 @@
         <!--商城项目-单体-->
         <module>mall-mono</module>
         <!--商城项目-微服务-->
-<!--        <module>mall-micro</module>-->
+        <!--        <module>mall-micro</module>-->
         <!--开源中间件 rabbitmq-->
     </modules>
     <name>tech-xyz</name>
@@ -56,7 +56,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-core -->
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-        <mybatis.version>3.5.5</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
         <mybatis.spring.version>2.0.5</mybatis.spring.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -64,19 +64,17 @@
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
-        <druid.version>1.1.21</druid.version>
-        <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
-        <druid.spring.boot.version>1.1.21</druid.spring.boot.version>
+        <druid.version>1.2.1</druid.version>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
         <commons.collections4.version>4.4</commons.collections4.version>
         <!--https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring -->
         <logback.spring.version>0.1.5</logback.spring.version>
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <swagger.version>3.0.0</swagger.version>
+        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+        <knife4j.version>3.0</knife4j.version>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <guava.version>29.0-jre</guava.version>
-        <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
-        <joda.time.version>2.10.6</joda.time.version>
+        <guava.version>30.0-jre</guava.version>
         <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
         <velocity.version>2.2</velocity.version>
     </properties>
@@ -121,12 +119,6 @@
                 <groupId>org.springframework.social</groupId>
                 <artifactId>spring-social-config</artifactId>
                 <version>${spring.social.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.spring.boot.version}</version>
             </dependency>
 
             <dependency>
@@ -190,15 +182,15 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
             <!-- swagger end-->
 
+            <!-- knife4j start-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <!--  knife4j end-->
 
             <!--util start-->
             <dependency>
@@ -206,11 +198,7 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>${joda.time.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
@@ -248,10 +236,27 @@
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
         <!--logback end -->
+
+        <!--util start-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons.collections4.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!--util end-->
+
+
     </dependencies>
 
     <build>

@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/mall_mono?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2b8
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connection-timeout: 30000 # 等待连接池分配连接的最大时长(毫秒)
@@ -24,3 +24,8 @@ mybatis-plus:
   type-aliases-package: tech.edwardvan.mallmono.pojo
   configuration:
     map-underscore-to-camel-case: true
+
+#Mybatis打印sql
+logging:
+  level:
+    tech.edwardvan.mallmono.mapper: debug

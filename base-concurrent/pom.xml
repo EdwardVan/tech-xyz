@@ -13,17 +13,4 @@
     <artifactId>base-concurrent</artifactId>
     <name>base-concurrent</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.10.6</version>
-        </dependency>
-    </dependencies>
-
-
 </project>

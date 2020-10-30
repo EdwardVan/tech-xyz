@@ -129,7 +129,7 @@ public class CodeGenerator {
         //作者
         gc.setAuthor("EdwardVan");
         //主键策略
-        gc.setIdType(IdType.AUTO);
+        gc.setIdType(IdType.ASSIGN_ID);
         //是否开启swagger2模式
 //        gc.setSwagger2(true);
         //是否生成基本的ResultMap

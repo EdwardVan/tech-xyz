@@ -1,6 +1,7 @@
 package tech.edwardvan.rbacmypermission.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author EdwardVan
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 public class ServerResponse<T> implements Serializable {
 

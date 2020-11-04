@@ -3,6 +3,8 @@ package tech.edwardvan.mallmono.service;
 import tech.edwardvan.mallmono.pojo.Carousel;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 轮播图  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ICarouselService extends IService<Carousel> {
 
+    public List<Carousel> queryAll(Integer isShow);
 }

@@ -4,14 +4,37 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="tech.edwardvan.mallmono.pojo.Category">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="type" property="type" />
-        <result column="father_id" property="fatherId" />
-        <result column="logo" property="logo" />
-        <result column="slogan" property="slogan" />
-        <result column="cat_image" property="catImage" />
-        <result column="bg_color" property="bgColor" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="father_id" property="fatherId"/>
+        <result column="logo" property="logo"/>
+        <result column="slogan" property="slogan"/>
+        <result column="cat_image" property="catImage"/>
+        <result column="bg_color" property="bgColor"/>
+    </resultMap>
+
+    <resultMap id="CategoryVOResultMap" type="tech.edwardvan.mallmono.pojo.vo.CategoryVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="father_id" property="fatherId"/>
+        <collection property="childs" javaType="ArrayList" column="id"
+                    ofType="tech.edwardvan.mallmono.pojo.vo.CategoryVO"
+                    select="tech.edwardvan.mallmono.mapper.CategoryMapper.getSubCategorysById"></collection>
+    </resultMap>
+
+    <resultMap id="CategoryItemVOResultMap" type="tech.edwardvan.mallmono.pojo.vo.CategoryItemVO">
+        <id column="catId" property="catId"/>
+        <result column="catName" property="catName"/>
+        <result column="slogan" property="slogan"/>
+        <result column="catImage" property="catImage"/>
+        <result column="bgColor" property="bgColor"/>
+        <collection property="items" ofType="tech.edwardvan.mallmono.pojo.vo.IndexItemVO">
+            <id column="itemId" property="itemId"/>
+            <result column="itemName" property="itemName"/>
+            <result column="itemUrl" property="itemUrl"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -19,4 +42,31 @@
         id, name, type, father_id, logo, slogan, cat_image, bg_color
     </sql>
 
+    <select id="getSubCategorysById" resultMap="CategoryVOResultMap">
+        select id,name,type,father_id from category c where c.father_id = #{id}
+    </select>
+
+    <select id="getCategoryItemsById" resultMap="CategoryItemVOResultMap">
+        SELECT
+        c.id as catId,
+        c.`name` as catName,
+        c.slogan as slogan,
+        c.cat_image as catImage,
+        c.bg_color as bgColor,
+        i.id as itemId,
+        i.item_name as itemName,
+        ii.url as itemUrl,
+        i.created_time as createdTime
+        FROM
+        category c
+        LEFT JOIN items i ON c.id = i.root_cat_id
+        LEFT JOIN items_img ii ON i.id = ii.item_id
+        WHERE
+        i.on_off_status = 1
+        AND ii.is_main = 1
+        AND c.id = #{id}
+        ORDER BY
+        i.created_time
+        LIMIT 0,6
+    </select>
 </mapper>

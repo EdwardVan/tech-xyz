@@ -18,21 +18,20 @@ import tech.edwardvan.mallmono.service.IUsersService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
- * 用户表  前端控制器
+ * 注册登录  前端控制器
  * </p>
  *
  * @author EdwardVan
  */
-@Api(value = "用户模块", tags = "用户模块接口")
+@Api(value = "注册登录", tags = "注册登录")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("passport")
 @Validated
-public class UsersController {
+public class PassportController {
 
     @Autowired
     private IUsersService usersService;

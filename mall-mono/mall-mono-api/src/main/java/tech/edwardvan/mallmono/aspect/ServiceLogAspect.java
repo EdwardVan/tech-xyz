@@ -38,7 +38,7 @@ public class ServiceLogAspect {
         Object result = joinPoint.proceed();
         long endTime = System.currentTimeMillis();
         long takeTime = endTime - startTime;
-        String logStr = joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName() + "方法执行耗时:" + takeTime;
+        String logStr = joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName() + "方法执行耗时:" + takeTime + "毫秒";
         if (takeTime > 3000) {
             log.error(logStr);
         } else if (takeTime > 2000) {

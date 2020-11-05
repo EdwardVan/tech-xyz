@@ -2,6 +2,7 @@ package tech.edwardvan.mallmono.common.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import tech.edwardvan.mallmono.common.enums.ResponseCode;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  *
  * @author EdwardVan
  */
+@ApiModel(value="程序统一响应对象", description="程序统一响应对象")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 public class ServerResponse<T> implements Serializable {

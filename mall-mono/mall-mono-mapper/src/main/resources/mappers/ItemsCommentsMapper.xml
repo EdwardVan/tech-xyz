@@ -4,16 +4,16 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="tech.edwardvan.mallmono.pojo.ItemsComments">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="item_id" property="itemId" />
-        <result column="item_name" property="itemName" />
-        <result column="item_spec_id" property="itemSpecId" />
-        <result column="sepc_name" property="sepcName" />
-        <result column="comment_level" property="commentLevel" />
-        <result column="content" property="content" />
-        <result column="created_time" property="createdTime" />
-        <result column="updated_time" property="updatedTime" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="item_id" property="itemId"/>
+        <result column="item_name" property="itemName"/>
+        <result column="item_spec_id" property="itemSpecId"/>
+        <result column="sepc_name" property="sepcName"/>
+        <result column="comment_level" property="commentLevel"/>
+        <result column="content" property="content"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -21,4 +21,24 @@
         id, user_id, item_id, item_name, item_spec_id, sepc_name, comment_level, content, created_time, updated_time
     </sql>
 
+    <select id="queryItemComments" resultType="tech.edwardvan.mallmono.pojo.vo.ItemCommentVO">
+        SELECT
+        ic.comment_level as commentLevel,
+        ic.content as content,
+        ic.sepc_name as specName,
+        ic.created_time as createdTime,
+        u.face as userFace,
+        u.nickname as nickname
+        FROM
+        items_comments ic
+        LEFT JOIN
+        users u
+        ON
+        ic.user_id = u.id
+        WHERE
+        ic.item_id = #{itemId}
+        <if test=" level != null">
+            AND ic.comment_level = #{level}
+        </if>
+    </select>
 </mapper>
